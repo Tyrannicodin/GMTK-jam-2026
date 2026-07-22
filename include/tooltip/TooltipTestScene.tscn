@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dax8ueqg3a5dd"]
+
+[ext_resource type="Texture2D" uid="uid://c8o38o30vq1wj" path="res://icon.svg" id="1_25omv"]
+[ext_resource type="PackedScene" uid="uid://b3fufgvbbm832" path="res://include/tooltip/DefaultTooltip.tscn" id="5_25omv"]
+
+[node name="Node" type="Node2D" unique_id=912799718]
+
+[node name="Example Sprite" type="Sprite2D" parent="." unique_id=618077632]
+position = Vector2(944, 516)
+texture = ExtResource("1_25omv")
+
+[node name="DefaultTooltip" parent="Example Sprite" unique_id=1094151248 node_paths=PackedStringArray("around") instance=ExtResource("5_25omv")]
+around = NodePath("..")

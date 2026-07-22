@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PetResource" format=3 uid="uid://bp1ccgiaxhdja"]
+
+[ext_resource type="Script" uid="uid://7hge0rx8chkj" path="res://resources/pet.gd" id="1_ef32q"]
+
+[resource]
+script = ExtResource("1_ef32q")
+pet_name = "KitKat"
+behavior = 1
+metadata/_custom_type_script = "uid://7hge0rx8chkj"

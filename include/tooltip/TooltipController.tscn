@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cbc8mrd055rnk"]
+
+[ext_resource type="Script" uid="uid://u5ycrmg75s6y" path="res://include/tooltip/tooltip.gd" id="1_xrs7f"]
+
+[sub_resource type="Theme" id="Theme_ar4lr"]
+
+[node name="Tooltip" type="Control" unique_id=604278011]
+layout_mode = 3
+anchors_preset = 0
+theme = SubResource("Theme_ar4lr")
+script = ExtResource("1_xrs7f")

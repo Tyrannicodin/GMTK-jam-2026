@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://b3fufgvbbm832"]
+
+[ext_resource type="Script" uid="uid://csds50qb4yrch" path="res://include/tooltip/default_tooltip.gd" id="1_222uh"]
+[ext_resource type="PackedScene" uid="uid://cbc8mrd055rnk" path="res://include/tooltip/TooltipController.tscn" id="1_vjn1j"]
+[ext_resource type="PackedScene" uid="uid://ba44874brqvqc" path="res://include/tooltip/TooltipPanel.tscn" id="2_vufjc"]
+[ext_resource type="PackedScene" uid="uid://bwjnmo5w7i7v1" path="res://include/tooltip/TooltipHintPanel.tscn" id="4_222uh"]
+[ext_resource type="PackedScene" uid="uid://htglbgt13uu7" path="res://include/comment/Comment.tscn" id="5_tjijg"]
+
+[node name="DefaultTooltip" type="Control" unique_id=1094151248]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_222uh")
+
+[node name="Tooltip" parent="." unique_id=604278011 node_paths=PackedStringArray("tooltip", "avoid_overlap") instance=ExtResource("1_vjn1j")]
+unique_name_in_owner = true
+layout_mode = 0
+direction_1 = 1
+direction_2 = 2
+direction_3 = 3
+tooltip = NodePath("MainTooltip")
+avoid_overlap = [null, null, null, null, null, null]
+
+[node name="MainTooltip" parent="Tooltip" unique_id=1640107277 instance=ExtResource("2_vufjc")]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 80.0
+
+[node name="Hints" parent="." unique_id=2082494319 node_paths=PackedStringArray("around", "tooltip", "avoid_overlap") instance=ExtResource("1_vjn1j")]
+unique_name_in_owner = true
+layout_mode = 0
+around = NodePath("../Tooltip/MainTooltip")
+direction_1 = 1
+direction_2 = 3
+direction_3 = 2
+tooltip = NodePath("VBoxContainer")
+avoid_overlap = [null]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Hints" unique_id=1718395702]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 164.0
+
+[node name="TooltipPanel" parent="Hints/VBoxContainer" unique_id=1861769510 instance=ExtResource("4_222uh")]
+layout_mode = 2
+
+[node name="TooltipPanel2" parent="Hints/VBoxContainer" unique_id=1493704871 instance=ExtResource("4_222uh")]
+layout_mode = 2
+
+[node name="Comment" parent="." unique_id=2120769087 instance=ExtResource("5_tjijg")]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 10.0
+offset_right = 1333.0
+offset_bottom = 163.0
+text = "This scene is incharge of positioning the default tooltip.
+When making a tooltip for the project, this scene is the scene to modify.
+The styles of the main tooltip panel and tooltip hint panel can be adjusted in their scenes. If you would like a margin, use a MarginContainer in the tooltip panel scenes."

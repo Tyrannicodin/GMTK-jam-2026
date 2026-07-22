@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://ba44874brqvqc"]
+
+[ext_resource type="Texture2D" uid="uid://c8o38o30vq1wj" path="res://icon.svg" id="1_bovhr"]
+[ext_resource type="Script" uid="uid://bmv0cwqk02ham" path="res://include/tooltip/tooltip_panel.gd" id="1_f4dat"]
+
+[node name="TooltipPanel" type="MarginContainer" unique_id=1640107277]
+editor_description = "This node can be used to add margins to the tooltip."
+clip_contents = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_f4dat")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1844102210]
+z_index = 1000
+z_as_relative = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1399936656]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1566484290]
+z_index = 2
+layout_mode = 2
+
+[node name="icon" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=885219936]
+layout_mode = 2
+texture = ExtResource("1_bovhr")
+expand_mode = 2
+
+[node name="TooltipName" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=573722271]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 30
+text = "Name"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1447963269]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TooltipDescription" type="Label" parent="PanelContainer/VBoxContainer/VBoxContainer" unique_id=1988051580]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Example tooltip description"
+autowrap_mode = 2
+
+[connection signal="mouse_exited" from="PanelContainer" to="PanelContainer" method="_on_mouse_exited"]
+[connection signal="mouse_exited" from="PanelContainer/VBoxContainer/HBoxContainer/TooltipName" to="PanelContainer/VBoxContainer/HBoxContainer/TooltipName" method="_on_mouse_exited"]

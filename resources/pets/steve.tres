@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PetResource" format=3 uid="uid://c780yrym00doo"]
+
+[ext_resource type="Script" uid="uid://7hge0rx8chkj" path="res://resources/pet.gd" id="1_q548b"]
+
+[resource]
+script = ExtResource("1_q548b")
+pet_name = "Steve"
+behavior = 3
+metadata/_custom_type_script = "uid://7hge0rx8chkj"

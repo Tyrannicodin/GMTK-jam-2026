@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://lvcq0ppqeebt" path="res://assets/rooms/backgrounds/simple_bg.png" id="1_uvxfj"]
 [ext_resource type="PackedScene" uid="uid://bratik0ksh71l" path="res://game/room_objects/platform/platform.tscn" id="2_sun4g"]
 [ext_resource type="PackedScene" uid="uid://kkpl80x7124d" path="res://game/room_objects/chest/chest.tscn" id="3_8w3bu"]
+[ext_resource type="PackedScene" uid="uid://bfierd6nwqsba" path="res://game/enemy/basic/basic.tscn" id="5_cnpdw"]
+[ext_resource type="PackedScene" uid="uid://dpsallg7mur0y" path="res://game/enemy/soldier/soldier.tscn" id="6_xsh4d"]
+[ext_resource type="PackedScene" uid="uid://pgohqv333wvs" path="res://game/enemy/thug/thug.tscn" id="7_3c6b7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8w3bu"]
 size = Vector2(1800, 960)
@@ -64,11 +67,26 @@ position = Vector2(-900, 0)
 shape = SubResource("SegmentShape2D_xsh4d")
 
 [node name="Platform" parent="." unique_id=848708187 instance=ExtResource("2_sun4g")]
-position = Vector2(655, 799)
+position = Vector2(211, 799)
+
+[node name="Platform2" parent="." unique_id=827960296 instance=ExtResource("2_sun4g")]
+position = Vector2(670, 799)
+
+[node name="Platform3" parent="." unique_id=151240490 instance=ExtResource("2_sun4g")]
+position = Vector2(1159, 799)
 
 [node name="Chest" parent="." unique_id=1912984734 instance=ExtResource("3_8w3bu")]
 position = Vector2(1118, 993)
 metadata/_scene_painted = true
+
+[node name="Basic" parent="." unique_id=592317870 instance=ExtResource("5_cnpdw")]
+position = Vector2(149, 643)
+
+[node name="Soldier" parent="." unique_id=1797103062 instance=ExtResource("6_xsh4d")]
+position = Vector2(653, 634)
+
+[node name="Thug" parent="." unique_id=521147513 instance=ExtResource("7_3c6b7")]
+position = Vector2(1163, 688)
 
 [connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]
 [connection signal="area_exited" from="RoomArea" to="." method="on_area_exited"]

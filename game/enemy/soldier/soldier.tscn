@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dpsallg7mur0y"]
+
+[ext_resource type="PackedScene" uid="uid://bfierd6nwqsba" path="res://game/enemy/basic/basic.tscn" id="1_d1qh4"]
+[ext_resource type="Texture2D" uid="uid://dkmscmsojuafp" path="res://assets/enemies/sword.png" id="2_espqf"]
+[ext_resource type="Script" uid="uid://dlibaq1hyctae" path="res://game/enemy/soldier/soldier.gd" id="2_l7w4l"]
+[ext_resource type="Script" uid="uid://cg6rbqhsw2wo0" path="res://game/enemy/soldier/sword.gd" id="3_26ba4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
+size = Vector2(6, 165)
+
+[node name="Soldier" unique_id=592317870 groups=["knows_player"] instance=ExtResource("1_d1qh4")]
+script = ExtResource("2_l7w4l")
+
+[node name="Weapon" type="Node2D" parent="." index="5" unique_id=395621868 groups=["knows_player"]]
+script = ExtResource("3_26ba4")
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon" index="0" unique_id=1931068764]
+position = Vector2(0, -128)
+texture = ExtResource("2_espqf")
+
+[node name="Area2D" type="Area2D" parent="Weapon" index="1" unique_id=1564096626]
+position = Vector2(0, -128)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Area2D" index="0" unique_id=1452175852]
+position = Vector2(0, 45.5)
+shape = SubResource("RectangleShape2D_grq6u")
+
+[connection signal="body_entered" from="Weapon/Area2D" to="Weapon" method="body_collision"]

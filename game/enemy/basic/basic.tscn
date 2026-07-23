@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://bfierd6nwqsba"]
+
+[ext_resource type="Script" uid="uid://df73gpljud4hf" path="res://game/enemy/basic/basic.gd" id="1_oelsq"]
+[ext_resource type="Texture2D" uid="uid://c8o38o30vq1wj" path="res://icon.svg" id="2_ru8yo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qx0ke"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oelsq"]
+size = Vector2(250, 200)
+
+[node name="Basic" type="CharacterBody2D" unique_id=592317870]
+collision_layer = 2
+script = ExtResource("1_oelsq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=514927345]
+shape = SubResource("RectangleShape2D_qx0ke")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=932088438]
+target_position = Vector2(0, 150)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1292170047]
+modulate = Color(1, 0.49019608, 0.49019608, 1)
+texture = ExtResource("2_ru8yo")
+
+[node name="AttackLeft" type="Area2D" parent="." unique_id=1718289444]
+visible = false
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackLeft" unique_id=48978728]
+position = Vector2(-125, -90)
+shape = SubResource("RectangleShape2D_oelsq")
+
+[node name="AttackRight" type="Area2D" parent="." unique_id=1013030700]
+visible = false
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRight" unique_id=477507595]
+position = Vector2(125, -90)
+shape = SubResource("RectangleShape2D_oelsq")
+
+[connection signal="body_entered" from="AttackLeft" to="." method="attack_left"]
+[connection signal="body_entered" from="AttackRight" to="." method="attack_right"]

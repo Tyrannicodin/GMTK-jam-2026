@@ -43,10 +43,22 @@ func object_entered_room(object: Area2D, cameraTarget: Node2D):
 		return
 	
 	var tween = get_tree().create_tween()
-	tween.tween_property(cameraNode, "global_position", cameraTarget.global_position, 0.5).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(
+		cameraNode,
+		"global_position",
+		cameraTarget.global_position,
+		0.5
+	).set_trans(Tween.TRANS_CUBIC)
+	tween.parallel(
+	).tween_property(
+		cameraNode.get_node("BigText"),
+		"global_position",
+		cameraTarget.global_position - Vector2(1280, 720),
+		0.7
+	).set_trans(Tween.TRANS_CUBIC)
 
 func object_left_room(object: Area2D, room: Node2D):
 	if object.get_parent() != player:
 		return
 
-	room.lock()
+	#room.lock()

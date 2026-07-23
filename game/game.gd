@@ -29,6 +29,7 @@ func load_rooms() -> void:
 		add_child(room_scene)
 
 		room_scene.object_entered.connect(func(node): object_entered_room(node, camera))
+		room_scene.object_exited.connect(func(node): object_left_room(node, room_scene))
 
 		room_scene.position = initial_pos - entry.position
 		if first_room:
@@ -43,3 +44,9 @@ func object_entered_room(object: Area2D, cameraTarget: Node2D):
 	
 	var tween = get_tree().create_tween()
 	tween.tween_property(cameraNode, "global_position", cameraTarget.global_position, 0.5).set_trans(Tween.TRANS_CUBIC)
+
+func object_left_room(object: Area2D, room: Node2D):
+	if object.get_parent() != player:
+		return
+
+	room.lock()

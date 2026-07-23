@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://lvcq0ppqeebt" path="res://assets/rooms/backgrounds/simple_bg.png" id="1_12vg5"]
 [ext_resource type="Script" uid="uid://db5oj88umoqqg" path="res://resources/rooms/scenes/room.gd" id="1_mjqvx"]
 [ext_resource type="PackedScene" uid="uid://bratik0ksh71l" path="res://game/room_objects/platform/platform.tscn" id="2_mjqvx"]
+[ext_resource type="PackedScene" uid="uid://bmmuknymvntxs" path="res://game/room_objects/border_door/border_door.tscn" id="4_mjqvx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
 size = Vector2(1800, 960)
@@ -78,4 +79,8 @@ position = Vector2(1710, 560)
 position = Vector2(960, 320)
 scale = Vector2(3, 1)
 
+[node name="BorderDoor" parent="." unique_id=573432752 instance=ExtResource("4_mjqvx")]
+position = Vector2(1851, 920)
+
 [connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]
+[connection signal="area_exited" from="RoomArea" to="." method="on_area_exited"]

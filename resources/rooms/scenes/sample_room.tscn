@@ -71,3 +71,4 @@ position = Vector2(1118, 993)
 metadata/_scene_painted = true
 
 [connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]
+[connection signal="area_exited" from="RoomArea" to="." method="on_area_exited"]

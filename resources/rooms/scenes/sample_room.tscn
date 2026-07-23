@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bfierd6nwqsba" path="res://game/enemy/basic/basic.tscn" id="5_cnpdw"]
 [ext_resource type="PackedScene" uid="uid://dpsallg7mur0y" path="res://game/enemy/soldier/soldier.tscn" id="6_xsh4d"]
 [ext_resource type="PackedScene" uid="uid://pgohqv333wvs" path="res://game/enemy/thug/thug.tscn" id="7_3c6b7"]
+[ext_resource type="PackedScene" uid="uid://c401cnufcdtia" path="res://game/enemy/sniper/sniper.tscn" id="8_w36n0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8w3bu"]
 size = Vector2(1800, 960)
@@ -22,6 +23,9 @@ b = Vector2(0, 280)
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_xsh4d"]
 a = Vector2(0, -540)
 b = Vector2(0, 280)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
+size = Vector2(590, 215)
 
 [node name="SimplePlatform" type="Node2D" unique_id=1549269063]
 script = ExtResource("1_17pa8")
@@ -87,6 +91,23 @@ position = Vector2(653, 634)
 
 [node name="Thug" parent="." unique_id=521147513 instance=ExtResource("7_3c6b7")]
 position = Vector2(1163, 688)
+
+[node name="Sniper" parent="." unique_id=363925882 groups=["knows_player"] instance=ExtResource("8_w36n0")]
+position = Vector2(1419, 143)
+rotation = 3.1415927
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1999522083]
+position = Vector2(1418, 139)
+collision_layer = 3
+collision_mask = 3
+gravity_space_override = 3
+gravity_point_center = Vector2(0, -2)
+gravity_direction = Vector2(0, -2)
+gravity = 11260.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=307099793]
+position = Vector2(0, -38.5)
+shape = SubResource("RectangleShape2D_grq6u")
 
 [connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]
 [connection signal="area_exited" from="RoomArea" to="." method="on_area_exited"]

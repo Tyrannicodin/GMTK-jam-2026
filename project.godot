@@ -36,6 +36,7 @@ window/stretch/mode="canvas_items"
 [global_group]
 
 statistic=""
+border_doors="Doors that lock once their room is exited"
 
 [gui]
 

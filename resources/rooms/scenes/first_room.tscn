@@ -1,44 +1,67 @@
 [gd_scene format=3 uid="uid://bnfwloa1o1cfi"]
 
 [ext_resource type="Texture2D" uid="uid://lvcq0ppqeebt" path="res://assets/rooms/backgrounds/simple_bg.png" id="1_12vg5"]
+[ext_resource type="Script" uid="uid://db5oj88umoqqg" path="res://resources/rooms/scenes/room.gd" id="1_mjqvx"]
 [ext_resource type="PackedScene" uid="uid://bratik0ksh71l" path="res://game/room_objects/platform/platform.tscn" id="2_mjqvx"]
+[ext_resource type="PackedScene" uid="uid://bmmuknymvntxs" path="res://game/room_objects/border_door/border_door.tscn" id="4_mjqvx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
+size = Vector2(1800, 960)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_uvxfj"]
 a = Vector2(-960, 0)
 b = Vector2(960, 0)
 
-[node name="SimplePlatform" type="Node2D" unique_id=1549269063]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_12vg5"]
+a = Vector2(0, -540)
+b = Vector2(0, 280)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_wgbjq"]
+a = Vector2(0, -540)
+b = Vector2(0, 540)
+
+[node name="FirstRoom" type="Node2D" unique_id=1549269063]
+script = ExtResource("1_mjqvx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=26836479]
 position = Vector2(960, 540)
 texture = ExtResource("1_12vg5")
 
 [node name="EntryMarker" type="Marker2D" parent="." unique_id=403655921]
-position = Vector2(60, 920)
+position = Vector2(960, 810)
 
 [node name="ExitMarker" type="Marker2D" parent="." unique_id=867143847]
-position = Vector2(1860, 920)
+position = Vector2(1920, 920)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=459731986]
-position = Vector2(960, 1020)
+[node name="CameraMarker" type="Marker2D" parent="." unique_id=1092025349]
+position = Vector2(960, 540)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1460977783]
-position = Vector2(0, 1)
+[node name="RoomArea" type="Area2D" parent="." unique_id=1244254917]
+visible = false
+position = Vector2(960, 540)
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RoomArea" unique_id=469854955]
+shape = SubResource("RectangleShape2D_grq6u")
+
+[node name="WallCollider" type="StaticBody2D" parent="." unique_id=459731986]
+position = Vector2(960, 540)
+
+[node name="Bottom" type="CollisionShape2D" parent="WallCollider" unique_id=1460977783]
+position = Vector2(0, 480)
 shape = SubResource("SegmentShape2D_uvxfj")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=699911303]
-position = Vector2(-4, -960)
+[node name="Top" type="CollisionShape2D" parent="WallCollider" unique_id=699911303]
+position = Vector2(0, -480)
 shape = SubResource("SegmentShape2D_uvxfj")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=394234168]
-position = Vector2(901, -462)
-rotation = 1.5707964
-shape = SubResource("SegmentShape2D_uvxfj")
+[node name="Right" type="CollisionShape2D" parent="WallCollider" unique_id=394234168]
+position = Vector2(900, 0)
+shape = SubResource("SegmentShape2D_12vg5")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=2003128985]
-position = Vector2(-900.00006, -531)
-rotation = 1.5707964
-shape = SubResource("SegmentShape2D_uvxfj")
+[node name="Left" type="CollisionShape2D" parent="WallCollider" unique_id=2003128985]
+position = Vector2(-900, 0)
+shape = SubResource("SegmentShape2D_wgbjq")
 
 [node name="Platform" parent="." unique_id=848708187 instance=ExtResource("2_mjqvx")]
 position = Vector2(210, 800)
@@ -55,3 +78,9 @@ position = Vector2(1710, 560)
 [node name="Platform3" parent="." unique_id=93362575 instance=ExtResource("2_mjqvx")]
 position = Vector2(960, 320)
 scale = Vector2(3, 1)
+
+[node name="BorderDoor" parent="." unique_id=573432752 instance=ExtResource("4_mjqvx")]
+position = Vector2(1851, 920)
+
+[connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]
+[connection signal="area_exited" from="RoomArea" to="." method="on_area_exited"]

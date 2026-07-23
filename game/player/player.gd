@@ -10,6 +10,9 @@ var jutsu_storage # Stores casted jutsu when special is held.
 var time_since_last_action = 0
 
 var facing_direction
+# While the player is dashing, we dont want their velocity to be affected
+# by movement keys or gravity
+var lock_velocity = 0
 
 const SPEED = 2000.0
 const JUMP_VELOCITY = -2400.0
@@ -19,9 +22,13 @@ func add_rewards(rewards: Reward) -> void:
 
 func _physics_process(delta):
 	# Add the gravity.
-	velocity += get_gravity() * delta
-	
-	if velocity.x >= 0:
+	if lock_velocity <= 0:
+		velocity += get_gravity() * delta
+	else:
+		velocity.y = 0
+	lock_velocity -= delta
+		
+	if velocity.x > 0:
 		facing_direction = "right"
 	if velocity.x < 0:
 		facing_direction = "left"
@@ -69,11 +76,12 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("left", "right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+	if lock_velocity <= 0:
+		var direction = Input.get_axis("left", "right")
+		if direction:
+			velocity.x = max(velocity.x, SPEED) * direction
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
 
@@ -84,7 +92,19 @@ func execute_jutsu():
 
 	if combo.slice(-2) == ["down", "up"]:
 		spring_jump_jutsu()
+	# is actually backward forward
+	if combo.slice(-2) == ["backward", "backward"]:
+		sword_charge_jutsu()
+
 
 func spring_jump_jutsu():
 	print("spring jump!")
 	velocity.y -= 5000
+
+func sword_charge_jutsu():
+	print("sword charge")
+	if facing_direction == "right":
+		velocity.x += 4000
+	else:
+		velocity.x -= 4000
+	lock_velocity = .2

@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 
@@ -6,8 +7,15 @@ extends CharacterBody2D
 const SPEED = 2000.0
 const JUMP_VELOCITY = -2400.0
 
+func _ready():
+	await get_tree().physics_frame
+	get_tree().call_group("knows_player", "set_player", self)
+
 func add_rewards(rewards: Reward) -> void:
 	print("Gained rewards ", rewards.time, "s ", rewards.xp)
+
+func deal_damage(amount: int):
+	print("Ow! Took ", amount, " damage!")
 
 func _physics_process(delta):
 	# Add the gravity.

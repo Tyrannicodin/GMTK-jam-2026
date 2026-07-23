@@ -1,13 +1,25 @@
 extends CharacterBody2D
 
 
+@onready var detector: Area2D = %Detector
+
 const SPEED = 300.0
 const JUMP_VELOCITY = -800.0
 
+func add_rewards(rewards: Reward) -> void:
+	print("Gained rewards ", rewards.time, "s ", rewards.xp)
 
 func _physics_process(delta):
 	# Add the gravity.
 	velocity += get_gravity() * delta
+
+	# Handle interactions.
+	if Input.is_action_just_pressed("interact"):
+		for area in detector.get_overlapping_areas():
+			var parent = area.get_parent()
+			if parent.get("rewards"):
+				add_rewards(parent.get("rewards"))
+				parent.queue_free()
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():

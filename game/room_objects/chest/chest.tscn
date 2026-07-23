@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://kkpl80x7124d"]
+
+[ext_resource type="Texture2D" uid="uid://ys23jollvnp3" path="res://assets/rooms/objects/chest.png" id="1_5hcsl"]
+[ext_resource type="Script" uid="uid://cyw1hilnojojh" path="res://game/room_objects/chest/chest.gd" id="1_5ksyx"]
+[ext_resource type="Script" uid="uid://fb5r68g6soxn" path="res://resources/reward.gd" id="2_nyyvc"]
+
+[sub_resource type="Resource" id="Resource_grq6u"]
+script = ExtResource("2_nyyvc")
+xp = 5
+metadata/_custom_type_script = "uid://fb5r68g6soxn"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
+size = Vector2(100, 100)
+
+[node name="Chest" type="Node2D" unique_id=1912984734]
+z_index = 2
+script = ExtResource("1_5ksyx")
+rewards = SubResource("Resource_grq6u")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2071396173]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=884419026]
+position = Vector2(0, -25)
+shape = SubResource("RectangleShape2D_grq6u")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2127734730]
+texture = ExtResource("1_5hcsl")

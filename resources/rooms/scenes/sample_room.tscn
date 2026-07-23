@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://caqsg4cwoa8at"]
 
 [ext_resource type="Texture2D" uid="uid://lvcq0ppqeebt" path="res://assets/rooms/backgrounds/simple_bg.png" id="1_uvxfj"]
+[ext_resource type="PackedScene" uid="uid://bratik0ksh71l" path="res://game/room_objects/platform/platform.tscn" id="2_sun4g"]
+[ext_resource type="PackedScene" uid="uid://kkpl80x7124d" path="res://game/room_objects/chest/chest.tscn" id="3_8w3bu"]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_uvxfj"]
 a = Vector2(-960, 0)
@@ -23,3 +25,10 @@ position = Vector2(960, 1020)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1460977783]
 shape = SubResource("SegmentShape2D_uvxfj")
+
+[node name="Platform" parent="." unique_id=848708187 instance=ExtResource("2_sun4g")]
+position = Vector2(655, 799)
+
+[node name="Chest" parent="." unique_id=1912984734 instance=ExtResource("3_8w3bu")]
+position = Vector2(1118, 993)
+metadata/_scene_painted = true

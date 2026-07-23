@@ -16,3 +16,9 @@ texture = ExtResource("1_obar5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=5305132]
 shape = SubResource("RectangleShape2D_grq6u")
+
+[node name="Detector" type="Area2D" parent="." unique_id=1164915962]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector" unique_id=214260944]
+shape = SubResource("RectangleShape2D_grq6u")

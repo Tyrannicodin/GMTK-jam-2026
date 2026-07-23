@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://lvcq0ppqeebt" path="res://assets/rooms/backgrounds/simple_bg.png" id="1_uvxfj"]
 [ext_resource type="PackedScene" uid="uid://bratik0ksh71l" path="res://game/room_objects/platform/platform.tscn" id="2_sun4g"]
 [ext_resource type="PackedScene" uid="uid://kkpl80x7124d" path="res://game/room_objects/chest/chest.tscn" id="3_8w3bu"]
-[ext_resource type="PackedScene" uid="uid://bfierd6nwqsba" path="res://game/enemy/basic/basic.tscn" id="5_cnpdw"]
+[ext_resource type="PackedScene" uid="uid://dqhkh8tfsxxyq" path="res://game/enemy/bomber/bomber.tscn" id="5_w36n0"]
 [ext_resource type="PackedScene" uid="uid://dpsallg7mur0y" path="res://game/enemy/soldier/soldier.tscn" id="6_xsh4d"]
 [ext_resource type="PackedScene" uid="uid://pgohqv333wvs" path="res://game/enemy/thug/thug.tscn" id="7_3c6b7"]
 [ext_resource type="PackedScene" uid="uid://c401cnufcdtia" path="res://game/enemy/sniper/sniper.tscn" id="8_w36n0"]
@@ -83,8 +83,11 @@ position = Vector2(1159, 799)
 position = Vector2(1118, 993)
 metadata/_scene_painted = true
 
-[node name="Basic" parent="." unique_id=592317870 instance=ExtResource("5_cnpdw")]
-position = Vector2(149, 643)
+[node name="Bomber" parent="." unique_id=592317870 groups=["knows_player"] instance=ExtResource("5_w36n0")]
+position = Vector2(177, 564)
+damage = 1
+avoid_falls = true
+speed = 200.0
 
 [node name="Soldier" parent="." unique_id=1797103062 instance=ExtResource("6_xsh4d")]
 position = Vector2(653, 634)
@@ -92,7 +95,7 @@ position = Vector2(653, 634)
 [node name="Thug" parent="." unique_id=521147513 instance=ExtResource("7_3c6b7")]
 position = Vector2(1163, 688)
 
-[node name="Sniper" parent="." unique_id=363925882 groups=["knows_player"] instance=ExtResource("8_w36n0")]
+[node name="Sniper" parent="." unique_id=363925882 instance=ExtResource("8_w36n0")]
 position = Vector2(1419, 143)
 rotation = 3.1415927
 

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dqhkh8tfsxxyq"]
+
+[ext_resource type="PackedScene" uid="uid://bfierd6nwqsba" path="res://game/enemy/basic/basic.tscn" id="1_4fgy8"]
+[ext_resource type="Script" uid="uid://p6he0orvw30b" path="res://game/enemy/bomber/bomber.gd" id="2_ehpnv"]
+
+[node name="Bomber" unique_id=592317870 instance=ExtResource("1_4fgy8")]
+script = ExtResource("2_ehpnv")
+damage = null
+avoid_falls = null
+speed = null

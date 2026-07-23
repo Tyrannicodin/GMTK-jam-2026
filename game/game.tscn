@@ -4,3 +4,7 @@
 
 [node name="Game" type="Node2D" unique_id=1516163044]
 script = ExtResource("1_l1rk1")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=364632602]
+position = Vector2(923, 3)
+zoom = Vector2(0.435, 0.435)

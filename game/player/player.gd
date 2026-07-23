@@ -92,8 +92,7 @@ func execute_jutsu():
 
 	if combo.slice(-2) == ["down", "up"]:
 		spring_jump_jutsu()
-	# is actually backward forward
-	if combo.slice(-2) == ["backward", "backward"]:
+	if combo.slice(-1) == ["forward"]:
 		sword_charge_jutsu()
 
 

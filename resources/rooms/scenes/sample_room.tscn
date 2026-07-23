@@ -26,6 +26,20 @@ position = Vector2(960, 1020)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1460977783]
 shape = SubResource("SegmentShape2D_uvxfj")
 
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D" unique_id=699911303]
+position = Vector2(-4, -959)
+shape = SubResource("SegmentShape2D_uvxfj")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D" unique_id=394234168]
+position = Vector2(900, -462)
+rotation = 1.5707964
+shape = SubResource("SegmentShape2D_uvxfj")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D" unique_id=2003128985]
+position = Vector2(-899, -531)
+rotation = 1.5707964
+shape = SubResource("SegmentShape2D_uvxfj")
+
 [node name="Platform" parent="." unique_id=848708187 instance=ExtResource("2_sun4g")]
 position = Vector2(655, 799)
 

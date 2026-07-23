@@ -3,8 +3,8 @@ extends CharacterBody2D
 
 @onready var detector: Area2D = %Detector
 
-const SPEED = 300.0
-const JUMP_VELOCITY = -800.0
+const SPEED = 2000.0
+const JUMP_VELOCITY = -2400.0
 
 func add_rewards(rewards: Reward) -> void:
 	print("Gained rewards ", rewards.time, "s ", rewards.xp)

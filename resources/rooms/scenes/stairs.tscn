@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dpsallg7mur0y" path="res://game/enemy/soldier/soldier.tscn" id="5_stj4w"]
 [ext_resource type="PackedScene" uid="uid://pgohqv333wvs" path="res://game/enemy/thug/thug.tscn" id="6_77a6j"]
 [ext_resource type="PackedScene" uid="uid://c401cnufcdtia" path="res://game/enemy/sniper/sniper.tscn" id="7_fm5eq"]
+[ext_resource type="PackedScene" uid="uid://b6mtr0l0iv3mi" path="res://game/room_objects/ai_barrier/barrier.tscn" id="8_vrwfq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8w3bu"]
 size = Vector2(1800, 960)
@@ -60,6 +61,9 @@ position = Vector2(928, 448)
 [node name="Sniper" parent="." unique_id=363925882 instance=ExtResource("7_fm5eq")]
 position = Vector2(1504, 704)
 rotation = 3.1415927
+
+[node name="Barrier" parent="." unique_id=167188134 instance=ExtResource("8_vrwfq")]
+position = Vector2(1888, 160)
 
 [connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]
 [connection signal="area_exited" from="RoomArea" to="." method="on_area_exited"]

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b6mtr0l0iv3mi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
+size = Vector2(32, 32)
+
+[node name="Barrier" type="Node2D" unique_id=1912984734]
+z_index = 2
+
+[node name="Area2D" type="Area2D" parent="." unique_id=2071396173]
+collision_layer = 32768
+collision_mask = 32768
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=884419026]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_grq6u")

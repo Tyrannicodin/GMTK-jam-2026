@@ -8,7 +8,9 @@ var player: Player
 func explode() -> void:
 	explosion_shape.shape = explosion_shape.shape.duplicate_deep()
 	var tween = create_tween()
-	freeze = true
+	linear_damp = 7.5
+	angular_damp = 5
+	gravity_scale = 0.1
 	tween.tween_property(explosion_shape.shape, "radius", 250, 0.25)
 	tween.tween_callback(queue_free).set_delay(0.25)
 

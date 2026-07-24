@@ -3,15 +3,19 @@ extends Node2D
 var rooms = [
 	preload("res://resources/rooms/first_room.tres"),
 	preload("res://resources/rooms/sample_room.tres"),
-	preload("res://resources/rooms/simple_platform.tres"),
+	preload("res://resources/rooms/platformer.tres"),
 ]
 
 @onready var cameraNode = $Camera
 @onready var player = $Player
 
+var time: float = 60
+var countdown := false
+
 func _ready() -> void:
 	print("Hello from game!")
 	load_rooms()
+	$Camera/BigText/Countdown/Label.text = "%05.2f"%(time)
 
 func load_rooms() -> void:
 	var initial_pos: Vector2 = Vector2.ZERO
@@ -36,7 +40,7 @@ func load_rooms() -> void:
 			room_scene.position = Vector2.ZERO
 			player.position = entry.global_position
 			first_room = false
-		initial_pos += exit.position
+		initial_pos = exit.global_position
 
 func object_entered_room(object: Area2D, cameraTarget: Node2D):
 	if object.get_parent() != player:
@@ -60,5 +64,17 @@ func object_entered_room(object: Area2D, cameraTarget: Node2D):
 func object_left_room(object: Area2D, room: Node2D):
 	if object.get_parent() != player:
 		return
+	else:
+		countdown = true
 
 	#room.lock()
+
+func _physics_process(delta: float) -> void:
+	$Camera/BigText/Countdown/Label.text = "%05.2f" % (time)
+
+	if countdown:
+		time -= delta
+	
+	if time <= 0:
+		countdown = false
+		time = 0

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://kkpl80x7124d" path="res://game/room_objects/chest/chest.tscn" id="4_xwi2v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vc104"]
-size = Vector2(1920, 1080)
+size = Vector2(1792, 960)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5m562"]
 size = Vector2(128, 128)
@@ -28,11 +28,10 @@ position = Vector2(1920, 832)
 position = Vector2(960, 544)
 
 [node name="RoomArea" type="Area2D" parent="." unique_id=994280016]
-visible = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomArea" unique_id=317257611]
-position = Vector2(960, 540)
+position = Vector2(960, 544)
 shape = SubResource("RectangleShape2D_vc104")
 
 [node name="Saruman" parent="." unique_id=592317870 instance=ExtResource("3_oq6yg")]

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://kkpl80x7124d" path="res://game/room_objects/chest/chest.tscn" id="6_oomdo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vc104"]
-size = Vector2(1920, 1080)
+size = Vector2(1792, 960)
 
 [node name="Fortress" type="Node2D" unique_id=1549269063]
 script = ExtResource("1_2450i")
@@ -31,7 +31,7 @@ visible = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomArea" unique_id=317257611]
-position = Vector2(960, 540)
+position = Vector2(960, 544)
 shape = SubResource("RectangleShape2D_vc104")
 
 [node name="Sniper" parent="." unique_id=592317870 instance=ExtResource("3_05n0g")]

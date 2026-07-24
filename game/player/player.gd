@@ -13,6 +13,9 @@ var jutsu_storage # Stores casted jutsu when special is held.
 const SPEED = 2000.0
 const JUMP_VELOCITY = -2400.0
 
+func _ready() -> void:
+	%PlayerSprite.play("walk")
+
 func add_rewards(rewards: Reward) -> void:
 	print("Gained rewards ", rewards.time, "s ", rewards.xp)
 

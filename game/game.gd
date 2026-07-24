@@ -9,9 +9,13 @@ var rooms = [
 @onready var cameraNode = $Camera
 @onready var player = $Player
 
+var time = 60.0
+var countdown = false
+
 func _ready() -> void:
 	print("Hello from game!")
 	load_rooms()
+	$Camera/BigText/Countdown/Label.text = "%.3f"%(time)
 
 func load_rooms() -> void:
 	var initial_pos: Vector2 = Vector2.ZERO
@@ -60,5 +64,15 @@ func object_entered_room(object: Area2D, cameraTarget: Node2D):
 func object_left_room(object: Area2D, room: Node2D):
 	if object.get_parent() != player:
 		return
+	else:
+		countdown = true
 
 	#room.lock()
+
+func _physics_process(delta: float) -> void:
+	if countdown:
+		time -= delta
+		$Camera/BigText/Countdown/Label.text = "%.3f"%(time)
+	
+	if time <= 0:
+		pass # Game Over

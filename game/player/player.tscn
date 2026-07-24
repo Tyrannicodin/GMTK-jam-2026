@@ -52,7 +52,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
-size = Vector2(52, 79.5)
+size = Vector2(52, 74)
 
 [node name="Player" type="CharacterBody2D" unique_id=1018705283]
 z_index = 1

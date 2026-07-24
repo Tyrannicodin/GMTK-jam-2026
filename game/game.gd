@@ -7,6 +7,8 @@ var rooms = [
 	preload("res://resources/rooms/two_towers.tres"),
 	preload("res://resources/rooms/pit.tres"),
 	preload("res://resources/rooms/fortress.tres"),
+	preload("res://resources/rooms/manhole.tres"),
+	preload("res://resources/rooms/forsaken_room.tres"),
 	preload("res://resources/rooms/platformer.tres"),
 ]
 

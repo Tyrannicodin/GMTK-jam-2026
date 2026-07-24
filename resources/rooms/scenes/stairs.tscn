@@ -26,7 +26,7 @@ position = Vector2(0, 832)
 position = Vector2(1920, 64)
 
 [node name="CameraMarker" type="Marker2D" parent="." unique_id=880778822]
-position = Vector2(960, 540)
+position = Vector2(960, 544)
 
 [node name="RoomArea" type="Area2D" parent="." unique_id=1362974294]
 visible = false
@@ -37,7 +37,7 @@ monitorable = false
 shape = SubResource("RectangleShape2D_8w3bu")
 
 [node name="Chest" parent="." unique_id=1912984734 instance=ExtResource("3_y0sms")]
-position = Vector2(1792, 256)
+position = Vector2(640, 1024)
 metadata/_scene_painted = true
 
 [node name="Bomber" parent="." unique_id=592317870 groups=["knows_player"] instance=ExtResource("4_c20ss")]

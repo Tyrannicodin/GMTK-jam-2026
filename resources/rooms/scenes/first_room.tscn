@@ -22,7 +22,7 @@ position = Vector2(960, 810)
 position = Vector2(1920, 832)
 
 [node name="CameraMarker" type="Marker2D" parent="." unique_id=1092025349]
-position = Vector2(960, 540)
+position = Vector2(960, 544)
 
 [node name="RoomArea" type="Area2D" parent="." unique_id=1244254917]
 visible = false

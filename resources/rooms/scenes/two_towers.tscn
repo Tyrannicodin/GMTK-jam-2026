@@ -72,7 +72,13 @@ position = Vector2(1, 4)
 shape = SubResource("RectangleShape2D_5m562")
 
 [node name="Chest" parent="." unique_id=1912984734 instance=ExtResource("4_xwi2v")]
-position = Vector2(1440, 1024)
+position = Vector2(1312, 64)
+rotation = 3.1415927
+metadata/_scene_painted = true
+
+[node name="Chest2" parent="." unique_id=1150494055 instance=ExtResource("4_xwi2v")]
+position = Vector2(608, 64)
+rotation = 3.1415927
 metadata/_scene_painted = true
 
 [connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]

@@ -28,7 +28,7 @@ position = Vector2(0, 832)
 position = Vector2(1920, 832)
 
 [node name="CameraMarker" type="Marker2D" parent="." unique_id=880778822]
-position = Vector2(960, 540)
+position = Vector2(960, 544)
 
 [node name="RoomArea" type="Area2D" parent="." unique_id=1362974294]
 visible = false
@@ -52,7 +52,7 @@ speed = 200.0
 position = Vector2(653, 634)
 
 [node name="Thug" parent="." unique_id=521147513 instance=ExtResource("7_3c6b7")]
-position = Vector2(1163, 688)
+position = Vector2(1248, 704)
 
 [node name="Sniper" parent="." unique_id=363925882 instance=ExtResource("8_w36n0")]
 position = Vector2(1419, 128)

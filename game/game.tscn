@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://croela4nh3klu" path="res://game/player/player.tscn" id="2_vasa2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_grq6u"]
-font_size = 1000
+font_size = 684
 outline_size = 81
 outline_color = Color(0.46229059, 0.46229059, 0.46229059, 1)
 shadow_size = 125
@@ -43,7 +43,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "60.000"
+text = "60.00"
 label_settings = SubResource("LabelSettings_grq6u")
 horizontal_alignment = 1
 vertical_alignment = 1

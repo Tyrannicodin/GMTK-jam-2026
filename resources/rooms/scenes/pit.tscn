@@ -17,10 +17,10 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAgAAAABAAA
 tile_set = ExtResource("2_xwe6i")
 
 [node name="EntryMarker" type="Marker2D" parent="." unique_id=403655921]
-position = Vector2(0, 540)
+position = Vector2(0, 64)
 
 [node name="ExitMarker" type="Marker2D" parent="." unique_id=867143847]
-position = Vector2(1920, 540)
+position = Vector2(1920, 64)
 
 [node name="CameraMarker" type="Marker2D" parent="." unique_id=1133903642]
 position = Vector2(960, 544)

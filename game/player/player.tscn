@@ -52,7 +52,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
-size = Vector2(86, 110)
+size = Vector2(52, 79.5)
 
 [node name="Player" type="CharacterBody2D" unique_id=1018705283]
 z_index = 1
@@ -63,21 +63,19 @@ script = ExtResource("1_b2mth")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=560498824]
 material = SubResource("ShaderMaterial_anr75")
 position = Vector2(7.5101852e-06, 7.748604e-06)
-scale = Vector2(0.54768324, 0.54768324)
+scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_km8ha")
-animation = &"jump"
+animation = &"walk"
 autoplay = "idle"
-frame_progress = 0.32153282
+frame_progress = 0.09526472
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=5305132]
-visible = false
-position = Vector2(0, -1)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_grq6u")
 
 [node name="Detector" type="Area2D" parent="." unique_id=1164915962]
 unique_name_in_owner = true
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector" unique_id=214260944]
-position = Vector2(0, -1)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_grq6u")

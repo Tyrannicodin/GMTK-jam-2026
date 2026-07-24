@@ -19,7 +19,7 @@ motion_mode = 0
 
 [node name="Camera" type="Camera2D" parent="." unique_id=364632602]
 position = Vector2(960, 0)
-zoom = Vector2(0.75, 0.75)
+zoom = Vector2(0.875, 0.875)
 
 [node name="BigText" type="SubViewportContainer" parent="Camera" unique_id=336338847]
 offset_left = -1280.0

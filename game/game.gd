@@ -3,7 +3,7 @@ extends Node2D
 var rooms = [
 	preload("res://resources/rooms/first_room.tres"),
 	preload("res://resources/rooms/sample_room.tres"),
-	preload("res://resources/rooms/simple_platform.tres"),
+	preload("res://resources/rooms/platformer.tres"),
 ]
 
 @onready var cameraNode = $Camera
@@ -36,7 +36,7 @@ func load_rooms() -> void:
 			room_scene.position = Vector2.ZERO
 			player.position = entry.global_position
 			first_room = false
-		initial_pos += exit.position
+		initial_pos = exit.global_position
 
 func object_entered_room(object: Area2D, cameraTarget: Node2D):
 	if object.get_parent() != player:

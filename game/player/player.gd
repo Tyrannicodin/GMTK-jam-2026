@@ -56,32 +56,9 @@ func _physics_process(delta):
 				parent.queue_free()
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump"):
-		if flight_time < COYOTE_TIME:
+	if flight_time < COYOTE_TIME:
+		if %InputBuffer.is_pressed("jump"):
 			velocity.y = JUMP_VELOCITY
-	
-	# Handle Jutsu
-	time_since_last_action += delta
-	# Max time between each input for a jutsu is .3s
-	if time_since_last_action > .3:
-		direction_history = []
-	
-	if Input.is_action_just_pressed("special"):
-		execute_jutsu()
-
-	# Handle Input History
-	if Input.is_action_just_pressed("up"):
-		time_since_last_action = 0
-		direction_history.push_back("up")
-	elif Input.is_action_just_pressed("down"):
-		time_since_last_action = 0
-		direction_history.push_back("down")
-	elif Input.is_action_just_pressed("left"):
-		time_since_last_action = 0
-		direction_history.push_back("side")
-	elif Input.is_action_just_pressed("right"):
-		time_since_last_action = 0
-		direction_history.push_back("side")
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.

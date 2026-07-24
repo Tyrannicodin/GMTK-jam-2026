@@ -21,8 +21,8 @@ func _input(event: InputEvent) -> void:
 	if len(input_list) >= 8:
 		input_list = input_list.slice(0, 7)
 
-# Only process inputs after 3 frames to make combos feel more consistent.
-var allow_after_frames = 3
+# Only process inputs after 1 frame to make combos feel more consistent.
+var allow_after_frames = 1
 # If inputs are unused for this amount of frames, they are thrown out. (About 150ms)
 var max_fames_after = 10
 

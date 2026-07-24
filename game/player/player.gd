@@ -15,13 +15,13 @@ var facing_direction
 # by movement keys or gravity
 var lock_velocity = 0
 
-const SPEED = 2000.0
+const SPEED = 1000.0
 const JUMP_VELOCITY = -2400.0
 
 func _ready():
 	await get_tree().physics_frame
 	get_tree().call_group("knows_player", "set_player", self)
-
+	
 func add_rewards(rewards: Reward) -> void:
 	print("Gained rewards ", rewards.time, "s ", rewards.xp)
 
@@ -38,8 +38,10 @@ func _physics_process(delta):
 		
 	if velocity.x > 0:
 		facing_direction = "right"
+		$AnimatedSprite2D.flip_h = true
 	if velocity.x < 0:
 		facing_direction = "left"
+		$AnimatedSprite2D.flip_h = false
 
 	# Handle interactions.
 	if Input.is_action_just_pressed("interact"):
@@ -50,9 +52,10 @@ func _physics_process(delta):
 				parent.queue_free()
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
+	if Input.is_action_just_pressed("jump"):
+		if (is_on_floor()):
+			velocity.y = JUMP_VELOCITY
+	
 	# Handle Jutsu
 	time_since_last_action += delta
 	# Max time between each input for a jutsu is .3s
@@ -82,8 +85,16 @@ func _physics_process(delta):
 		var direction = Input.get_axis("left", "right")
 		if direction:
 			velocity.x = max(velocity.x, SPEED) * direction
+			if (is_on_floor()):
+				$AnimatedSprite2D.play("walk")
+			else:
+				$AnimatedSprite2D.play("jump")
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
+			if (is_on_floor()):
+				$AnimatedSprite2D.play("idle")
+			else:
+				$AnimatedSprite2D.play("jump")
 
 	move_and_slide()
 

@@ -4,6 +4,7 @@ var rooms = [
 	preload("res://resources/rooms/first_room.tres"),
 	preload("res://resources/rooms/sample_room.tres"),
 	preload("res://resources/rooms/stairs.tres"),
+	preload("res://resources/rooms/two_towers.tres"),
 	preload("res://resources/rooms/platformer.tres"),
 ]
 

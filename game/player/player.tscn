@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ds3uqsfjil7ni" path="res://game/player/player.gd" id="1_b2mth"]
 [ext_resource type="Texture2D" uid="uid://c8o38o30vq1wj" path="res://icon.svg" id="1_obar5"]
+[ext_resource type="Script" uid="uid://dx4xnqkbaeiyo" path="res://game/player/input_buffer.gd" id="3_8soms"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
 size = Vector2(128, 128)
@@ -11,6 +12,10 @@ z_index = 1
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_b2mth")
+
+[node name="InputBuffer" type="Node" parent="." unique_id=1116531931]
+unique_name_in_owner = true
+script = ExtResource("3_8soms")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1416162075]
 texture = ExtResource("1_obar5")

@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://pgohqv333wvs"]
+
+[ext_resource type="PackedScene" uid="uid://bfierd6nwqsba" path="res://game/enemy/basic/basic.tscn" id="1_0wqbc"]
+[ext_resource type="Script" uid="uid://ch5h5myxuk3g1" path="res://game/enemy/thug/thug.gd" id="2_jlg15"]
+[ext_resource type="Script" uid="uid://raujjq1ec3cb" path="res://game/enemy/thug/stomp.gd" id="2_xftu6"]
+[ext_resource type="Texture2D" uid="uid://gsyfuoudrqmf" path="res://assets/enemies/spikes.png" id="3_2e2gb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2nj6i"]
+size = Vector2(220, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jlg15"]
+size = Vector2(220, 200)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
+size = Vector2(128, 20)
+
+[node name="Thug" unique_id=592317870 groups=["knows_player"] instance=ExtResource("1_0wqbc")]
+script = ExtResource("2_jlg15")
+
+[node name="AttackLeft" parent="." index="3" unique_id=1718289444]
+visible = true
+
+[node name="CollisionShape2D" parent="AttackLeft" index="0" unique_id=48978728]
+position = Vector2(-110, -90)
+shape = SubResource("RectangleShape2D_2nj6i")
+
+[node name="AttackRight" parent="." index="4" unique_id=1013030700]
+visible = true
+
+[node name="CollisionShape2D" parent="AttackRight" index="0" unique_id=477507595]
+position = Vector2(110, -90)
+shape = SubResource("RectangleShape2D_jlg15")
+
+[node name="Weapon" type="Node2D" parent="." index="5" unique_id=1014690870 groups=["knows_player"]]
+script = ExtResource("2_xftu6")
+damage = 5
+
+[node name="LeftWing" type="Node2D" parent="Weapon" index="0" unique_id=1175419923]
+rotation = 1.0471976
+
+[node name="Area2D" type="Area2D" parent="Weapon/LeftWing" index="0" unique_id=146134455]
+position = Vector2(-160, 0)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/LeftWing/Area2D" index="0" unique_id=763375808]
+shape = SubResource("RectangleShape2D_grq6u")
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/LeftWing/Area2D" index="1" unique_id=2011489710]
+position = Vector2(0, -6)
+texture = ExtResource("3_2e2gb")
+
+[node name="RightWing" type="Node2D" parent="Weapon" index="1" unique_id=1381784168]
+rotation = -1.0471976
+
+[node name="Area2D" type="Area2D" parent="Weapon/RightWing" index="0" unique_id=247568925]
+position = Vector2(160, 0)
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/RightWing/Area2D" index="0" unique_id=1112272286]
+shape = SubResource("RectangleShape2D_grq6u")
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/RightWing/Area2D" index="1" unique_id=85056116]
+position = Vector2(0, -6)
+texture = ExtResource("3_2e2gb")
+
+[connection signal="body_entered" from="Weapon/LeftWing/Area2D" to="Weapon" method="body_collision"]
+[connection signal="body_entered" from="Weapon/RightWing/Area2D" to="Weapon" method="body_collision"]

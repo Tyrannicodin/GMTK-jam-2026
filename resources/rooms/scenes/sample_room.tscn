@@ -4,6 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://lvcq0ppqeebt" path="res://assets/rooms/backgrounds/simple_bg.png" id="1_uvxfj"]
 [ext_resource type="PackedScene" uid="uid://bratik0ksh71l" path="res://game/room_objects/platform/platform.tscn" id="2_sun4g"]
 [ext_resource type="PackedScene" uid="uid://kkpl80x7124d" path="res://game/room_objects/chest/chest.tscn" id="3_8w3bu"]
+[ext_resource type="PackedScene" uid="uid://dqhkh8tfsxxyq" path="res://game/enemy/bomber/bomber.tscn" id="5_w36n0"]
+[ext_resource type="PackedScene" uid="uid://dpsallg7mur0y" path="res://game/enemy/soldier/soldier.tscn" id="6_xsh4d"]
+[ext_resource type="PackedScene" uid="uid://pgohqv333wvs" path="res://game/enemy/thug/thug.tscn" id="7_3c6b7"]
+[ext_resource type="PackedScene" uid="uid://c401cnufcdtia" path="res://game/enemy/sniper/sniper.tscn" id="8_w36n0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8w3bu"]
 size = Vector2(1800, 960)
@@ -19,6 +23,9 @@ b = Vector2(0, 280)
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_xsh4d"]
 a = Vector2(0, -540)
 b = Vector2(0, 280)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
+size = Vector2(590, 215)
 
 [node name="SimplePlatform" type="Node2D" unique_id=1549269063]
 script = ExtResource("1_17pa8")
@@ -64,11 +71,46 @@ position = Vector2(-900, 0)
 shape = SubResource("SegmentShape2D_xsh4d")
 
 [node name="Platform" parent="." unique_id=848708187 instance=ExtResource("2_sun4g")]
-position = Vector2(655, 799)
+position = Vector2(211, 799)
+
+[node name="Platform2" parent="." unique_id=827960296 instance=ExtResource("2_sun4g")]
+position = Vector2(670, 799)
+
+[node name="Platform3" parent="." unique_id=151240490 instance=ExtResource("2_sun4g")]
+position = Vector2(1159, 799)
 
 [node name="Chest" parent="." unique_id=1912984734 instance=ExtResource("3_8w3bu")]
 position = Vector2(1118, 993)
 metadata/_scene_painted = true
+
+[node name="Bomber" parent="." unique_id=592317870 groups=["knows_player"] instance=ExtResource("5_w36n0")]
+position = Vector2(177, 564)
+damage = 1
+avoid_falls = true
+speed = 200.0
+
+[node name="Soldier" parent="." unique_id=1797103062 instance=ExtResource("6_xsh4d")]
+position = Vector2(653, 634)
+
+[node name="Thug" parent="." unique_id=521147513 instance=ExtResource("7_3c6b7")]
+position = Vector2(1163, 688)
+
+[node name="Sniper" parent="." unique_id=363925882 instance=ExtResource("8_w36n0")]
+position = Vector2(1419, 143)
+rotation = 3.1415927
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1999522083]
+position = Vector2(1418, 139)
+collision_layer = 3
+collision_mask = 3
+gravity_space_override = 3
+gravity_point_center = Vector2(0, -2)
+gravity_direction = Vector2(0, -2)
+gravity = 11260.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=307099793]
+position = Vector2(0, -38.5)
+shape = SubResource("RectangleShape2D_grq6u")
 
 [connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]
 [connection signal="area_exited" from="RoomArea" to="." method="on_area_exited"]

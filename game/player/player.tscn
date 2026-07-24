@@ -30,6 +30,7 @@ size = Vector2(128, 128)
 
 [node name="Player" type="CharacterBody2D" unique_id=1018705283]
 z_index = 1
+collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_b2mth")
 

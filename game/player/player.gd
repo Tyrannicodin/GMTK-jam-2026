@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 
@@ -5,23 +6,43 @@ extends CharacterBody2D
 
 enum DIRECTIONS {UP, DOWN, FRONT, BACK}
 
-var direction_history: Array = ["", "", "", "", ""]
-var hist_tracker: int = 0
+var direction_history: Array = []
 var jutsu_storage # Stores casted jutsu when special is held.
+var time_since_last_action = 0
 
+var facing_direction
+# While the player is dashing, we dont want their velocity to be affected
+# by movement keys or gravity
+var lock_velocity = 0
 
 const SPEED = 2000.0
 const JUMP_VELOCITY = -2400.0
 
-func _ready() -> void:
+
+func _ready():
+	await get_tree().physics_frame
+	get_tree().call_group("knows_player", "set_player", self)
 	%PlayerSprite.play("walk")
+
 
 func add_rewards(rewards: Reward) -> void:
 	print("Gained rewards ", rewards.time, "s ", rewards.xp)
 
+func deal_damage(amount: int):
+	print("Ow! Took ", amount, " damage!")
+
 func _physics_process(delta):
 	# Add the gravity.
-	velocity += get_gravity() * delta
+	if lock_velocity <= 0:
+		velocity += get_gravity() * delta
+	else:
+		velocity.y = 0
+	lock_velocity -= delta
+		
+	if velocity.x > 0:
+		facing_direction = "right"
+	if velocity.x < 0:
+		facing_direction = "left"
 
 	# Handle interactions.
 	if Input.is_action_just_pressed("interact"):
@@ -36,52 +57,58 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 
 	# Handle Jutsu
-	if Input.is_action_just_pressed("special"):
-		var front = "special" # Track front/back for horizontal input.
-		var tracker_pointer = hist_tracker # Read history backwards.
-		# Make a decision tree.
-		
-	# Release Jutsu
-	if Input.is_action_just_released("special"):
-		pass
+	time_since_last_action += delta
+	# Max time between each input for a jutsu is .3s
+	if time_since_last_action > .3:
+		direction_history = []
 	
+	if Input.is_action_just_pressed("special"):
+		execute_jutsu()
+
 	# Handle Input History
 	if Input.is_action_just_pressed("up"):
-		direction_history[hist_tracker] = "up"
-		tracker_increment()
+		time_since_last_action = 0
+		direction_history.push_back("up")
 	elif Input.is_action_just_pressed("down"):
-		direction_history[hist_tracker] = "down"
-		tracker_increment()
+		time_since_last_action = 0
+		direction_history.push_back("down")
 	elif Input.is_action_just_pressed("left"):
-		if Input.is_action_just_pressed("right"):
-			direction_history[hist_tracker] = special_decision()
-		else:
-			direction_history[hist_tracker] = "left"
-		tracker_increment()
+		time_since_last_action = 0
+		direction_history.push_back("side")
 	elif Input.is_action_just_pressed("right"):
-		if Input.is_action_just_pressed("left"):
-			direction_history[hist_tracker] = special_decision()
-		else:
-			direction_history[hist_tracker] = "right"
-		tracker_increment()
+		time_since_last_action = 0
+		direction_history.push_back("side")
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("left", "right")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+	if lock_velocity <= 0:
+		var direction = Input.get_axis("left", "right")
+		if direction:
+			velocity.x = max(velocity.x, SPEED) * direction
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
 
-func tracker_increment():
-	hist_tracker += 1
-	hist_tracker %= 5
+func execute_jutsu():
+	var combo = direction_history.slice(max(len(direction_history) - 5, 0))
+	direction_history = []
+	print(combo)
 
-# Yes.
-func special_decision():
-	if randf() >= 0.5:
-		return "right"
+	if combo.slice(-2) == ["down", "up"]:
+		spring_jump_jutsu()
+	if combo.slice(-1) == ["side"]:
+		sword_charge_jutsu()
+
+
+func spring_jump_jutsu():
+	print("spring jump!")
+	velocity.y -= 5000
+
+func sword_charge_jutsu():
+	print("sword charge")
+	if facing_direction == "right":
+		velocity.x += 4000
 	else:
-		return "left"
+		velocity.x -= 4000
+	lock_velocity = .2

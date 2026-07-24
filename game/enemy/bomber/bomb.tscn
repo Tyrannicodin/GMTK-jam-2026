@@ -1,20 +1,40 @@
 [gd_scene format=3 uid="uid://2heg21a6jgb1"]
 
+[ext_resource type="Script" uid="uid://c73mppu6wer5s" path="res://game/enemy/bomber/bomb.gd" id="1_3vqhj"]
 [ext_resource type="Texture2D" uid="uid://ys23jollvnp3" path="res://assets/rooms/objects/chest.png" id="1_ism0h"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ism0h"]
-friction = 0.0
-bounce = 1.0
+bounce = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_grq6u"]
 radius = 32.0
 
-[node name="Bomb" type="RigidBody2D" unique_id=1640702433]
-collision_layer = 0
+[sub_resource type="CircleShape2D" id="CircleShape2D_j83yq"]
+radius = 0.01
+
+[node name="Bomb" type="RigidBody2D" unique_id=1640702433 groups=["knows_player"]]
+collision_layer = 2
 physics_material_override = SubResource("PhysicsMaterial_ism0h")
+linear_damp_mode = 1
+angular_damp_mode = 1
+script = ExtResource("1_3vqhj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1284693960]
 shape = SubResource("CircleShape2D_grq6u")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=996122352]
 texture = ExtResource("1_ism0h")
+
+[node name="Timer" type="Timer" parent="." unique_id=1180984417]
+process_callback = 0
+one_shot = true
+autostart = true
+
+[node name="Explosion" type="Area2D" parent="." unique_id=862852189]
+collision_mask = 2
+
+[node name="Shape" type="CollisionShape2D" parent="Explosion" unique_id=431258247]
+shape = SubResource("CircleShape2D_j83yq")
+
+[connection signal="timeout" from="Timer" to="." method="explode"]
+[connection signal="body_entered" from="Explosion" to="." method="damage_player"]

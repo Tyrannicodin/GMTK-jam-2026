@@ -25,6 +25,7 @@ func _physics_process(delta):
 	
 	var new_bomb: RigidBody2D = bomb.instantiate()
 	new_bomb.position = position
+	new_bomb.player = player
 	new_bomb.apply_central_impulse(LAUNCH_FORCE * 3 * Vector2(-1 if throw_left else 1, 1))
 	
 	get_parent().add_child(new_bomb)

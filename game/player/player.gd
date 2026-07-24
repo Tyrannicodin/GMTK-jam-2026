@@ -71,16 +71,10 @@ func _physics_process(delta):
 		direction_history.push_back("down")
 	elif Input.is_action_just_pressed("left"):
 		time_since_last_action = 0
-		if facing_direction == "left":
-			direction_history.push_back("forward")
-		else:
-			direction_history.push_back("backward")
+		direction_history.push_back("side")
 	elif Input.is_action_just_pressed("right"):
 		time_since_last_action = 0
-		if facing_direction == "right":
-			direction_history.push_back("forward")
-		else:
-			direction_history.push_back("backward")
+		direction_history.push_back("side")
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -100,7 +94,7 @@ func execute_jutsu():
 
 	if combo.slice(-2) == ["down", "up"]:
 		spring_jump_jutsu()
-	if combo.slice(-1) == ["forward"]:
+	if combo.slice(-1) == ["side"]:
 		sword_charge_jutsu()
 
 

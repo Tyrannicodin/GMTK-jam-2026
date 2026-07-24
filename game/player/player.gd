@@ -15,8 +15,11 @@ var facing_direction
 # by movement keys or gravity
 var lock_velocity = 0
 
+var flight_time := 0.0
+
 const SPEED = 1000.0
 const JUMP_VELOCITY = -2400.0
+const COYOTE_TIME = 0.1
 
 func _ready():
 	await get_tree().physics_frame
@@ -43,6 +46,11 @@ func _physics_process(delta):
 		facing_direction = "left"
 		$AnimatedSprite2D.flip_h = false
 
+	if is_on_floor():
+		flight_time = 0
+	else:
+		flight_time += delta
+
 	# Handle interactions.
 	if Input.is_action_just_pressed("interact"):
 		for area in detector.get_overlapping_areas():
@@ -53,7 +61,7 @@ func _physics_process(delta):
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump"):
-		if (is_on_floor()):
+		if flight_time < COYOTE_TIME:
 			velocity.y = JUMP_VELOCITY
 	
 	# Handle Jutsu

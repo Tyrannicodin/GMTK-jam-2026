@@ -10,7 +10,7 @@ xp = 5
 metadata/_custom_type_script = "uid://fb5r68g6soxn"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
-size = Vector2(100, 100)
+size = Vector2(128, 96)
 
 [node name="Chest" type="Node2D" unique_id=1912984734]
 z_index = 2
@@ -21,8 +21,9 @@ rewards = SubResource("Resource_grq6u")
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=884419026]
-position = Vector2(0, -25)
+position = Vector2(0, -48)
 shape = SubResource("RectangleShape2D_grq6u")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2127734730]
+position = Vector2(0, -25)
 texture = ExtResource("1_5hcsl")

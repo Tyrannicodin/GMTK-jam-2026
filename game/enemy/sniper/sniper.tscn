@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://c401cnufcdtia"]
+
+[ext_resource type="PackedScene" uid="uid://bfierd6nwqsba" path="res://game/enemy/basic/basic.tscn" id="1_x2sy8"]
+[ext_resource type="Script" uid="uid://cxmrvi0aj1jt5" path="res://game/enemy/sniper/sniper.gd" id="2_dl67t"]
+
+[node name="Sniper" unique_id=592317870 groups=["knows_player"] instance=ExtResource("1_x2sy8")]
+script = ExtResource("2_dl67t")
+
+[node name="RayCast2D" parent="." index="1" unique_id=932088438]
+collision_mask = 3
+
+[node name="AttackLeft" parent="." index="3" unique_id=1718289444]
+monitoring = false
+monitorable = false
+
+[node name="AttackRight" parent="." index="4" unique_id=1013030700]
+monitoring = false
+monitorable = false
+
+[node name="Line2D" type="Line2D" parent="." index="5" unique_id=527735908]
+points = PackedVector2Array(0, 0, 319, 245)
+width = 3.0
+default_color = Color(1, 0, 0, 1)

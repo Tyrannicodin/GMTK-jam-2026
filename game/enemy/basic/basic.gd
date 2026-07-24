@@ -8,7 +8,7 @@ extends CharacterBody2D
 
 @export var speed = 200.0
 
-var right = true
+var right := true
 
 var player: Player
 

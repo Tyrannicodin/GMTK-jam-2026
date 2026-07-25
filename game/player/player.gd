@@ -301,9 +301,9 @@ func bird_jutsu(x, y):
 	if x == 0:
 		if y == 0:
 			return
-		nf = y
+		nf = abs(y)
 	elif y == 0:
-		nf = x
+		nf = abs(x)
 	else:
 		nf = sqrt(pow(x,2) + pow(y,2))
 	print(velocity)

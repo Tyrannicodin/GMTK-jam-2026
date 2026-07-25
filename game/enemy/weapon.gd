@@ -14,4 +14,4 @@ func attack():
 
 func body_collision(body):
 	if body == player:
-		player.deal_damage(damage)
+		player.deal_damage(self, damage)

@@ -18,9 +18,11 @@ var flight_time := 0.0
 var time_on_ground := 0.0
 var dashed_since_left_ground = false
 var jumped_to_leave_ground = false
+var invuln_time = 0
 
 var dash_timer = -999
 var jutsu_timer = 0
+var time_since_damage_taken = 0
 
 var stamina = 100
 
@@ -30,6 +32,7 @@ const AIR_STOP_FORCE = 4000
 const JUMP_SPEED = 1800
 const COYOTE_TIME = 0.15
 const TERMINAL_VELOCITY = 5000
+const INVULN_TIME = .15
 
 const LANDING_INPUT_DELAY = .05
 
@@ -64,6 +67,10 @@ var xp = 0 :
 func _ready():
 	await get_tree().physics_frame
 	broadcast_player()
+	
+	%StaminaChargedParticles.show()
+	%StaminaChargedParticlesFront.show()
+	%DashParticles.show()
 
 func broadcast_player():
 	get_tree().call_group("knows_player", "set_player", self)
@@ -76,8 +83,30 @@ func add_rewards(rewards: Reward) -> void:
 	gain_time.emit(rewards.time)
 	xp += rewards.xp
 
-func deal_damage(amount: int):
+func deal_damage(weapon: Node2D, amount: int):
+	if invuln_time > 0:
+		return
+	invuln_time = INVULN_TIME
+		
+	time_since_damage_taken = 0
+	%TextureRect.set_instance_shader_parameter("intensity", 1)
+	%TextureRect.queue_redraw()
+
 	print("Ow! Took ", amount, " damage!")
+
+	
+	var he: Node2D = %HitEffect.spawn()
+	he.global_position = self.global_position
+	get_parent().add_child(he)
+	
+	var d: Label = %DamageTakenText.duplicate()
+	d.text = "-" + str(amount) + "s"
+	d.global_position = global_position
+	get_parent().add_child(d)
+	d.visible = true
+	
+	await get_tree().create_timer(0).timeout
+
 	take_damage.emit(amount)
 
 func get_direction():
@@ -88,6 +117,8 @@ func get_direction():
 func _process(delta: float) -> void:
 	stamina += STAMINA_RESTORATION_PER_SECOND * delta
 	
+	invuln_time -= delta
+
 	if stamina > MAX_STAMINA:
 		stamina = MAX_STAMINA
 
@@ -111,9 +142,13 @@ func _physics_process(delta):
 	
 	dash_timer -= delta
 	jutsu_timer -= delta
+	time_since_damage_taken += delta
+	
+	var damage_taken_intensity = max((.1 - time_since_damage_taken) / .1, 0)
+	var dash_intensity = max(dash_timer / DASH_LENGTH, 0)
 	
 	# Make the dash look pretty
-	%TextureRect.set_instance_shader_parameter("intensity", max(dash_timer / DASH_LENGTH, 0))
+	%TextureRect.set_instance_shader_parameter("intensity", max(damage_taken_intensity, dash_intensity))
 
 	# Add the gravity.
 	if dash_timer <= 0:

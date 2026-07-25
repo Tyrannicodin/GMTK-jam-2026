@@ -17,4 +17,4 @@ func explode() -> void:
 
 func damage_player(body):
 	if body == player:
-		player.deal_damage(5)
+		player.deal_damage(self, 5)

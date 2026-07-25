@@ -39,6 +39,8 @@ const JUTSU_COOLDOWN = .05
 var dash_count = 1
 var dashing = false
 
+var diving = false
+
 var attack_cooldown = 0.4
 
 ## How much does more xp do you need per level
@@ -111,6 +113,9 @@ func _physics_process(delta):
 		dashed_since_left_ground = false
 		jumped_to_leave_ground = false
 		time_on_ground += delta
+		if diving:
+			diving = false
+			# Spawn Shockwave
 	else:
 		flight_time += delta
 		time_on_ground = 0
@@ -127,10 +132,12 @@ func _physics_process(delta):
 	execute_jutsu()
 	
 	# Handle jump.
-	if flight_time < COYOTE_TIME and not jumped_to_leave_ground:
+	if flight_time < COYOTE_TIME and not jumped_to_leave_ground and not diving:
 		if %InputBuffer.is_just_pressed("jump") or (%InputBuffer.is_pressed("jump") and time_on_ground > LANDING_INPUT_DELAY):
 			velocity.y = -JUMP_SPEED
 			jumped_to_leave_ground = true
+			if dash_count < 1:
+				dash_count += 1
 			if not dashing:
 				velocity.x += 800 * sign(Input.get_axis("left", "right"))
 			if -velocity.y <= abs(velocity.x):
@@ -138,13 +145,16 @@ func _physics_process(delta):
 			elif dashing:
 				velocity.y += JUMP_SPEED/2
 	
-	if %InputBuffer.is_just_pressed("attack"):
+	# Handle "Basic" Attacks
+	if %InputBuffer.is_just_pressed("attack") and not diving:
 		# Add attack upgrade checks later
 		if dashing:
 			dash_attack()
-		if 
+		elif %InputBuffer.is_combo_just_pressed(["left", "jump", "attack"], "attack") or %InputBuffer.is_combo_just_pressed(["right", "jump", "attack"], "attack"):
+			if flight_time < COYOTE_TIME:
+				pounce()
 
-	if dash_timer <= 0:
+	if dash_timer <= 0 and not diving:
 		var direction = %InputBuffer.get_axis("left", "right")
 		var walk = WALK_MAX_SPEED * direction
 
@@ -181,10 +191,16 @@ func execute_jutsu():
 	
 	jutsu_timer = JUTSU_COOLDOWN
 	
-	if %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
+	if %InputBuffer.is_combo_just_pressed(["attack", "special"], "special"):
+		bird_jutsu()
+	
+	elif %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
 		flower_jutsu()
+	
+	elif %InputBuffer.is_combo_just_pressed(["down", "special"], "special"):
+		dive_jutsu()
 
-	elif %InputBuffer.is_just_pressed("special"):
+	elif %InputBuffer.is_combo_just_pressed(["left", "special"], "special") or %InputBuffer.is_combo_just_pressed(["right", "special"], "special"):
 		shuriken_jutsu()
 
 	if %InputBuffer.is_combo_pressed(["dash"]):
@@ -202,6 +218,8 @@ func execute_jutsu():
 			
 
 func dash(direction: Vector2):
+	if diving:
+		return
 	if dash_count < 1:
 		return
 	if dash_timer - DASH_LENGTH > -DASH_COOLDOWN:
@@ -209,7 +227,7 @@ func dash(direction: Vector2):
 	if dashed_since_left_ground:
 		return
 	dashed_since_left_ground = true
-		
+	
 	if abs(velocity.x) < 1:
 		velocity.x = 0
 	if abs(velocity.y) < 1:
@@ -238,5 +256,22 @@ func flower_jutsu():
 	f.global_position = self.global_position - Vector2(0, 100)
 	get_parent().add_child(f)
 
+func dive_jutsu():
+	if diving:
+		return
+	velocity.x = 0
+	velocity.y = 5000
+	diving = true
+
+func bird_jutsu():
+	var x = %InputBuffer.get_axis("left", "right")
+	var y = %InputBuffer.get_axis("up", "down")
+	var nf = sqrt(pow(x,2) + pow(y,2))
+	velocity -= Vector2(x/nf, y/nf) * 1000
+	# Fire Bird Projectile in the input direction (8-directional)
+
 func dash_attack():
 	pass
+
+func pounce():
+	velocity *= 2

@@ -22,6 +22,8 @@ var jumped_to_leave_ground = false
 var dash_timer = -999
 var jutsu_timer = 0
 
+var stamina = 100
+
 
 const WALK_MAX_SPEED = 1000
 const AIR_STOP_FORCE = 4000
@@ -36,8 +38,14 @@ const DASH_SPEED = 2500
 const DASH_COOLDOWN = .25
 const JUTSU_COOLDOWN = .05
 
+const MAX_STAMINA = 100
+const STAMINA_RESTORATION_PER_SECOND = 10
+
 var dash_count = 1
 var dashing = false
+
+var STAMINA_CHARGED_OUTLINE_COLOR = Color("e1eced")
+var STAMINA_NOT_CHARGED_OUTLINE_COLOR = Color("0d0601")
 
 ## How much does more xp do you need per level
 @export var level_up_constant := 1.20
@@ -76,6 +84,27 @@ func get_direction():
 	if facing_direction == "right":
 		return 1
 	return -1
+
+func _process(delta: float) -> void:
+	stamina += STAMINA_RESTORATION_PER_SECOND * delta
+	
+	if stamina > MAX_STAMINA:
+		stamina = MAX_STAMINA
+
+	if stamina > 30:
+		var color = STAMINA_CHARGED_OUTLINE_COLOR
+		if stamina < 35:
+			color = STAMINA_CHARGED_OUTLINE_COLOR * ((stamina - 30) / 5) + STAMINA_NOT_CHARGED_OUTLINE_COLOR * (1 - ((stamina - 30) / 5))
+		%TextureRect.set_instance_shader_parameter("outline_color", color)
+	else:
+		%TextureRect.set_instance_shader_parameter("outline_color", STAMINA_NOT_CHARGED_OUTLINE_COLOR)
+
+	if stamina > 45:
+		%StaminaChargedParticles.emitting = true
+		%StaminaChargedParticlesFront.emitting = true
+	else:
+		%StaminaChargedParticles.emitting = false
+		%StaminaChargedParticlesFront.emitting = false
 
 func _physics_process(delta):
 	%InputBuffer.check_inputs()
@@ -170,16 +199,23 @@ func friction(delta):
 func execute_jutsu():
 	if jutsu_timer > 0:
 		return
-	
+
 	jutsu_timer = JUTSU_COOLDOWN
+
+	if stamina < 30:
+		return
 	
 	if %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
 		flower_jutsu()
+		stamina -= 30
 
 	elif %InputBuffer.is_just_pressed("special"):
 		shuriken_jutsu()
+		stamina -= 30
 
 	if %InputBuffer.is_combo_pressed(["dash"]):
+		stamina -= 30
+		
 		var x = %InputBuffer.get_axis("left", "right")
 		var y = %InputBuffer.get_axis("up", "down")
 

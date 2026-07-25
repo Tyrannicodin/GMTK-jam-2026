@@ -1,22 +1,10 @@
-extends CharacterBody2D
+extends BaseEnemy
 
-
-@onready var ray: RayCast2D = $RayCast2D
-
-@export var damage: int = 1
 @export var avoid_falls: bool = true
-
-@export var speed = 200.0
-
-@export var health = 10
-@export var reward: Reward
-
-var flash_time = 0
-var is_dead = false
+@onready var ray: RayCast2D = $RayCast2D
+@export var speed = 200
 
 var right := true
-
-var player: Player
 
 func _ready() -> void:
 	add_to_group("damage_self")
@@ -34,20 +22,6 @@ func can_move():
 	return true
 
 func _physics_process(delta):
-	if not is_dead:
-		%Sprite.set_instance_shader_parameter("intensity", max(flash_time / .1, 0))
-		flash_time -= delta
-	
-	if is_dead:
-		%Sprite.scale.x -= 5 * delta
-		%Sprite.scale.y = %Sprite.scale.x
-		%Sprite.rotation += 20 * delta
-
-		if %Sprite.scale.x <= 0:
-			queue_free()
-
-		return
-
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

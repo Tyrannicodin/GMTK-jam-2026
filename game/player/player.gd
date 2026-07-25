@@ -61,6 +61,9 @@ func broadcast_player():
 	get_tree().call_group("knows_player", "set_player", self)
 	
 func add_rewards(rewards: Reward) -> void:
+	if not rewards:
+		print("Rewards is NIL")
+		return
 	print("Got rewards: %fs, %sxp" % [rewards.time, rewards.xp])
 	gain_time.emit(rewards.time)
 	xp += rewards.xp

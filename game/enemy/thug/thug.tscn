@@ -19,7 +19,7 @@ size = Vector2(128, 128)
 
 [node name="Thug" unique_id=592317870 groups=["knows_player"] instance=ExtResource("1_0wqbc")]
 collision_layer = 2
-collision_mask = 1
+collision_mask = 5
 script = ExtResource("2_jlg15")
 damage = 2
 reward = null

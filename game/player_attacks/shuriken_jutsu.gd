@@ -1,5 +1,6 @@
 extends RigidBody2D
 
+@export var knockback = 10
 @export var damage = 3
 
 func _ready() -> void:
@@ -7,6 +8,7 @@ func _ready() -> void:
 
 func on_collision(body):
 	if body.get("damage_self"):
+		print("hello")
 		body.call("damage_self", damage)
 		queue_free()
 

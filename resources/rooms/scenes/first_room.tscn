@@ -36,6 +36,7 @@ size = Vector2(1800, 960)
 script = ExtResource("1_mjqvx")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1582129179]
+visible = false
 offset_left = -3.6366706e-05
 offset_top = 1088.0267
 offset_right = 1088.0267
@@ -45,6 +46,7 @@ scale = Vector2(1, 1.1599997)
 texture = SubResource("GradientTexture1D_km8ha")
 
 [node name="BambooParallax6" type="Parallax2D" parent="." unique_id=780382247]
+visible = false
 scale = Vector2(0.95999956, 0.95999956)
 scroll_scale = Vector2(0.1, 0)
 scroll_offset = Vector2(-62, -67)
@@ -62,6 +64,7 @@ texture = ExtResource("4_yf7oq")
 metadata/_edit_use_anchors_ = true
 
 [node name="BambooParallax7" type="Parallax2D" parent="." unique_id=1717554451]
+visible = false
 scale = Vector2(0.95999956, 0.95999956)
 scroll_scale = Vector2(0.1, 0)
 scroll_offset = Vector2(460.00006, -96)
@@ -79,6 +82,7 @@ texture = ExtResource("4_yf7oq")
 metadata/_edit_use_anchors_ = true
 
 [node name="BambooParallax4" type="Parallax2D" parent="." unique_id=1735988165]
+visible = false
 scroll_scale = Vector2(0.4, 0)
 scroll_offset = Vector2(79, 0)
 repeat_size = Vector2(375, 0)
@@ -95,6 +99,7 @@ texture = ExtResource("5_27pvr")
 metadata/_edit_use_anchors_ = true
 
 [node name="BambooParallax5" type="Parallax2D" parent="." unique_id=1738172832]
+visible = false
 scroll_scale = Vector2(0.4, 0)
 scroll_offset = Vector2(-203, 33)
 repeat_size = Vector2(400, 0)
@@ -111,6 +116,7 @@ texture = ExtResource("3_1k8tw")
 metadata/_edit_use_anchors_ = true
 
 [node name="BushParallax" type="Parallax2D" parent="." unique_id=1460312633]
+visible = false
 scroll_scale = Vector2(0.4, 0)
 scroll_offset = Vector2(-138, 64)
 repeat_size = Vector2(150, 0)
@@ -124,6 +130,7 @@ offset_bottom = 968.0
 texture = ExtResource("5_smklu")
 
 [node name="BambooParallax" type="Parallax2D" parent="." unique_id=439598121]
+visible = false
 scroll_scale = Vector2(0.6, 0)
 repeat_size = Vector2(500, 0)
 repeat_times = 10
@@ -138,6 +145,7 @@ texture = ExtResource("7_blyeq")
 metadata/_edit_use_anchors_ = true
 
 [node name="BambooParallax2" type="Parallax2D" parent="." unique_id=1642684109]
+visible = false
 scroll_scale = Vector2(0.6, 0)
 scroll_offset = Vector2(-374, -31)
 repeat_size = Vector2(470, 0)
@@ -153,6 +161,7 @@ texture = ExtResource("3_g1qnk")
 metadata/_edit_use_anchors_ = true
 
 [node name="BambooParallax3" type="Parallax2D" parent="." unique_id=789410183]
+visible = false
 scroll_scale = Vector2(0.6, 0)
 repeat_size = Vector2(450, 0)
 repeat_times = 10
@@ -167,6 +176,7 @@ texture = ExtResource("4_ta4ph")
 metadata/_edit_use_anchors_ = true
 
 [node name="BushForegroundParallax2" type="Parallax2D" parent="." unique_id=2033699732]
+visible = false
 scroll_scale = Vector2(1, 0)
 scroll_offset = Vector2(-206, -28)
 repeat_size = Vector2(210, 0)
@@ -181,6 +191,7 @@ texture = ExtResource("8_r8ytd")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=59463566]
 material = SubResource("ShaderMaterial_12vg5")
+tile_map_data = PackedByteArray("AAAAACEAAAAAAAAAAAABACEAAAAAAAAAAAACACEAAAAAAAAAAAADACEAAAAAAAAAAAAEACEAAAAAAAAAAAAFACEAAAAAAAAAAAAGACEAAAAAAAAAAAAHACEAAAAAAAAAAAAIACEAAAAAAAAAAAAJACEAAAAAAAAAAAAKACEAAAAAAAAAAAALACEAAAAAAAAAAAAMACEAAAAAAAAAAAANACEAAAAAAAAAAAAOACEAAAAAAAAAAAAPACEAAAAAAAAAAAAQACEAAAAAAAAAAAARACEAAAAAAAAAAAASACEAAAAAAAAAAAATACEAAAAAAAAAAAAUACEAAAAAAAAAAAAVACEAAAAAAAAAAAAWACEAAAAAAAAAAAAXACEAAAAAAAAAAAAYACEAAAAAAAAAAAAZACEAAAAAAAAAAAAaACEAAAAAAAAAAAAbACEAAAAAAAAAAAAcACEAAAAAAAAAAAAdACEAAAAAAAAAAAAeACEAAAAAAAAAAAAfACEAAAAAAAAAAAAgACEAAAAAAAAAAAAhACEAAAAAAAAAAAAiACEAAAAAAAAAAAAjACEAAAAAAAAAAAAkACEAAAAAAAAAAAAlACEAAAAAAAAAAAAmACEAAAAAAAAAAAAnACEAAAAAAAAAAAAoACEAAAAAAAAAAAApACEAAAAAAAAAAAAqACEAAAAAAAAAAAArACEAAAAAAAAAAAAsACEAAAAAAAAAAAAtACEAAAAAAAAAAAAuACEAAAAAAAAAAAAvACEAAAAAAAAAAAAwACEAAAAAAAAAAAA2ACEAAAAAAAAAAAA3ACEAAAAAAAAAAAA4ACEAAAAAAAAAAAA5ACEAAAAAAAAAAAA6ACEAAAAAAAAAAAA7ACEAAAAAAAAAAAA1ACEAAAAAAAAAAAA0ACEAAAAAAAAAAAAzACEAAAAAAAAAAAAyACEAAAAAAAAAAAAxACEAAAAAAAAAAAA=")
 tile_set = ExtResource("4_l3e3y")
 navigation_enabled = false
 

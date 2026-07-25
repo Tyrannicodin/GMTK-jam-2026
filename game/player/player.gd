@@ -247,11 +247,8 @@ func execute_jutsu():
 		return
 
 	jutsu_timer = JUTSU_COOLDOWN
-
-	if stamina < 30:
-		return
 	
-	elif %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
+	if %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
 		flower_jutsu()
 		scug_jutsu()
 	
@@ -270,8 +267,6 @@ func execute_jutsu():
 		bird_jutsu()
 
 	if %InputBuffer.is_combo_pressed(["dash"]):
-		stamina -= 30
-		
 		var x = %InputBuffer.get_axis("left", "right")
 		var y = %InputBuffer.get_axis("up", "down")
 
@@ -323,12 +318,16 @@ func shuriken_jutsu():
 		stamina -= 10
 		
 func flower_jutsu():
+	if stamina < 30:
+		return
 	var f = FlowerJutsu.instantiate()
 	f.global_position = self.global_position - Vector2(0, 100)
 	get_parent().add_child(f)
 	stamina -= 30
 
 func dive_jutsu():
+	if stamina < 30:
+		return
 	if diving:
 		return
 	velocity.x = 0
@@ -337,26 +336,36 @@ func dive_jutsu():
 	stamina -= 30
 
 func bird_jutsu():
+	if stamina < 30:
+		return
 	velocity.x -= %InputBuffer.get_axis("left", "right") * 2000
 	# Shoot out a bird,
 	stamina -= 30
 
 func spin_jutsu():
+	if stamina < 30:
+		return
 	# Storm of Steel
 	stamina -= 30
 
 func burst_jutsu():
+	if stamina < 30:
+		return
 	parry_timer = 0.1
 	freeze_timer = 0.1
 	# Maybe also deal damage in a small radius.
 	stamina -= 30
 
 func missiles_jutsu():
+	if stamina < 30:
+		return
 	for i in range(5):
 		pass # Summon Homing (Magic) Missiles in an overhead arc.
 	stamina -= 30
 
 func scug_jutsu():
+	if stamina < 30:
+		return
 	# Throw like a piece of rebar(spear) straight up. Was going to be a backflip(rev. super) combo move.
 	stamina -= 30
 
@@ -367,6 +376,8 @@ func dash_attack():
 	pass # No extra stamina cost
 
 func pounce():
+	if stamina < 10:
+		return
 	velocity *= 1.1
 	# Single Target Melee, 10 damage on hit.
 	stamina -= 10

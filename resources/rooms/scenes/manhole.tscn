@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://di66xcusk4bdi"]
+[gd_scene format=4 uid="uid://bcqrafen4ylpl"]
 
 [ext_resource type="Script" uid="uid://db5oj88umoqqg" path="res://resources/rooms/scenes/room.gd" id="1_vrnh0"]
 [ext_resource type="TileSet" uid="uid://5bm0cxhfjd1" path="res://game/room_objects/room.tres" id="2_g364e"]

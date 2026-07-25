@@ -133,10 +133,10 @@ func execute_jutsu():
 				dash(Vector2(1, y))
 			else:
 				dash(Vector2(-1, y))
-		elif x != 0 and y != 0:
-			dash(Vector2(x/sqrt(2), y/sqrt(2)))
 		else:
-			dash(Vector2(x, y))
+			var nf = sqrt(x^2 + y^2) # Normalization Factor
+			dash(Vector2(x/nf, y/nf))
+			
 
 func dash(direction: Vector2):
 	if dash_timer - DASH_LENGTH > -DASH_COOLDOWN:

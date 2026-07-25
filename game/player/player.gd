@@ -75,6 +75,8 @@ func get_direction():
 	return -1
 
 func _physics_process(delta):
+	%InputBuffer.check_inputs()
+	
 	dash_timer -= delta
 	jutsu_timer -= delta
 	

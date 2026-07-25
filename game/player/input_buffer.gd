@@ -18,7 +18,7 @@ class ButtonInput:
 
 var input_list: Array[ButtonInput] = []
 
-func _physics_process(_delta: float) -> void:
+func check_inputs() -> void:
 	for b in input_list:
 		b.frames_since += 1
 	

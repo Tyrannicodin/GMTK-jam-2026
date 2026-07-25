@@ -8,8 +8,10 @@ extends CharacterBody2D
 
 @export var speed = 200.0
 
+@export var health = 10
+@export var reward: Reward
+
 var right := true
-var turned = false
 
 var player: Player
 
@@ -26,16 +28,12 @@ func can_move():
 	return true
 
 func _physics_process(delta):
-	turned = false
-	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
 	if not ray.is_colliding() and avoid_falls:
-		if not turned:
-			right = not right
-			turned = true
+		right = not right
 
 	for idx in get_slide_collision_count():
 		# Swap on wall collision
@@ -46,8 +44,8 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-
-func _on_barrier_collider_area_entered(area: Area2D) -> void:
-	if not turned:
-		right = not right
-		turned = true
+func damage_self(amount: int) -> void:
+	health -= amount
+	if health <= 0:
+		player.add_rewards(reward)
+		queue_free()

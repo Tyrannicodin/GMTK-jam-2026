@@ -34,6 +34,7 @@ shape = SubResource("RectangleShape2D_grq6u")
 
 [node name="BorderDoor" parent="." unique_id=573432752 instance=ExtResource("4_mjqvx")]
 position = Vector2(1851, 920)
+locked = true
 
 [connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]
 [connection signal="area_exited" from="RoomArea" to="." method="on_area_exited"]

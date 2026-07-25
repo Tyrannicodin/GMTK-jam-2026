@@ -2,6 +2,8 @@ class_name Player
 extends CharacterBody2D
 
 
+signal take_damage(amount: int)
+
 @onready var detector: Area2D = %Detector
 
 enum DIRECTIONS {UP, DOWN, FRONT, BACK}
@@ -19,6 +21,9 @@ const COYOTE_TIME = 0.1
 
 func _ready():
 	await get_tree().physics_frame
+	broadcast_player()
+
+func broadcast_player():
 	get_tree().call_group("knows_player", "set_player", self)
 	
 func add_rewards(rewards: Reward) -> void:
@@ -26,6 +31,7 @@ func add_rewards(rewards: Reward) -> void:
 
 func deal_damage(amount: int):
 	print("Ow! Took ", amount, " damage!")
+	take_damage.emit(amount)
 
 func _physics_process(delta):
 	# Add the gravity.

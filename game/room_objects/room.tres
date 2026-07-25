@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://d4nlw0aa1i7yq" path="res://assets/rooms/backgrounds/simple_atlas.png" id="1_qdqyt"]
 [ext_resource type="Texture2D" uid="uid://bl2p0sk8biuqp" path="res://assets/rooms/tiles/tiles.png" id="2_fg2lr"]
 
+[sub_resource type="TileMapPattern" id="TileMapPattern_fg2lr"]
+tile_data = PackedInt32Array(0, 393219, 8, 65536, 393219, 9, 131072, 393219, 10, 196608, 393219, 11, 1, 458755, 8, 65537, 458755, 9, 131073, 458755, 10, 196609, 458755, 11, 2, 524291, 8, 65538, 524291, 9, 131074, 524291, 10, 196610, 524291, 11, 3, 589827, 8, 65539, 589827, 9, 131075, 589827, 10, 196611, 589827, 11, 4, 655363, 8, 65540, 655363, 9, 131076, 655363, 10, 196612, 655363, 11, 5, 720899, 8, 65541, 720899, 9, 131077, 720899, 10, 196613, 720899, 11)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fg2lr"]
 texture = ExtResource("1_qdqyt")
 texture_region_size = Vector2i(32, 32)
@@ -500,3 +503,4 @@ terrain_set_0/terrain_1/name = "Dirt"
 terrain_set_0/terrain_1/color = Color(0.998357, 0.69750535, 1.540184e-06, 1)
 sources/0 = SubResource("TileSetAtlasSource_fg2lr")
 sources/3 = SubResource("TileSetAtlasSource_qqbol")
+pattern_0 = SubResource("TileMapPattern_fg2lr")

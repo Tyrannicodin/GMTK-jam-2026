@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://bnfwloa1o1cfi"]
+[gd_scene format=3 uid="uid://bnfwloa1o1cfi"]
 
 [ext_resource type="Script" uid="uid://db5oj88umoqqg" path="res://resources/rooms/scenes/room.gd" id="1_mjqvx"]
 [ext_resource type="Texture2D" uid="uid://81s1gdmedkbm" path="res://assets/rooms/parallax/header_parallax.png" id="2_16p70"]
@@ -15,14 +15,14 @@
 [ext_resource type="Texture2D" uid="uid://fcovptyfup6f" path="res://assets/rooms/parallax/bamboo_1.png" id="7_blyeq"]
 [ext_resource type="Texture2D" uid="uid://dsk3gpbyfj2ih" path="res://assets/rooms/parallax/bush_foreground.png" id="8_r8ytd"]
 
-[sub_resource type="Gradient" id="Gradient_16p70"]
+[sub_resource type="Gradient" id="Gradient_smklu"]
 interpolation_color_space = 2
 offsets = PackedFloat32Array(0, 0.5, 1)
 colors = PackedColorArray(0.05882353, 0.32156864, 0.23529412, 1, 0.078431375, 0.4627451, 0.34117648, 1, 0.05882353, 0.32156864, 0.23529412, 1)
 metadata/_snap_count = 2
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_km8ha"]
-gradient = SubResource("Gradient_16p70")
+gradient = SubResource("Gradient_smklu")
 width = 1080
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_12vg5"]

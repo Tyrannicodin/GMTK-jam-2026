@@ -84,3 +84,6 @@ shape = SubResource("RectangleShape2D_grq6u")
 [node name="InputBuffer" type="Node" parent="." unique_id=1124039005]
 unique_name_in_owner = true
 script = ExtResource("8_epvkq")
+
+[node name="Attacks" type="Node2D" parent="." unique_id=1082968012]
+unique_name_in_owner = true

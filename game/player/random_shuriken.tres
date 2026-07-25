@@ -1,0 +1,20 @@
+[gd_resource type="AnimatedTexture" format=3 uid="uid://cu5usph5rajq7"]
+
+[ext_resource type="Texture2D" uid="uid://4jcbjyk1jbvh" path="res://assets/attacks/ninja_syuriken1.png" id="1_mexhn"]
+[ext_resource type="Texture2D" uid="uid://bmhjgt5fmhqj3" path="res://assets/attacks/ninja_syuriken2.png" id="2_53rya"]
+[ext_resource type="Texture2D" uid="uid://ksaspoywas86" path="res://assets/attacks/ninja_syuriken3.png" id="3_pmor5"]
+[ext_resource type="Texture2D" uid="uid://b5cqttik5kog7" path="res://assets/attacks/ninja_syuriken4.png" id="4_w0g1h"]
+[ext_resource type="Texture2D" uid="uid://cfcxcnor3k1qa" path="res://assets/attacks/ninja_syuriken5.png" id="5_uuohl"]
+
+[resource]
+frames = 5
+pause = true
+frame_0/texture = ExtResource("1_mexhn")
+frame_1/texture = ExtResource("2_53rya")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("3_pmor5")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("4_w0g1h")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("5_uuohl")
+frame_4/duration = 1.0

@@ -23,6 +23,7 @@
 [ext_resource type="Shader" uid="uid://c6ysc441ibawa" path="res://shaders/paper_tiles.gdshader" id="11_vsp63"]
 [ext_resource type="Texture2D" uid="uid://b3h3vpdodqiso" path="res://assets/panda/irasu_paper.png" id="12_b686c"]
 [ext_resource type="Texture2D" uid="uid://3sidibg7x660" path="res://assets/rooms/parallax/top_foilage_3.png" id="12_mhvfb"]
+[ext_resource type="Script" uid="uid://c7twrwp7ih8fc" path="res://game/camera.gd" id="20_8bboj"]
 [ext_resource type="Texture2D" uid="uid://fi3iv4kuxdb0" path="res://assets/rooms/parallax/falling_leaf.png" id="23_5e03w"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ln7ps"]
@@ -441,8 +442,10 @@ unique_name_in_owner = true
 motion_mode = 0
 
 [node name="Camera" type="Camera2D" parent="." unique_id=364632602]
+unique_name_in_owner = true
 position = Vector2(960, 0)
 zoom = Vector2(0.875, 0.875)
+script = ExtResource("20_8bboj")
 
 [node name="UI Layer" type="Control" parent="Camera" unique_id=94594188]
 z_index = 150
@@ -481,9 +484,6 @@ gui_disable_input = true
 oversampling = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
-
-[node name="Timer" type="Label" parent="Camera/BigText/Countdown" unique_id=965811959]
-unique_name_in_owner = true
 
 [node name="Character1" type="Label" parent="Camera/BigText/Countdown" unique_id=2041084666]
 texture_filter = 5
@@ -580,4 +580,5 @@ scale = Vector2(2.1273532, 5.3204393)
 texture = SubResource("GradientTexture1D_km8ha")
 
 [connection signal="gain_time" from="Player" to="." method="on_gain_time"]
+[connection signal="take_damage" from="Player" to="." method="_on_player_take_damage"]
 [connection signal="take_damage" from="Player" to="." method="on_player_damage"]

@@ -13,15 +13,21 @@ var possible_rooms: Array[RoomResource] = []
 @onready var player = $Player
 @onready var roomContainer = $Rooms
 
-var time: float = 60
+var time: float = 60.0
+var time_before_taking_damage: float = 60.0
+var time_since_taking_damage: float = 0.0
+var game_paused_for_damage_frames: bool = false
+
 var countdown := false
+
+var PAUSE_FOR_S_WHEN_TAKING_DAMAGE = .2
 
 var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	print("Hello from game!")
 	load_room_resources()
-	%Timer.text = "%05.2f"%(time)
+	set_time(time, 0)
 
 	pick_room(0)
 	build_rooms()
@@ -72,9 +78,13 @@ func build_rooms() -> void:
 	
 	player.broadcast_player()
 
-func set_time(time: float):
+func set_time(time: float, delta: float):
 	var s = str(float(time)).split(".")
-	
+
+	if game_paused_for_damage_frames:
+		var t = time_before_taking_damage - (time_before_taking_damage - time) * (time_since_taking_damage / PAUSE_FOR_S_WHEN_TAKING_DAMAGE) 
+		s = str(float(t)).split(".")
+
 	if s[0].length() > 1:
 		$Camera/BigText/Countdown/Character1.text = s[0][0]
 		$Camera/BigText/Countdown/Character2.text = s[0][1]
@@ -132,7 +142,8 @@ func _process(delta: float) -> void:
 	%StaminaBar.value = %Player.stamina
 
 func _physics_process(delta: float) -> void:
-	set_time(time)
+	time_since_taking_damage += delta
+	set_time(time, delta)
 
 	if countdown:
 		time -= delta
@@ -142,7 +153,23 @@ func _physics_process(delta: float) -> void:
 		time = 0
 
 func on_player_damage(amount: int):
+	time_since_taking_damage = 0
+	time_before_taking_damage = time
 	time -= amount
+	
+	$Player.process_mode = Node.PROCESS_MODE_DISABLED
+	$Rooms.process_mode = Node.PROCESS_MODE_DISABLED
+
+	game_paused_for_damage_frames = true
+
+	await get_tree().create_timer(PAUSE_FOR_S_WHEN_TAKING_DAMAGE).timeout
+
+	game_paused_for_damage_frames = false
+
+	$Player.process_mode = Node.PROCESS_MODE_INHERIT
+	$Rooms.process_mode = Node.PROCESS_MODE_INHERIT
+
+	%Camera.apply_shake(1)
 
 func on_gain_time(amount: float) -> void:
 	time += amount

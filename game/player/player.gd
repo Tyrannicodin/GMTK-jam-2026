@@ -102,9 +102,9 @@ func deal_damage(weapon: Node2D, amount: int):
 		gain_time.emit(amount)
 		stamina += 5 * amount
 		return
-    
-  invuln_time = INVULN_TIME
-		
+	
+	invuln_time = INVULN_TIME
+
 	time_since_damage_taken = 0
 	%TextureRect.set_instance_shader_parameter("intensity", 1)
 	%TextureRect.queue_redraw()

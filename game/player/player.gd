@@ -99,7 +99,7 @@ func _process(delta: float) -> void:
 	else:
 		%TextureRect.set_instance_shader_parameter("outline_color", STAMINA_NOT_CHARGED_OUTLINE_COLOR)
 
-	if stamina > 45:
+	if stamina > 35:
 		%StaminaChargedParticles.emitting = true
 		%StaminaChargedParticlesFront.emitting = true
 	else:

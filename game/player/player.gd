@@ -21,9 +21,10 @@ var jumped_to_leave_ground = false
 
 var dash_timer = -999
 var jutsu_timer = 0
+var parry_timer = 0
+var freeze_timer = 0
 
 var stamina = 100
-
 
 const WALK_FORCE = 8000
 const WALK_MAX_SPEED = 1000
@@ -85,6 +86,11 @@ func add_rewards(rewards: Reward) -> void:
 	xp += rewards.xp
 
 func deal_damage(amount: int):
+	if parry_timer > 0:
+		print("Parried ", amount, " damage")
+		gain_time.emit(amount)
+		stamina += 5 * amount
+		return
 	print("Ow! Took ", amount, " damage!")
 	take_damage.emit(amount)
 
@@ -119,6 +125,8 @@ func _physics_process(delta):
 	
 	dash_timer -= delta
 	jutsu_timer -= delta
+	parry_timer -= delta
+	freeze_timer -= delta
 	attack_cooldown -= delta
 	
 	# Make the dash look pretty
@@ -130,7 +138,7 @@ func _physics_process(delta):
 			dashing = false
 			if velocity.y <= 0:
 				velocity /= 2
-	if not dashing:
+	if not dashing and freeze_timer <= 0:
 		velocity += get_gravity() * delta
 		if velocity.y > TERMINAL_VELOCITY:
 			velocity.y = TERMINAL_VELOCITY
@@ -169,7 +177,8 @@ func _physics_process(delta):
 	execute_jutsu()
 	
 	# Handle jump.
-	if flight_time < COYOTE_TIME and not jumped_to_leave_ground and not diving:
+	if flight_time < COYOTE_TIME and not jumped_to_leave_ground and not diving and freeze_timer <= 0:
+		# Check for Jump Dash Upgrade
 		if %InputBuffer.is_just_pressed("jump") or %InputBuffer.is_pressed("jump"):
 			velocity.y -= JUMP_SPEED
 			jumped_to_leave_ground = true
@@ -195,7 +204,7 @@ func _physics_process(delta):
 		elif attack_cooldown <= 0 and %InputBuffer.is_just_pressed("attack"):
 			attack()
 
-	if dash_timer <= 0 and not diving:
+	if dash_timer <= 0 and not diving and freeze_timer <= 0:
 		var direction = %InputBuffer.get_axis("left", "right")
 		var walk = WALK_FORCE * direction
 		# Slow down the player if they're not trying to move.
@@ -242,36 +251,19 @@ func execute_jutsu():
 	if stamina < 30:
 		return
 	
-	if attack_cooldown > 0:
-		if %InputBuffer.is_combo_just_pressed(["left", "up", "special"], "special"):
-			bird_jutsu(-1, -1)
-		elif %InputBuffer.is_combo_just_pressed(["left", "down", "special"], "special"):
-			bird_jutsu(-1, 1)
-		elif %InputBuffer.is_combo_just_pressed(["right", "up", "special"], "special"):
-			bird_jutsu(1, -1)
-		elif %InputBuffer.is_combo_just_pressed(["right", "down", "special"], "special"):
-			bird_jutsu(1, 1)
-		elif %InputBuffer.is_combo_just_pressed(["left", "special"], "special"):
-			bird_jutsu(-1, 0)
-		elif %InputBuffer.is_combo_just_pressed(["right", "special"], "special"):
-			bird_jutsu(1, 0)
-		elif %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
-			bird_jutsu(0, -1)
-		elif %InputBuffer.is_combo_just_pressed(["down", "special"], "special"):
-			bird_jutsu(0, 1)
-	
 	elif %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
 		flower_jutsu()
-    stamina -= 30
 	
 	elif %InputBuffer.is_combo_just_pressed(["down", "special"], "special"):
 		dive_jutsu()
-		stamina -= 30
-
-
+	
+	elif %InputBuffer.is_combo_just_pressed(["left", "right", "special"], "special"):
+		spin_jutsu()
+		burst_jutsu()
+	
 	elif %InputBuffer.is_combo_just_pressed(["left", "special"], "special") or %InputBuffer.is_combo_just_pressed(["right", "special"], "special"):
 		shuriken_jutsu()
-		stamina -= 30
+		bird_jutsu()
 
 	if %InputBuffer.is_combo_pressed(["dash"]):
 		stamina -= 30
@@ -315,6 +307,8 @@ func dash(direction: Vector2):
 
 func shuriken_jutsu():
 	for i in range(3):
+		if stamina < 10:
+			return
 		var s: RigidBody2D = ShurikenJutsu.instantiate()
 		s.global_position = self.global_position
 		get_parent().add_child(s)
@@ -322,11 +316,13 @@ func shuriken_jutsu():
 		s.linear_velocity.x = get_direction() * 4000
 		s.linear_velocity.y = -400
 		await get_tree().create_timer(.1).timeout
+		stamina -= 10
 		
 func flower_jutsu():
 	var f = FlowerJutsu.instantiate()
 	f.global_position = self.global_position - Vector2(0, 100)
 	get_parent().add_child(f)
+	stamina -= 30
 
 func dive_jutsu():
 	if diving:
@@ -334,30 +330,31 @@ func dive_jutsu():
 	velocity.x = 0
 	velocity.y = 5000
 	diving = true
+	stamina -= 30
 
-func bird_jutsu(x, y):
-	var nf = 1
-	if x == 0:
-		if y == 0:
-			return
-		nf = abs(y)
-	elif y == 0:
-		nf = abs(x)
-	else:
-		nf = sqrt(pow(x,2) + pow(y,2))
-	print(velocity)
-	print(Vector2(x/nf, y/nf) * 2000)
-		
-	velocity -= Vector2(x/nf, y/nf) * 2000
-	# Fire Bird Projectile in the input direction (8-directional)
+func bird_jutsu():
+	velocity.x -= %InputBuffer.get_axis("left", "right") * 2000
+	# Fire Bird Projectile in the input direction
+	stamina -= 30
+
+func spin_jutsu():
+	# Storm of Steel
+	stamina -= 30
+
+func burst_jutsu():
+	parry_timer = 0.1
+	freeze_timer = 0.1
+	# Maybe also deal damage in a small radius.
+	stamina -= 30
 
 func attack():
 	attack_cooldown = ATTACK_COOLDOWN # Basic Attack
 
 func dash_attack():
-	pass
+	pass # No extra stamina cost
 
 func pounce():
 	velocity *= 1.1
 	# Single Target Melee, 10 damage on hit.
+	stamina -= 10
 	

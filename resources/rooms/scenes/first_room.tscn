@@ -1,12 +1,21 @@
-[gd_scene format=3 uid="uid://bnfwloa1o1cfi"]
+[gd_scene format=4 uid="uid://bnfwloa1o1cfi"]
 
 [ext_resource type="Script" uid="uid://db5oj88umoqqg" path="res://resources/rooms/scenes/room.gd" id="1_mjqvx"]
+[ext_resource type="Texture2D" uid="uid://c2em72bc0dcc5" path="res://assets/rooms/parallax/ray_1.png" id="2_27pvr"]
 [ext_resource type="Shader" uid="uid://c6ysc441ibawa" path="res://shaders/paper_tiles.gdshader" id="2_mjqvx"]
+[ext_resource type="Texture2D" uid="uid://dyidcuvtcp3ks" path="res://assets/rooms/parallax/ray_2.png" id="3_27pvr"]
 [ext_resource type="Texture2D" uid="uid://b3h3vpdodqiso" path="res://assets/panda/irasu_paper.png" id="3_l3e3y"]
+[ext_resource type="Texture2D" uid="uid://dl7uo8mx06ir2" path="res://assets/rooms/parallax/bamboo_4.png" id="3_ta4ph"]
 [ext_resource type="TileSet" uid="uid://5bm0cxhfjd1" path="res://game/room_objects/room.tres" id="4_l3e3y"]
 [ext_resource type="PackedScene" uid="uid://bmmuknymvntxs" path="res://game/room_objects/border_door/border_door.tscn" id="4_mjqvx"]
+[ext_resource type="Texture2D" uid="uid://b5sphhgosysjc" path="res://assets/rooms/parallax/bamboo_5.png" id="5_1k8tw"]
 [ext_resource type="Texture2D" uid="uid://dh72q7418qyl0" path="res://assets/rooms/objects/building_doujou.png" id="6_16p70"]
+[ext_resource type="Texture2D" uid="uid://btkp501u4chmw" path="res://assets/rooms/parallax/bush.png" id="6_yf7oq"]
 [ext_resource type="FontFile" uid="uid://denhgdpgfquxd" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="7_blyeq"]
+[ext_resource type="Texture2D" uid="uid://fcovptyfup6f" path="res://assets/rooms/parallax/bamboo_1.png" id="7_r8ytd"]
+[ext_resource type="Texture2D" uid="uid://b1ri6xxbfdwsu" path="res://assets/rooms/parallax/bamboo_2.png" id="8_smklu"]
+[ext_resource type="Texture2D" uid="uid://cgs18tp1docwg" path="res://assets/rooms/parallax/bamboo_3.png" id="9_mjpbl"]
+[ext_resource type="Texture2D" uid="uid://dsk3gpbyfj2ih" path="res://assets/rooms/parallax/bush_foreground.png" id="10_2gob5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_12vg5"]
 shader = ExtResource("2_mjqvx")
@@ -28,7 +37,6 @@ offset_right = 1088.0267
 offset_bottom = 2743.4434
 rotation = -1.5707964
 scale = Vector2(1, 1.1599997)
-texture = SubResource("GradientTexture1D_km8ha")
 
 [node name="BambooParallax6" type="Parallax2D" parent="." unique_id=780382247]
 visible = false
@@ -45,7 +53,7 @@ offset_right = 179.0
 offset_bottom = 1026.0
 rotation = -0.011017799
 scale = Vector2(0.9201523, 0.9201523)
-texture = ExtResource("4_yf7oq")
+texture = ExtResource("2_27pvr")
 metadata/_edit_use_anchors_ = true
 
 [node name="BambooParallax7" type="Parallax2D" parent="." unique_id=1717554451]
@@ -63,7 +71,7 @@ offset_right = 238.87508
 offset_bottom = 1407.75
 rotation = -0.06752674
 scale = Vector2(0.9201523, 0.9201523)
-texture = ExtResource("4_yf7oq")
+texture = ExtResource("3_27pvr")
 metadata/_edit_use_anchors_ = true
 
 [node name="BambooParallax4" type="Parallax2D" parent="." unique_id=1735988165]
@@ -80,7 +88,7 @@ offset_right = 179.0
 offset_bottom = 1026.0
 rotation = 0.10570823
 scale = Vector2(0.9162259, 0.9162259)
-texture = ExtResource("5_27pvr")
+texture = ExtResource("3_ta4ph")
 metadata/_edit_use_anchors_ = true
 
 [node name="BambooParallax5" type="Parallax2D" parent="." unique_id=1738172832]
@@ -97,7 +105,7 @@ offset_right = 179.0
 offset_bottom = 1026.0
 rotation = -0.061760083
 scale = Vector2(0.9201523, 0.9201523)
-texture = ExtResource("3_1k8tw")
+texture = ExtResource("5_1k8tw")
 metadata/_edit_use_anchors_ = true
 
 [node name="BushParallax" type="Parallax2D" parent="." unique_id=1460312633]
@@ -112,7 +120,7 @@ offset_left = -34.0
 offset_top = 768.0
 offset_right = 190.75
 offset_bottom = 968.0
-texture = ExtResource("5_smklu")
+texture = ExtResource("6_yf7oq")
 
 [node name="BambooParallax" type="Parallax2D" parent="." unique_id=439598121]
 visible = false
@@ -126,7 +134,7 @@ offset_top = 37.0
 offset_right = 341.0
 offset_bottom = 1037.0
 rotation = 0.045433458
-texture = ExtResource("7_blyeq")
+texture = ExtResource("7_r8ytd")
 metadata/_edit_use_anchors_ = true
 
 [node name="BambooParallax2" type="Parallax2D" parent="." unique_id=1642684109]
@@ -142,7 +150,7 @@ offset_top = 37.0
 offset_right = 341.0
 offset_bottom = 1037.0
 rotation = -0.07775001
-texture = ExtResource("3_g1qnk")
+texture = ExtResource("8_smklu")
 metadata/_edit_use_anchors_ = true
 
 [node name="BambooParallax3" type="Parallax2D" parent="." unique_id=789410183]
@@ -157,7 +165,7 @@ offset_top = 47.0
 offset_right = 177.0
 offset_bottom = 1047.0
 rotation = -0.092010245
-texture = ExtResource("4_ta4ph")
+texture = ExtResource("9_mjpbl")
 metadata/_edit_use_anchors_ = true
 
 [node name="BushForegroundParallax2" type="Parallax2D" parent="." unique_id=2033699732]
@@ -172,7 +180,7 @@ offset_left = 6.0
 offset_top = 973.0
 offset_right = 243.0
 offset_bottom = 1185.0
-texture = ExtResource("8_r8ytd")
+texture = ExtResource("10_2gob5")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=59463566]
 material = SubResource("ShaderMaterial_12vg5")

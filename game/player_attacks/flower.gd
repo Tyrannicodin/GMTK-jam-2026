@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-@export var damage = 3
+@export var damage = 12
 
 func _ready() -> void:
 	add_to_group("attack")

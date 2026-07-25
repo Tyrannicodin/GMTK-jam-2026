@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://neit1dqat850"]
 
+[ext_resource type="Script" uid="uid://dtyepqim3b1em" path="res://game/player_attacks/flower.gd" id="1_aeddv"]
 [ext_resource type="Texture2D" uid="uid://7efth3bkbdqh" path="res://assets/attacks/himawari.png" id="1_m7jse"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0xfd7"]
@@ -7,6 +8,7 @@ radius = 87.005745
 
 [node name="Flower" type="RigidBody2D" unique_id=1069549266]
 collision_layer = 4
+script = ExtResource("1_aeddv")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=773006969]
 texture = ExtResource("1_m7jse")
@@ -14,3 +16,8 @@ texture = ExtResource("1_m7jse")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=718669560]
 position = Vector2(-2, -70)
 shape = SubResource("CircleShape2D_0xfd7")
+
+[node name="Timer" type="Timer" parent="." unique_id=361677401]
+wait_time = 5.0
+one_shot = true
+autostart = true

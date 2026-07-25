@@ -3,8 +3,15 @@
 [ext_resource type="PackedScene" uid="uid://bfierd6nwqsba" path="res://game/enemy/basic/basic.tscn" id="1_x2sy8"]
 [ext_resource type="Script" uid="uid://cxmrvi0aj1jt5" path="res://game/enemy/sniper/sniper.gd" id="2_dl67t"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(128, 128)
+
 [node name="Sniper" unique_id=592317870 groups=["knows_player"] instance=ExtResource("1_x2sy8")]
+collision_layer = 2
+collision_mask = 1
 script = ExtResource("2_dl67t")
+health = 5
+reward = null
 
 [node name="RayCast2D" parent="." index="1" unique_id=932088438]
 collision_mask = 3
@@ -22,3 +29,12 @@ modulate = Color(1, 1, 1, 0)
 points = PackedVector2Array(0, 0, 319, 245)
 width = 3.0
 default_color = Color(1, 0, 0, 1)
+
+[node name="Barrier Collider" type="Area2D" parent="." index="6" unique_id=1791886396]
+collision_layer = 32768
+collision_mask = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier Collider" index="0" unique_id=458343490]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[connection signal="area_entered" from="Barrier Collider" to="." method="_on_barrier_collider_area_entered"]

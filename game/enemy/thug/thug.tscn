@@ -14,8 +14,15 @@ size = Vector2(220, 200)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
 size = Vector2(128, 20)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(128, 128)
+
 [node name="Thug" unique_id=592317870 groups=["knows_player"] instance=ExtResource("1_0wqbc")]
+collision_layer = 2
+collision_mask = 1
 script = ExtResource("2_jlg15")
+damage = 2
+reward = null
 
 [node name="AttackLeft" parent="." index="3" unique_id=1718289444]
 visible = true
@@ -63,5 +70,13 @@ shape = SubResource("RectangleShape2D_grq6u")
 position = Vector2(0, -6)
 texture = ExtResource("3_2e2gb")
 
+[node name="Barrier Collider" type="Area2D" parent="." index="6" unique_id=1791886396]
+collision_layer = 32768
+collision_mask = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier Collider" index="0" unique_id=458343490]
+shape = SubResource("RectangleShape2D_g4v7s")
+
 [connection signal="body_entered" from="Weapon/LeftWing/Area2D" to="Weapon" method="body_collision"]
 [connection signal="body_entered" from="Weapon/RightWing/Area2D" to="Weapon" method="body_collision"]
+[connection signal="area_entered" from="Barrier Collider" to="." method="_on_barrier_collider_area_entered"]

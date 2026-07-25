@@ -196,7 +196,6 @@ colors = PackedColorArray(0.039215688, 0.18039216, 0.08235294, 1, 0.039215688, 0
 gradient = SubResource("Gradient_mhvfb")
 
 [node name="Game" type="Node2D" unique_id=1516163044]
-position = Vector2(1, 0)
 script = ExtResource("1_l1rk1")
 
 [node name="BackgroundParallax" type="Parallax2D" parent="." unique_id=19606761]
@@ -438,11 +437,32 @@ offset_bottom = 1185.0
 texture = ExtResource("10_ln7ps")
 
 [node name="Player" parent="." unique_id=1018705283 instance=ExtResource("2_vasa2")]
+unique_name_in_owner = true
 motion_mode = 0
 
 [node name="Camera" type="Camera2D" parent="." unique_id=364632602]
 position = Vector2(960, 0)
 zoom = Vector2(0.875, 0.875)
+
+[node name="UI Layer" type="Control" parent="Camera" unique_id=94594188]
+z_index = 150
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -960.0
+offset_top = -560.0
+offset_right = 960.0
+offset_bottom = 520.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StaminaBar" type="ProgressBar" parent="Camera/UI Layer" unique_id=1487046457]
+unique_name_in_owner = true
+layout_mode = 1
+offset_right = 591.0
+offset_bottom = 68.0
+value = 100.0
 
 [node name="BigText" type="SubViewportContainer" parent="Camera" unique_id=336338847]
 material = SubResource("ShaderMaterial_qf6n1")

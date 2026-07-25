@@ -93,7 +93,6 @@ func object_entered_room(object: Area2D, cameraTarget: Node2D, index: int):
 		countdown = false
 		pick_room(len(rooms) - 1)
 		var time_tween = get_tree().create_tween()
-		%Timer.happy(11.5)
 		var reward = Reward.new()
 		reward.xp = time / 10.0
 		time_tween.tween_property(self, "time", 0, 1.5).set_delay(5)
@@ -129,6 +128,9 @@ func object_left_room(object: Area2D, room: Node2D, index: int):
 
 	#room.lock()
 
+func _process(delta: float) -> void:
+	%StaminaBar.value = %Player.stamina
+
 func _physics_process(delta: float) -> void:
 	set_time(time)
 
@@ -140,9 +142,7 @@ func _physics_process(delta: float) -> void:
 		time = 0
 
 func on_player_damage(amount: int):
-	%Timer.sad(0.1)
 	time -= amount
 
 func on_gain_time(amount: float) -> void:
-	%Timer.happy(0.1)
 	time += amount

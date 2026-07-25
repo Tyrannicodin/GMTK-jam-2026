@@ -8,8 +8,16 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
 size = Vector2(6, 165)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(128, 128)
+
 [node name="Soldier" unique_id=592317870 groups=["knows_player"] instance=ExtResource("1_d1qh4")]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("2_l7w4l")
+damage = 3
+health = 7
+reward = null
 
 [node name="Weapon" type="Node2D" parent="." index="5" unique_id=395621868 groups=["knows_player"]]
 script = ExtResource("3_26ba4")
@@ -26,4 +34,12 @@ collision_mask = 2
 position = Vector2(0, 45.5)
 shape = SubResource("RectangleShape2D_grq6u")
 
+[node name="Barrier Collider" type="Area2D" parent="." index="6" unique_id=1791886396]
+collision_layer = 32768
+collision_mask = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier Collider" index="0" unique_id=458343490]
+shape = SubResource("RectangleShape2D_g4v7s")
+
 [connection signal="body_entered" from="Weapon/Area2D" to="Weapon" method="body_collision"]
+[connection signal="area_entered" from="Barrier Collider" to="." method="_on_barrier_collider_area_entered"]

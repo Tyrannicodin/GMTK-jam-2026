@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b6mtr0l0iv3mi" path="res://game/room_objects/ai_barrier/barrier.tscn" id="5_f6w3i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vc104"]
-size = Vector2(1792, 960)
+size = Vector2(1856, 960)
 
 [node name="Manhole" type="Node2D" unique_id=1549269063]
 script = ExtResource("1_vrnh0")
@@ -26,7 +26,6 @@ position = Vector2(1920, 832)
 position = Vector2(960, 544)
 
 [node name="RoomArea" type="Area2D" parent="." unique_id=994280016]
-visible = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomArea" unique_id=317257611]

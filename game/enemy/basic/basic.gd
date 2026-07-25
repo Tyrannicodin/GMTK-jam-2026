@@ -1,17 +1,13 @@
-extends CharacterBody2D
+extends BaseEnemy
 
-
-@onready var ray: RayCast2D = $RayCast2D
-
-@export var damage: int = 1
 @export var avoid_falls: bool = true
-
-@export var speed = 200.0
+@onready var ray: RayCast2D = $RayCast2D
+@export var speed = 200
 
 var right := true
-var turned = false
 
-var player: Player
+func _ready() -> void:
+	add_to_group("damage_self")
 
 func set_player(object: Player):
 	player = object
@@ -26,16 +22,12 @@ func can_move():
 	return true
 
 func _physics_process(delta):
-	turned = false
-	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
 	if not ray.is_colliding() and avoid_falls:
-		if not turned:
-			right = not right
-			turned = true
+		right = not right
 
 	for idx in get_slide_collision_count():
 		# Swap on wall collision
@@ -46,8 +38,13 @@ func _physics_process(delta):
 
 	move_and_slide()
 
+func damage_self(amount: int) -> void:
+	health -= amount
+	flash_time = .1
 
-func _on_barrier_collider_area_entered(area: Area2D) -> void:
-	if not turned:
-		right = not right
-		turned = true
+	if health <= 0:
+		player.add_rewards(reward)
+		is_dead = true
+		%Sprite.set_instance_shader_parameter("intensity", 1.0)
+		
+		collision_layer = 100

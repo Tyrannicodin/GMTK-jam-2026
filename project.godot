@@ -38,6 +38,7 @@ window/stretch/mode="canvas_items"
 statistic=""
 border_doors="Doors that lock once their room is exited"
 knows_player="Player is passed to the set_player on ready"
+attack=""
 
 [gui]
 
@@ -100,7 +101,7 @@ dash={
 
 [physics]
 
-2d/default_gravity=3654.447
+2d/default_gravity=5980.0
 common/physics_interpolation=true
 
 [rendering]

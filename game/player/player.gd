@@ -96,15 +96,18 @@ func _physics_process(delta):
 		var walk = WALK_FORCE * direction
 		# Slow down the player if they're not trying to move.
 		if abs(walk) < WALK_FORCE * 0.2:
-			# The velocity, slowed down a bit, and then reassigned.
-			if is_on_floor():
-				velocity.x = move_toward(velocity.x, 0, STOP_FORCE * delta)
-			else:
-				velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)
+			friction(delta)
 		else:
-			velocity.x += walk * delta
-		# Clamp to the maximum horizontal movement speed.
-		velocity.x = clamp(velocity.x, -WALK_MAX_SPEED, WALK_MAX_SPEED)
+			var INITIAL_SPEED = velocity.x
+			if abs(velocity.x) < WALK_MAX_SPEED:
+				velocity.x += walk * delta
+			elif sign(velocity.x) != sign(walk):
+				velocity.x += walk * delta
+				friction(delta)
+			else:
+				friction(delta)
+				if abs(velocity.x) < WALK_MAX_SPEED and abs(INITIAL_SPEED) > WALK_MAX_SPEED:
+					velocity.x = WALK_MAX_SPEED * sign(velocity.x)
 
 		if (is_on_floor()):
 			if direction:
@@ -116,6 +119,13 @@ func _physics_process(delta):
 
 	move_and_slide()
 	execute_jutsu()
+
+func friction(delta):
+	# The velocity, slowed down a bit, and then reassigned.
+	if is_on_floor():
+		velocity.x = move_toward(velocity.x, 0, STOP_FORCE * delta)
+	else:
+		velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)
 
 func execute_jutsu():
 	if %InputBuffer.is_combo_pressed(["up", "special"]):
@@ -134,7 +144,7 @@ func execute_jutsu():
 			else:
 				dash(Vector2(-1, y))
 		else:
-			var nf = sqrt(x^2 + y^2) # Normalization Factor
+			var nf = sqrt(pow(x,2) + pow(y,2)) # Normalization Factor
 			dash(Vector2(x/nf, y/nf))
 			
 
@@ -145,8 +155,7 @@ func dash(direction: Vector2):
 		return
 	dashed_since_left_ground = true
 
-	velocity = Vector2(DASH_SPEED, 0)
-	velocity = velocity.rotated(direction.angle())
+	velocity = direction * DASH_SPEED
 	
 	dash_timer = DASH_LENGTH
 

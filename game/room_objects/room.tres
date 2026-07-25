@@ -1,6 +1,7 @@
 [gd_resource type="TileSet" format=3 uid="uid://5bm0cxhfjd1"]
 
 [ext_resource type="Texture2D" uid="uid://d4nlw0aa1i7yq" path="res://assets/rooms/backgrounds/simple_atlas.png" id="1_qdqyt"]
+[ext_resource type="Texture2D" uid="uid://bl2p0sk8biuqp" path="res://assets/rooms/tiles/tiles.png" id="2_fg2lr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fg2lr"]
 texture = ExtResource("1_qdqyt")
@@ -15,6 +16,7 @@ texture_region_size = Vector2i(32, 32)
 3:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qqbol"]
+texture = ExtResource("2_fg2lr")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/terrain_set = 0

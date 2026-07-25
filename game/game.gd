@@ -12,10 +12,22 @@ var rooms = [
 var time: float = 60
 var countdown := false
 
+func set_time(time: float):
+	var s = str(float(time)).split(".")
+	
+	if s[0].length() > 1:
+		$Camera/BigText/Countdown/Character1.text = s[0][0]
+		$Camera/BigText/Countdown/Character2.text = s[0][1]
+	else:
+		$Camera/BigText/Countdown/Character2.text = s[0][0]
+	
+	$Camera/BigText/Countdown/Character3.text = s[1][0]
+
+
 func _ready() -> void:
 	print("Hello from game!")
 	load_rooms()
-	$Camera/BigText/Countdown/Label.text = "%05.2f"%(time)
+	set_time(time)
 
 func load_rooms() -> void:
 	var initial_pos: Vector2 = Vector2.ZERO
@@ -70,7 +82,7 @@ func object_left_room(object: Area2D, room: Node2D):
 	#room.lock()
 
 func _physics_process(delta: float) -> void:
-	$Camera/BigText/Countdown/Label.text = "%05.2f" % (time)
+	set_time(time)
 
 	if countdown:
 		time -= delta

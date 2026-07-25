@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cnf5udhk03rug" path="res://game/game.gd" id="1_l1rk1"]
 [ext_resource type="Texture2D" uid="uid://c2em72bc0dcc5" path="res://assets/rooms/parallax/ray_1.png" id="2_4cobl"]
 [ext_resource type="PackedScene" uid="uid://croela4nh3klu" path="res://game/player/player.tscn" id="2_vasa2"]
-[ext_resource type="Script" uid="uid://doji2ey67k72g" path="res://game/label.gd" id="3_h7iqs"]
 [ext_resource type="Texture2D" uid="uid://0tt8uofjyae" path="res://assets/rooms/parallax/bamboo_6.png" id="3_3vho3"]
+[ext_resource type="Script" uid="uid://doji2ey67k72g" path="res://game/label.gd" id="3_h7iqs"]
 [ext_resource type="Texture2D" uid="uid://dyidcuvtcp3ks" path="res://assets/rooms/parallax/ray_2.png" id="3_ln7ps"]
 [ext_resource type="Shader" uid="uid://bd63mwplmfk6j" path="res://shaders/opacity.gdshader" id="4_pxxsx"]
 [ext_resource type="Texture2D" uid="uid://dl7uo8mx06ir2" path="res://assets/rooms/parallax/bamboo_4.png" id="4_qf6n1"]
@@ -464,7 +464,8 @@ render_target_update_mode = 4
 
 [node name="Timer" type="Label" parent="Camera/BigText/Countdown" unique_id=965811959]
 unique_name_in_owner = true
-[node name="Character1" type="Label" parent="Camera/BigText/Countdown" unique_id=965811959]
+
+[node name="Character1" type="Label" parent="Camera/BigText/Countdown" unique_id=2041084666]
 texture_filter = 5
 anchors_preset = 15
 anchor_right = 1.0
@@ -516,11 +517,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("3_h7iqs")
 
-[node name="Rooms" type="Node2D" parent="." unique_id=839615292]
-
-[connection signal="gain_time" from="Player" to="." method="on_gain_time"]
-[connection signal="take_damage" from="Player" to="." method="on_player_damage"]
-
 [node name="Dot" type="Label" parent="Camera/BigText/Countdown" unique_id=1409283555]
 texture_filter = 5
 anchors_preset = 15
@@ -537,6 +533,8 @@ text = "."
 label_settings = SubResource("LabelSettings_grq6u")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Rooms" type="Node2D" parent="." unique_id=839615292]
 
 [node name="LeafParallax" type="Parallax2D" parent="." unique_id=658316919]
 z_index = 100
@@ -560,3 +558,6 @@ offset_right = 411.0
 offset_bottom = -173.0
 scale = Vector2(2.1273532, 5.3204393)
 texture = SubResource("GradientTexture1D_km8ha")
+
+[connection signal="gain_time" from="Player" to="." method="on_gain_time"]
+[connection signal="take_damage" from="Player" to="." method="on_player_damage"]

@@ -3,22 +3,17 @@
 [ext_resource type="Script" uid="uid://ds3uqsfjil7ni" path="res://game/player/player.gd" id="1_b2mth"]
 [ext_resource type="Shader" uid="uid://cjjnh2ialuyiw" path="res://game/player/player_outline.gdshader" id="2_4ste8"]
 [ext_resource type="Texture2D" uid="uid://cyqmj6b6g13ye" path="res://assets/panda/panda1.png" id="2_a4w0n"]
+[ext_resource type="Shader" uid="uid://c6ysc441ibawa" path="res://shaders/paper_tiles.gdshader" id="2_epvkq"]
 [ext_resource type="Texture2D" uid="uid://dq8wyupg4d1ah" path="res://assets/panda/panda2.png" id="3_5fytw"]
+[ext_resource type="Texture2D" uid="uid://b3h3vpdodqiso" path="res://assets/panda/irasu_paper.png" id="3_anr75"]
 [ext_resource type="Texture2D" uid="uid://d1sj3k2ln8qjj" path="res://assets/panda/panda3.png" id="4_5fytw"]
-[ext_resource type="Texture2D" uid="uid://ceekoaqdon7j2" path="res://assets/panda/4.png" id="4_a4w0n"]
 [ext_resource type="Script" uid="uid://dx4xnqkbaeiyo" path="res://game/player/input_buffer.gd" id="8_epvkq"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ste8"]
-shader = ExtResource("2_4ste8")
-shader_parameter/border_color = Color(0.19, 0.14531833, 0.032300003, 1)
-shader_parameter/radius = 2.0
-shader_parameter/samples = 15
-shader_parameter/paper_texture = ExtResource("3_anr75")
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_km8ha"]
-viewport_path = NodePath("SubViewport")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anr75"]
+shader = ExtResource("2_epvkq")
+shader_parameter/tex = ExtResource("3_anr75")
+shader_parameter/scale = 3.0
+shader_parameter/speed = 2.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_km8ha"]
 animations = [{
@@ -50,9 +45,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("2_a4w0n")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_4ste8")
 }],
 "loop": 1,
 "name": &"walk",
@@ -87,8 +79,8 @@ scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_km8ha")
 animation = &"walk"
 autoplay = "idle"
-frame = 3
-frame_progress = 0.4070328
+frame = 1
+frame_progress = 0.09936812
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=5305132]
 position = Vector2(1, 11)
@@ -102,14 +94,13 @@ position = Vector2(-3, 1)
 position = Vector2(4, 10)
 shape = SubResource("RectangleShape2D_grq6u")
 
-<<<<<<< HEAD
 [node name="InputBuffer" type="Node" parent="." unique_id=1124039005]
 unique_name_in_owner = true
 script = ExtResource("8_epvkq")
 
 [node name="Attacks" type="Node2D" parent="." unique_id=1082968012]
 unique_name_in_owner = true
-=======
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=858388780]
 material = SubResource("ShaderMaterial_5fytw")
 offset_left = -51.0
@@ -117,4 +108,3 @@ offset_top = -51.0
 offset_right = 461.0
 offset_bottom = 461.0
 texture = SubResource("ViewportTexture_anr75")
->>>>>>> tweak to player sprite

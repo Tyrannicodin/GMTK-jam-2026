@@ -23,13 +23,13 @@ var dash_timer = -999
 var jutsu_timer = 0
 
 
+const WALK_FORCE = 8000
 const WALK_MAX_SPEED = 1000
-const AIR_STOP_FORCE = 4000
+const STOP_FORCE = 8000
+const AIR_STOP_FORCE = 2000
 const JUMP_SPEED = 1800
 const COYOTE_TIME = 0.15
 const TERMINAL_VELOCITY = 5000
-
-const LANDING_INPUT_DELAY = .05
 
 const DASH_LENGTH = .16
 const DASH_SPEED = 2500
@@ -133,8 +133,8 @@ func _physics_process(delta):
 	
 	# Handle jump.
 	if flight_time < COYOTE_TIME and not jumped_to_leave_ground and not diving:
-		if %InputBuffer.is_just_pressed("jump") or (%InputBuffer.is_pressed("jump") and time_on_ground > LANDING_INPUT_DELAY):
-			velocity.y = -JUMP_SPEED
+		if %InputBuffer.is_just_pressed("jump") or %InputBuffer.is_pressed("jump"):
+			velocity.y -= JUMP_SPEED
 			jumped_to_leave_ground = true
 			if dash_count < 1:
 				dash_count += 1
@@ -156,14 +156,22 @@ func _physics_process(delta):
 
 	if dash_timer <= 0 and not diving:
 		var direction = %InputBuffer.get_axis("left", "right")
-		var walk = WALK_MAX_SPEED * direction
-
-		friction(delta)
-
-		if direction != 0:
-			velocity.x = walk
-			
-
+		var walk = WALK_FORCE * direction
+		# Slow down the player if they're not trying to move.
+		if abs(walk) < WALK_FORCE * 0.2:
+			friction(delta)
+		else:
+			var INITIAL_SPEED = velocity.x
+			if abs(velocity.x) < WALK_MAX_SPEED:
+				velocity.x += walk * delta
+			elif sign(velocity.x) != sign(walk):
+				velocity.x += walk * delta
+				friction(delta)
+			else:
+				friction(delta)
+				if abs(velocity.x) < WALK_MAX_SPEED and abs(INITIAL_SPEED) > WALK_MAX_SPEED:
+					velocity.x = WALK_MAX_SPEED * sign(velocity.x)
+		
 		if (is_on_floor()):
 			if dash_count == 0:
 				dash_count = 1
@@ -179,8 +187,7 @@ func _physics_process(delta):
 func friction(delta):
 	# The velocity, slowed down a bit, and then reassigned.
 	if is_on_floor():
-		# 100% friction on ground
-		velocity.x = 0
+		velocity.x = move_toward(velocity.x, 0, STOP_FORCE * delta)
 	else:
 		# air has less friction
 		velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)

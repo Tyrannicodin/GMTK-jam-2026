@@ -41,6 +41,26 @@ func _ready():
 		add_child(bus_slider)
 		move_child(bus_slider, 0)
 		move_child(bus_label, 0)
+	
+	var action_label: Label
+	var action_button: KeybindButton
+	for action in InputMap.get_actions():
+		if action.begins_with("ui_"):
+			continue
+		
+		action_label = Label.new()
+		action_label.text = action
+		action_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		action_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+
+		action_button = KeybindButton.new()
+		action_button.disabled = action == "pause"
+		action_button.action = action
+		action_button.text = ", ".join(InputMap.action_get_events(action).map(func(act: InputEvent): return act.as_text()))
+		action_button.set_action.connect(func(event): ConfigManager.set_keybind(action, event))
+
+		add_child(action_label)
+		add_child(action_button)
 
 func update_audio_volume(bus: String, volume: float) -> void:
 	var bus_index = AudioServer.get_bus_index(bus)
@@ -49,3 +69,9 @@ func update_audio_volume(bus: String, volume: float) -> void:
 
 func show_tutorial_changed(value: bool) -> void:
 	ConfigManager.set_value("show_tutorial", value)
+
+func reset_keybidns() -> void:
+	ConfigManager.reset_keybinds()
+	for child in get_children():
+		if child.has_method("default_text"):
+			child.call("default_text")

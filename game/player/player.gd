@@ -253,9 +253,13 @@ func execute_jutsu():
 	
 	elif %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
 		flower_jutsu()
+		scug_jutsu()
 	
 	elif %InputBuffer.is_combo_just_pressed(["down", "special"], "special"):
-		dive_jutsu()
+		if is_on_floor():
+			missiles_jutsu()
+		else:
+			dive_jutsu()
 	
 	elif %InputBuffer.is_combo_just_pressed(["left", "right", "special"], "special"):
 		spin_jutsu()
@@ -334,7 +338,7 @@ func dive_jutsu():
 
 func bird_jutsu():
 	velocity.x -= %InputBuffer.get_axis("left", "right") * 2000
-	# Fire Bird Projectile in the input direction
+	# Shoot out a bird,
 	stamina -= 30
 
 func spin_jutsu():
@@ -345,6 +349,15 @@ func burst_jutsu():
 	parry_timer = 0.1
 	freeze_timer = 0.1
 	# Maybe also deal damage in a small radius.
+	stamina -= 30
+
+func missiles_jutsu():
+	for i in range(5):
+		pass # Summon Homing (Magic) Missiles in an overhead arc.
+	stamina -= 30
+
+func scug_jutsu():
+	# Throw like a piece of rebar(spear) straight up. Was going to be a backflip(rev. super) combo move.
 	stamina -= 30
 
 func attack():

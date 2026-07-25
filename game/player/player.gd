@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 
 signal take_damage(amount: int)
+signal gain_time(amount: int)
 
 @onready var detector: Area2D = %Detector
 
@@ -33,6 +34,22 @@ var jutsu_timer = 0
 @export var DASH_SPEED = 800
 @export var DASH_COOLDOWN = .25
 @export var JUTSU_COOLDOWN = .05
+var dash_count = 1
+var dashing = false
+
+## How much does more xp do you need per level
+@export var level_up_constant := 1.20
+
+var level = 0
+var threshold = 10
+var xp = 0 :
+	set(value):
+		if xp + value >= threshold:
+			level += 1
+			threshold *= level_up_constant
+			xp = xp + value - threshold
+		else:
+			xp += value
 
 func _ready():
 	await get_tree().physics_frame
@@ -42,7 +59,9 @@ func broadcast_player():
 	get_tree().call_group("knows_player", "set_player", self)
 	
 func add_rewards(rewards: Reward) -> void:
-	print("Gained rewards ", rewards.time, "s ", rewards.xp)
+	print("Got rewards: %fs, %sxp" % [rewards.time, rewards.xp])
+	gain_time.emit(rewards.time)
+	xp += rewards.xp
 
 func deal_damage(amount: int):
 	print("Ow! Took ", amount, " damage!")
@@ -59,20 +78,21 @@ func _physics_process(delta):
 
 	# Add the gravity.
 	if dash_timer <= 0:
-		if velocity.y < 0:
-			# The ascent should be slower than the fall
-			velocity += get_gravity() * delta * .8
-		else:
-			velocity += get_gravity() * delta
+		if dashing:
+			dashing = false
+			if velocity.y <= 0:
+				velocity /= 2
+	if not dashing:
+		velocity += get_gravity() * delta
 		if velocity.y > TERMINAL_VELOCITY:
 			velocity.y = TERMINAL_VELOCITY
 
 	if velocity.x > 0:
 		facing_direction = "right"
-		$AnimatedSprite2D.flip_h = true
+		%AnimatedSprite2D.flip_h = true
 	if velocity.x < 0:
 		facing_direction = "left"
-		$AnimatedSprite2D.flip_h = false
+		%AnimatedSprite2D.flip_h = false
 
 	if is_on_floor():
 		flight_time = 0
@@ -97,31 +117,49 @@ func _physics_process(delta):
 		if %InputBuffer.is_pressed("jump"):
 			velocity.y -= JUMP_SPEED
 			jumped_to_leave_ground = true
+			if not dashing:
+				velocity.x += 800 * sign(Input.get_axis("left", "right"))
+			if -velocity.y <= abs(velocity.x):
+				dashing = false
+			elif dashing:
+				velocity.y += JUMP_SPEED/2
 
 	if dash_timer <= 0:
 		var direction = %InputBuffer.get_axis("left", "right")
 		var walk = WALK_FORCE * direction
 		# Slow down the player if they're not trying to move.
 		if abs(walk) < WALK_FORCE * 0.2:
-			# The velocity, slowed down a bit, and then reassigned.
-			if is_on_floor():
-				velocity.x = move_toward(velocity.x, 0, STOP_FORCE * delta)
-			else:
-				velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)
+			friction(delta)
 		else:
-			velocity.x += walk * delta
-		# Clamp to the maximum horizontal movement speed.
-		velocity.x = clamp(velocity.x, -WALK_MAX_SPEED, WALK_MAX_SPEED)
+			var INITIAL_SPEED = velocity.x
+			if abs(velocity.x) < WALK_MAX_SPEED:
+				velocity.x += walk * delta
+			elif sign(velocity.x) != sign(walk):
+				velocity.x += walk * delta
+				friction(delta)
+			else:
+				friction(delta)
+				if abs(velocity.x) < WALK_MAX_SPEED and abs(INITIAL_SPEED) > WALK_MAX_SPEED:
+					velocity.x = WALK_MAX_SPEED * sign(velocity.x)
 
 		if (is_on_floor()):
+			if dash_count == 0:
+				dash_count = 1
 			if direction:
-				$AnimatedSprite2D.play("walk")
+				%AnimatedSprite2D.play("walk")
 			else:
-				$AnimatedSprite2D.play("idle")
+				%AnimatedSprite2D.play("idle")
 		else:
-			$AnimatedSprite2D.play("jump")
+			%AnimatedSprite2D.play("jump")
 
 	move_and_slide()
+
+func friction(delta):
+	# The velocity, slowed down a bit, and then reassigned.
+	if is_on_floor():
+		velocity.x = move_toward(velocity.x, 0, STOP_FORCE * delta)
+	else:
+		velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)
 
 func execute_jutsu():
 	if jutsu_timer > 0:
@@ -145,24 +183,29 @@ func execute_jutsu():
 			else:
 				dash(Vector2(-1, y))
 		else:
-			dash(Vector2(x, y))
+			var nf = sqrt(pow(x,2) + pow(y,2)) # Normalization Factor
+			dash(Vector2(x/nf, y/nf))
+			
 
 func dash(direction: Vector2):
+	if dash_count < 1:
+		return
 	if dash_timer - DASH_LENGTH > -DASH_COOLDOWN:
 		return
 	if dashed_since_left_ground:
 		return
 	dashed_since_left_ground = true
-
-	velocity = Vector2(DASH_SPEED, 0)
-	velocity = velocity.rotated(direction.angle())
 		
 	if abs(velocity.x) < 1:
 		velocity.x = 0
 	if abs(velocity.y) < 1:
 		velocity.y = 0
 
+	velocity = direction * DASH_SPEED
+	
 	dash_timer = DASH_LENGTH
+	dash_count -= 1
+	dashing = true
 
 func shuriken_jutsu():
 	for i in range(3):

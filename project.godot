@@ -100,13 +100,12 @@ dash={
 
 [physics]
 
-2d/default_gravity=5481.671
+2d/default_gravity=5980.0
 common/physics_interpolation=true
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 anti_aliasing/screen_space_roughness_limiter/enabled=false
 environment/defaults/default_clear_color=Color(0.05882353, 0.32156864, 0.23529412, 1)

@@ -125,11 +125,11 @@ func _physics_process(delta):
 
 		if (is_on_floor()):
 			if direction:
-				$AnimatedSprite2D.play("walk")
+				%AnimatedSprite2D.play("walk")
 			else:
-				$AnimatedSprite2D.play("idle")
+				%AnimatedSprite2D.play("idle")
 		else:
-			$AnimatedSprite2D.play("jump")
+			%AnimatedSprite2D.play("jump")
 
 	move_and_slide()
 	execute_jutsu()

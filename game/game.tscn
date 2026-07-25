@@ -462,9 +462,6 @@ oversampling = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
-[node name="Timer" type="Label" parent="Camera/BigText/Countdown" unique_id=965811959]
-unique_name_in_owner = true
-
 [node name="Character1" type="Label" parent="Camera/BigText/Countdown" unique_id=2041084666]
 texture_filter = 5
 anchors_preset = 15

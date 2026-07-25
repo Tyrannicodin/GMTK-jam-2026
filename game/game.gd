@@ -21,7 +21,7 @@ var rng = RandomNumberGenerator.new()
 func _ready() -> void:
 	print("Hello from game!")
 	load_room_resources()
-	%Timer.text = "%05.2f"%(time)
+	set_time(time)
 
 	pick_room(0)
 	build_rooms()
@@ -51,43 +51,6 @@ func set_time(time: float):
 		$Camera/BigText/Countdown/Character1.text = "0"
 
 	$Camera/BigText/Countdown/Character3.text = s[1][0]
-
-
-func _ready() -> void:
-	print("Hello from game!")
-	load_rooms()
-	set_time(time)
-
-	var initial_pos: Vector2 = Vector2.ZERO
-	var first_room = true
-	var index = 0
-
-	for room in rooms + [LAST_ROOM]:
-		var room_scene: Node2D = room.scene.instantiate()
-
-		var entry: Marker2D = room_scene.get_node("EntryMarker")
-		var exit: Marker2D = room_scene.get_node("ExitMarker")
-		var camera: Marker2D = room_scene.get_node("CameraMarker")
-		if entry == null or exit == null or camera == null:
-			continue
-
-		roomContainer.add_child(room_scene)
-
-		room_scene.object_entered.connect(func(node): object_entered_room(node, camera, index))
-		room_scene.object_exited.connect(func(node): object_left_room(node, room_scene, index))
-		round_start.connect(room_scene.round_started)
-
-		room_scene.position = initial_pos - entry.position
-		if first_room:
-			room_scene.position = Vector2.ZERO
-			player.position = entry.global_position
-			player.reset_physics_interpolation()
-			first_room = false
-		initial_pos = exit.global_position
-
-		index += 1
-	
-	player.broadcast_player()
 
 
 func object_entered_room(object: Area2D, cameraTarget: Node2D, index: int):
@@ -135,11 +98,7 @@ func object_left_room(object: Area2D, room: Node2D, index: int):
 	#room.lock()
 
 func _physics_process(delta: float) -> void:
-<<<<<<< HEAD
-	%Timer.text = "%05.2f" % (time)
-=======
 	set_time(time)
->>>>>>> timer styling
 
 	if countdown:
 		time -= delta

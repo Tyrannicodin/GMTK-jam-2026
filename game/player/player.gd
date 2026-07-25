@@ -86,8 +86,6 @@ func get_direction():
 func _physics_process(delta):
 	%InputBuffer.check_inputs()
 	
-	just_jumped = false
-	
 	dash_timer -= delta
 	jutsu_timer -= delta
 	
@@ -116,6 +114,7 @@ func _physics_process(delta):
 		flight_time = 0
 		dashed_since_left_ground = false
 		jumped_to_leave_ground = false
+		just_jumped = false
 		time_on_ground += delta
 		if diving:
 			diving = false
@@ -123,6 +122,8 @@ func _physics_process(delta):
 	else:
 		flight_time += delta
 		time_on_ground = 0
+		if flight_time > COYOTE_TIME:
+			just_jumped = false
 
 	# Handle interactions.
 	if Input.is_action_just_pressed("interact"):
@@ -158,6 +159,9 @@ func _physics_process(delta):
 		elif just_jumped and (%InputBuffer.is_combo_just_pressed(["left", "attack"], "attack") or %InputBuffer.is_combo_just_pressed(["right", "attack"], "attack")):
 			if flight_time < COYOTE_TIME:
 				pounce()
+			pounce()
+		elif %InputBuffer.is_just_pressed("attack"):
+			attack()
 
 	if dash_timer <= 0 and not diving:
 		var direction = %InputBuffer.get_axis("left", "right")
@@ -282,9 +286,14 @@ func bird_jutsu():
 	velocity -= Vector2(x/nf, y/nf) * 1000
 	# Fire Bird Projectile in the input direction (8-directional)
 
+func attack():
+	pass # Basic Attack
+
 func dash_attack():
 	pass
 
 func pounce():
-	velocity *= 1.2
-	# Single Target, 10 damage on hit. For some reason, this only works when you hit jump after so keep that in mind while doing VFX.
+	velocity.y *= 1.2
+	velocity.x *= 1.1
+	# Single Target, 10 damage on hit.
+	

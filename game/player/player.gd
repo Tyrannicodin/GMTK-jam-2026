@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 
 signal take_damage(amount: int)
+signal gain_time(amount: int)
 
 @onready var detector: Area2D = %Detector
 
@@ -28,6 +29,20 @@ const DASH_LENGTH = .15
 const DASH_SPEED = 800
 const DASH_COOLDOWN = .25
 
+## How much does more xp do you need per level
+@export var level_up_constant := 1.20
+
+var level = 0
+var threshold = 10
+var xp = 0 :
+	set(value):
+		if xp + value >= threshold:
+			level += 1
+			threshold *= level_up_constant
+			xp = xp + value - threshold
+		else:
+			xp += value
+
 func _ready():
 	await get_tree().physics_frame
 	broadcast_player()
@@ -36,7 +51,9 @@ func broadcast_player():
 	get_tree().call_group("knows_player", "set_player", self)
 	
 func add_rewards(rewards: Reward) -> void:
-	print("Gained rewards ", rewards.time, "s ", rewards.xp)
+	print("Got rewards: %fs, %sxp" % [rewards.time, rewards.xp])
+	gain_time.emit(rewards.time)
+	xp += rewards.xp
 
 func deal_damage(amount: int):
 	print("Ow! Took ", amount, " damage!")

@@ -43,6 +43,7 @@ func build_rooms() -> void:
 
 	var initial_pos: Vector2 = Vector2.ZERO
 	var first_room = true
+	var index = 0
 
 	for room in rooms + [LAST_ROOM]:
 		var room_scene: Node2D = room.scene.instantiate()
@@ -55,8 +56,8 @@ func build_rooms() -> void:
 
 		roomContainer.add_child(room_scene)
 
-		room_scene.object_entered.connect(func(node): object_entered_room(node, camera, room == LAST_ROOM))
-		room_scene.object_exited.connect(func(node): object_left_room(node, room_scene))
+		room_scene.object_entered.connect(func(node): object_entered_room(node, camera, index))
+		room_scene.object_exited.connect(func(node): object_left_room(node, room_scene, index))
 		round_start.connect(room_scene.round_started)
 
 		room_scene.position = initial_pos - entry.position
@@ -66,23 +67,30 @@ func build_rooms() -> void:
 			player.reset_physics_interpolation()
 			first_room = false
 		initial_pos = exit.global_position
+
+		index += 1
 	
 	player.broadcast_player()
 
 
-func object_entered_room(object: Area2D, cameraTarget: Node2D, last_room: bool):
+func object_entered_room(object: Area2D, cameraTarget: Node2D, index: int):
 	if object.get_parent() != player:
 		return
 
-	if last_room:
+	if index == len(rooms):
 		countdown = false
 		pick_room(len(rooms) - 1)
 		var time_tween = get_tree().create_tween()
 		%Timer.happy(11.5)
+		var reward = Reward.new()
+		reward.xp = time / 10.0
 		time_tween.tween_property(self, "time", 0, 1.5).set_delay(5)
+		time_tween.parallel().tween_callback(func(): $Player.add_rewards(reward))
 		time_tween.tween_callback(build_rooms).set_delay(5)
 		time_tween.tween_property(self, "time", 60, 2).set_delay(1)
 		time_tween.tween_callback(round_start.emit)
+	elif index != 0:
+		countdown = true
 	
 	var tween = get_tree().create_tween()
 	tween.tween_property(
@@ -99,11 +107,13 @@ func object_entered_room(object: Area2D, cameraTarget: Node2D, last_room: bool):
 		0.7
 	).set_trans(Tween.TRANS_CUBIC)
 
-func object_left_room(object: Area2D, room: Node2D):
-	if object.get_parent() != player:
+func object_left_room(object: Area2D, room: Node2D, index: int):
+	if object.get_parent() != player or index == len(rooms) - 1 or index == 0:
 		return
-	else:
-		countdown = true
+	
+	var reward = Reward.new()
+	reward.time = 3
+	$Player.add_rewards(reward)
 
 	#room.lock()
 
@@ -120,3 +130,7 @@ func _physics_process(delta: float) -> void:
 func on_player_damage(amount: int):
 	%Timer.sad(0.1)
 	time -= amount
+
+func on_gain_time(amount: float) -> void:
+	%Timer.happy(0.1)
+	time += amount

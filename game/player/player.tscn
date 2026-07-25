@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://d1sj3k2ln8qjj" path="res://assets/panda/panda3.png" id="4_5fytw"]
 [ext_resource type="Script" uid="uid://dx4xnqkbaeiyo" path="res://game/player/input_buffer.gd" id="8_epvkq"]
 [ext_resource type="Script" uid="uid://is8k5ng0s58f" path="res://game/player/dash_particles.gd" id="9_5ghna"]
-[ext_resource type="Texture2D" uid="uid://bmhjgt5fmhqj3" path="res://assets/attacks/ninja_syuriken2.png" id="9_j0mij"]
+[ext_resource type="Texture2D" uid="uid://b7sgsi0gy2kpf" path="res://assets/attacks/ninja_syuriken2_white.png" id="9_j0mij"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anr75"]
 shader = ExtResource("2_epvkq")
@@ -68,6 +68,13 @@ shader_parameter/outline_color = Color(0.05, 0.025250003, 0.0050000013, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_anr75"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Curve" id="Curve_j0mij"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_leid8"]
+colors = PackedColorArray(1, 1, 1, 1, 0.07683582, 0.07683582, 0.07683582, 1)
 
 [node name="Player" type="CharacterBody2D" unique_id=1018705283]
 z_index = 1
@@ -129,7 +136,8 @@ initial_velocity_min = 50.0
 initial_velocity_max = 100.0
 angle_min = -81.0
 angle_max = 205.5
-scale_amount_min = 0.02
-scale_amount_max = 0.05
-color = Color(0.19076231, 0.19076231, 0.19076234, 1)
+scale_amount_min = 0.03
+scale_amount_max = 0.07
+scale_amount_curve = SubResource("Curve_j0mij")
+color_ramp = SubResource("Gradient_leid8")
 script = ExtResource("9_5ghna")

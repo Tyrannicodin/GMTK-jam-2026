@@ -128,6 +128,9 @@ func object_left_room(object: Area2D, room: Node2D, index: int):
 
 	#room.lock()
 
+func _process(delta: float) -> void:
+	%StaminaBar.value = %Player.stamina
+
 func _physics_process(delta: float) -> void:
 	set_time(time)
 

@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://dnxhm3yv6w2va"]
+
+[ext_resource type="Script" uid="uid://df73gpljud4hf" path="res://game/enemy/basic/basic.gd" id="1_0n7n6"]
+[ext_resource type="Script" uid="uid://fb5r68g6soxn" path="res://resources/reward.gd" id="2_c3qwy"]
+[ext_resource type="Shader" uid="uid://dsslb28dealca" path="res://shaders/whiteout.gdshader" id="3_h4pj1"]
+[ext_resource type="Texture2D" uid="uid://c8o38o30vq1wj" path="res://icon.svg" id="4_0dgkc"]
+
+[sub_resource type="Resource" id="Resource_oelsq"]
+script = ExtResource("2_c3qwy")
+xp = 3.0
+time = 1.0
+metadata/_custom_type_script = "uid://fb5r68g6soxn"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qx0ke"]
+size = Vector2(128, 128)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_21vu1"]
+shader = ExtResource("3_h4pj1")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oelsq"]
+size = Vector2(250, 200)
+
+[node name="Base" type="CharacterBody2D" unique_id=592317870]
+collision_layer = 10
+collision_mask = 32773
+script = ExtResource("1_0n7n6")
+reward = SubResource("Resource_oelsq")
+
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=514927345]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_qx0ke")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=932088438]
+target_position = Vector2(0, 150)
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1292170047]
+unique_name_in_owner = true
+modulate = Color(1, 0.49019608, 0.49019608, 1)
+material = SubResource("ShaderMaterial_21vu1")
+instance_shader_parameters/intensity = 0.0
+texture = ExtResource("4_0dgkc")
+
+[node name="AttackLeft" type="Area2D" parent="." unique_id=1718289444]
+visible = false
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackLeft" unique_id=48978728]
+position = Vector2(-125, -90)
+shape = SubResource("RectangleShape2D_oelsq")
+
+[node name="AttackRight" type="Area2D" parent="." unique_id=1013030700]
+visible = false
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRight" unique_id=477507595]
+position = Vector2(125, -90)
+shape = SubResource("RectangleShape2D_oelsq")
+
+[connection signal="body_entered" from="AttackLeft" to="." method="attack_left"]
+[connection signal="body_entered" from="AttackRight" to="." method="attack_right"]

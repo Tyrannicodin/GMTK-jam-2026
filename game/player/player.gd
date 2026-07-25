@@ -8,6 +8,9 @@ signal take_damage(amount: int)
 
 enum DIRECTIONS {UP, DOWN, FRONT, BACK}
 
+var ShurikenJutsu = preload("res://game/player_attacks/ShurikenJutsu.tscn")
+var FlowerJutsu = preload("res://game/player_attacks/Flower.tscn")
+
 var facing_direction
 
 var flight_time := 0.0
@@ -41,6 +44,11 @@ func add_rewards(rewards: Reward) -> void:
 func deal_damage(amount: int):
 	print("Ow! Took ", amount, " damage!")
 	take_damage.emit(amount)
+
+func get_direction():
+	if facing_direction == "right":
+		return 1
+	return -1
 
 func _physics_process(delta):
 	dash_timer -= delta
@@ -111,11 +119,10 @@ func _physics_process(delta):
 
 func execute_jutsu():
 	if %InputBuffer.is_combo_pressed(["up", "special"]):
-		pass
-	if %InputBuffer.is_combo_pressed(["down", "special"]):
-		spring_jump_jutsu()
+		flower_jutsu()
+
 	if %InputBuffer.is_pressed("special") or %InputBuffer.is_combo_pressed(["right", "special"]) or %InputBuffer.is_combo_pressed(["left", "special"]):
-		sword_charge_jutsu()
+		shuriken_jutsu()
 
 	if %InputBuffer.is_combo_pressed(["dash"]):
 		var x = Input.get_axis("left", "right")
@@ -141,13 +148,16 @@ func dash(direction: Vector2):
 	
 	dash_timer = DASH_LENGTH
 
-func spring_jump_jutsu():
-	print("spring jump!")
-	velocity.y -= 5000
+func shuriken_jutsu():
+	for i in range(3):
+		var s: RigidBody2D = ShurikenJutsu.instantiate()
+		s.global_position = self.global_position
+		get_parent().add_child(s)
 
-func sword_charge_jutsu():
-	print("sword charge")
-	if facing_direction == "right":
-		velocity.x += 4000
-	else:
-		velocity.x -= 4000
+		s.linear_velocity.x = get_direction() * 2000
+		await get_tree().create_timer(.1).timeout
+		
+func flower_jutsu():
+	var f = FlowerJutsu.instantiate()
+	f.global_position = self.global_position - Vector2(0, 100)
+	get_parent().add_child(f)

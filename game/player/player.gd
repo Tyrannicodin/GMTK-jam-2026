@@ -59,6 +59,7 @@ var attack_cooldown = 0
 var STAMINA_CHARGED_OUTLINE_COLOR = Color("e1eced")
 var STAMINA_NOT_CHARGED_OUTLINE_COLOR = Color("0d0601")
 
+var last_animation = "idle"
 
 ## How much does more xp do you need per level
 @export var level_up_constant := 1.20
@@ -158,10 +159,11 @@ func _physics_process(delta):
 	%InputBuffer.check_inputs()
 	
 	dash_timer -= delta
-	jutsu_timer -= delta
 	parry_timer -= delta
 	freeze_timer -= delta
 	attack_cooldown -= delta
+	if (jutsu_timer < 0):
+		jutsu_timer = 0;
 	time_since_damage_taken += delta
 	
 	var damage_taken_intensity = max((.1 - time_since_damage_taken) / .1, 0)
@@ -263,12 +265,18 @@ func _physics_process(delta):
 		if (is_on_floor()):
 			if dash_count == 0:
 				dash_count = 1
-			if direction:
-				%AnimatedSprite2D.play("walk")
-			else:
-				%AnimatedSprite2D.play("idle")
-		else:
-			%AnimatedSprite2D.play("jump")
+				
+		if %AnimatedSprite2D.animation != "jutsu":
+			if is_on_floor():
+				if direction:
+					%AnimatedSprite2D.play("walk")
+					last_animation = "walk"
+				else:
+					%AnimatedSprite2D.play("idle")
+					last_animation = "idle"
+			elif %AnimatedSprite2D.animation != "dash":
+				%AnimatedSprite2D.play("jump")
+				last_animation = "jump"
 
 	move_and_slide()
 
@@ -280,27 +288,31 @@ func friction(delta):
 		# air has less friction
 		velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)
 
-func execute_jutsu():
+func execute_jutsu():	
 	if jutsu_timer > 0:
 		return
-
+				
 	jutsu_timer = JUTSU_COOLDOWN
 	
 	if %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
+		%AnimatedSprite2D.play("jutsu")
 		flower_jutsu()
 		scug_jutsu()
 	
 	elif %InputBuffer.is_combo_just_pressed(["down", "special"], "special"):
+		%AnimatedSprite2D.play("jutsu")
 		if is_on_floor():
 			missiles_jutsu()
 		else:
 			dive_jutsu()
 	
 	elif %InputBuffer.is_combo_just_pressed(["left", "right", "special"], "special"):
+		%AnimatedSprite2D.play("jutsu")
 		spin_jutsu()
 		burst_jutsu()
 	
 	elif %InputBuffer.is_combo_just_pressed(["left", "special"], "special") or %InputBuffer.is_combo_just_pressed(["right", "special"], "special"):
+		%AnimatedSprite2D.play("jutsu")
 		shuriken_jutsu()
 		bird_jutsu()
 
@@ -341,6 +353,7 @@ func dash(direction: Vector2):
 	dashing = true
 	
 	%DashParticles.emit_for_time(DASH_LENGTH, direction)
+	%AnimatedSprite2D.play("dash")
 
 func shuriken_jutsu():
 	for i in range(3):
@@ -420,3 +433,6 @@ func pounce():
 	# Single Target Melee, 10 damage on hit.
 	stamina -= 10
 	
+
+func _on_animated_sprite_2d_animation_finished():
+	%AnimatedSprite2D.play(last_animation)

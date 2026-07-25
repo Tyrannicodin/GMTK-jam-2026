@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="UnlockResource" format=3 uid="uid://dx1o1gdvmurol"]
+
+[ext_resource type="Script" uid="uid://css3rkmhd2ek2" path="res://resources/unlock.gd" id="1_gtsx8"]
+
+[resource]
+script = ExtResource("1_gtsx8")
+id = &"countdown"
+name = "Countdown"
+description = "Start the countdown IMMEDIATELY"
+color = Color(0.8509804, 0.13725491, 0.99607843, 0.6392157)
+metadata/_custom_type_script = "uid://css3rkmhd2ek2"

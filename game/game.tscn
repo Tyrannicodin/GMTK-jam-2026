@@ -595,3 +595,4 @@ texture = SubResource("GradientTexture1D_km8ha")
 [connection signal="take_damage" from="Player" to="." method="_on_player_take_damage"]
 [connection signal="level_up" from="Player" to="." method="player_level_up"]
 [connection signal="take_damage" from="Player" to="." method="on_player_damage"]
+[connection signal="unlock_selected" from="Player" to="." method="unlock_chosen"]

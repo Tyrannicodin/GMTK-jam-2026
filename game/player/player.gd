@@ -5,6 +5,7 @@ extends CharacterBody2D
 signal take_damage(amount: int)
 signal gain_time(amount: int)
 signal level_up(level:int)
+signal unlock_selected(unlock: UnlockResource)
 
 @onready var detector: Area2D = %Detector
 
@@ -219,7 +220,10 @@ func _physics_process(delta):
 			if parent.get("rewards"):
 				add_rewards(parent.get("rewards"))
 				parent.queue_free()
-	
+			elif parent.get("unlock"):
+				unlock_selected.emit(parent.get("unlock"))
+
+	# Handle jump.
 	# Jutsu are checked first because it has priority consuming inputs for the frame
 	execute_jutsu()
 	

@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://pcqinpqfnysf"]
+
+[ext_resource type="Script" uid="uid://bkqvdmp24bw85" path="res://game/room_objects/unlock/unlock.gd" id="1_6bqdw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jtt40"]
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6bqdw"]
+size = Vector2(200, 238)
+
+[node name="Unlock" type="PanelContainer" unique_id=1854251029]
+custom_minimum_size = Vector2(200, 0)
+script = ExtResource("1_6bqdw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1747494492]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="VBoxContainer" unique_id=578127523]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name here"
+label_settings = SubResource("LabelSettings_jtt40")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="VBoxContainer" unique_id=1695317107]
+unique_name_in_owner = true
+custom_maximum_size = Vector2(200, 150)
+layout_mode = 2
+text = "Description here"
+label_settings = SubResource("LabelSettings_jtt40")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Area2D" type="Area2D" parent="." unique_id=873769850]
+position = Vector2(100, 119)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=552135095]
+shape = SubResource("RectangleShape2D_6bqdw")

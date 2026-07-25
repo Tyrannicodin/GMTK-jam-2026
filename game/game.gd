@@ -200,5 +200,8 @@ func roll_unlocks() -> Array[UnlockResource]:
 
 func unlock_chosen(unlock: UnlockResource) -> void:
 	possible_unlocks.remove_at(possible_unlocks.find(unlock))
-	set(unlock.id, true)
+	if get(unlock.id) != null:
+		set(unlock.id, true)
+	else:
+		%Player.set(unlock.id, true)
 	hide_unlocks.emit()

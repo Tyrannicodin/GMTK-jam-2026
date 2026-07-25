@@ -447,3 +447,7 @@ func pounce():
 
 func _on_animated_sprite_2d_animation_finished():
 	%AnimatedSprite2D.play(last_animation)
+
+var tmp: bool = false :
+	set(value):
+		print("Tried to make tmp trueitive!")

@@ -17,18 +17,20 @@ var flight_time := 0.0
 var dashed_since_left_ground = false
 var jumped_to_leave_ground = false
 var dash_timer = -999
+var dash_count = 1
+var dashing = false
 
 
 const WALK_FORCE = 8000
-const WALK_MAX_SPEED = 700
+const WALK_MAX_SPEED = 1000
 const STOP_FORCE = 8000
-const AIR_STOP_FORCE = 4000
-const JUMP_SPEED = 1200
+const AIR_STOP_FORCE = 2000
+const JUMP_SPEED = 1800
 const COYOTE_TIME = 0.15
 const TERMINAL_VELOCITY = 5000
 
-const DASH_LENGTH = .15
-const DASH_SPEED = 800
+const DASH_LENGTH = .16
+const DASH_SPEED = 2500
 const DASH_COOLDOWN = .25
 
 func _ready():
@@ -55,11 +57,12 @@ func _physics_process(delta):
 
 	# Add the gravity.
 	if dash_timer <= 0:
-		if velocity.y < 0:
-			# The ascent should be slower than the fall
-			velocity += get_gravity() * delta * .8
-		else:
-			velocity += get_gravity() * delta
+		if dashing:
+			dashing = false
+			if velocity.y <= 0:
+				velocity /= 2
+	if not dashing:
+		velocity += get_gravity() * delta
 		if velocity.y > TERMINAL_VELOCITY:
 			velocity.y = TERMINAL_VELOCITY
 
@@ -90,6 +93,12 @@ func _physics_process(delta):
 		if %InputBuffer.is_pressed("jump"):
 			velocity.y -= JUMP_SPEED
 			jumped_to_leave_ground = true
+			if not dashing:
+				velocity.x += 800 * sign(Input.get_axis("left", "right"))
+			if -velocity.y <= abs(velocity.x):
+				dashing = false
+			elif dashing:
+				velocity.y += JUMP_SPEED/2
 
 	if dash_timer <= 0:
 		var direction = Input.get_axis("left", "right")
@@ -110,6 +119,8 @@ func _physics_process(delta):
 					velocity.x = WALK_MAX_SPEED * sign(velocity.x)
 
 		if (is_on_floor()):
+			if dash_count == 0:
+				dash_count = 1
 			if direction:
 				$AnimatedSprite2D.play("walk")
 			else:
@@ -149,6 +160,8 @@ func execute_jutsu():
 			
 
 func dash(direction: Vector2):
+	if dash_count < 1:
+		return
 	if dash_timer - DASH_LENGTH > -DASH_COOLDOWN:
 		return
 	if dashed_since_left_ground:
@@ -158,6 +171,8 @@ func dash(direction: Vector2):
 	velocity = direction * DASH_SPEED
 	
 	dash_timer = DASH_LENGTH
+	dash_count -= 1
+	dashing = true
 
 func shuriken_jutsu():
 	for i in range(3):

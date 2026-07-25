@@ -76,6 +76,9 @@ func get_direction():
 func _physics_process(delta):
 	dash_timer -= delta
 	jutsu_timer -= delta
+	
+	# Make the dash look pretty
+	%TextureRect.set_instance_shader_parameter("intensity", max(dash_timer / DASH_LENGTH, 0))
 
 	# Add the gravity.
 	if dash_timer <= 0:
@@ -207,6 +210,8 @@ func dash(direction: Vector2):
 	dash_timer = DASH_LENGTH
 	dash_count -= 1
 	dashing = true
+	
+	%DashParticles.emit_for_time(DASH_LENGTH, direction)
 
 func shuriken_jutsu():
 	for i in range(3):

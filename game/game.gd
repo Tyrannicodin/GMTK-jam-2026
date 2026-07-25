@@ -93,7 +93,6 @@ func object_entered_room(object: Area2D, cameraTarget: Node2D, index: int):
 		countdown = false
 		pick_room(len(rooms) - 1)
 		var time_tween = get_tree().create_tween()
-		%Timer.happy(11.5)
 		var reward = Reward.new()
 		reward.xp = time / 10.0
 		time_tween.tween_property(self, "time", 0, 1.5).set_delay(5)

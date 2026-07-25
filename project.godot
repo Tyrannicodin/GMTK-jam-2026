@@ -38,6 +38,7 @@ window/stretch/mode="canvas_items"
 statistic=""
 border_doors="Doors that lock once their room is exited"
 knows_player="Player is passed to the set_player on ready"
+attack=""
 
 [gui]
 

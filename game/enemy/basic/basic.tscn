@@ -1,29 +1,43 @@
 [gd_scene format=3 uid="uid://bfierd6nwqsba"]
 
 [ext_resource type="Script" uid="uid://df73gpljud4hf" path="res://game/enemy/basic/basic.gd" id="1_oelsq"]
+[ext_resource type="Script" uid="uid://fb5r68g6soxn" path="res://resources/reward.gd" id="2_12i0x"]
 [ext_resource type="Texture2D" uid="uid://c8o38o30vq1wj" path="res://icon.svg" id="2_ru8yo"]
+[ext_resource type="Shader" uid="uid://dsslb28dealca" path="res://shaders/whiteout.gdshader" id="3_12i0x"]
+
+[sub_resource type="Resource" id="Resource_oelsq"]
+script = ExtResource("2_12i0x")
+xp = 3.0
+time = 1.0
+metadata/_custom_type_script = "uid://fb5r68g6soxn"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qx0ke"]
 size = Vector2(128, 128)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_21vu1"]
+shader = ExtResource("3_12i0x")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oelsq"]
 size = Vector2(250, 200)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(128, 128)
-
 [node name="Basic" type="CharacterBody2D" unique_id=592317870]
-collision_layer = 2
+collision_layer = 10
+collision_mask = 32773
 script = ExtResource("1_oelsq")
+reward = SubResource("Resource_oelsq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=514927345]
+[node name="Collision" type="CollisionShape2D" parent="." unique_id=514927345]
+unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_qx0ke")
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=932088438]
 target_position = Vector2(0, 150)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1292170047]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1292170047]
+unique_name_in_owner = true
 modulate = Color(1, 0.49019608, 0.49019608, 1)
+material = SubResource("ShaderMaterial_21vu1")
+instance_shader_parameters/intensity = 0.0
 texture = ExtResource("2_ru8yo")
 
 [node name="AttackLeft" type="Area2D" parent="." unique_id=1718289444]
@@ -42,13 +56,5 @@ collision_mask = 2
 position = Vector2(125, -90)
 shape = SubResource("RectangleShape2D_oelsq")
 
-[node name="Barrier Collider" type="Area2D" parent="." unique_id=1791886396]
-collision_layer = 32768
-collision_mask = 32768
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier Collider" unique_id=458343490]
-shape = SubResource("RectangleShape2D_g4v7s")
-
 [connection signal="body_entered" from="AttackLeft" to="." method="attack_left"]
 [connection signal="body_entered" from="AttackRight" to="." method="attack_right"]
-[connection signal="area_entered" from="Barrier Collider" to="." method="_on_barrier_collider_area_entered"]

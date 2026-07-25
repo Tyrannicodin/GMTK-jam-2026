@@ -78,13 +78,16 @@ func _physics_process(delta):
 				parent.queue_free()
 
 	# Handle jump.
+	# Jutsu are checked first because it has priority consuming inputs for the frame
+	execute_jutsu()
+	
 	if flight_time < COYOTE_TIME and not jumped_to_leave_ground:
 		if %InputBuffer.is_pressed("jump"):
 			velocity.y -= JUMP_SPEED
 			jumped_to_leave_ground = true
 
 	if dash_timer <= 0:
-		var direction = Input.get_axis("left", "right")
+		var direction = %InputBuffer.get_axis("left", "right")
 		var walk = WALK_FORCE * direction
 		# Slow down the player if they're not trying to move.
 		if abs(walk) < WALK_FORCE * 0.2:
@@ -107,7 +110,6 @@ func _physics_process(delta):
 			$AnimatedSprite2D.play("jump")
 
 	move_and_slide()
-	execute_jutsu()
 
 func execute_jutsu():
 	if %InputBuffer.is_combo_pressed(["up", "special"]):
@@ -118,8 +120,8 @@ func execute_jutsu():
 		sword_charge_jutsu()
 
 	if %InputBuffer.is_combo_pressed(["dash"]):
-		var x = Input.get_axis("left", "right")
-		var y = Input.get_axis("up", "down")
+		var x = %InputBuffer.get_axis("left", "right")
+		var y = %InputBuffer.get_axis("up", "down")
 
 		if x == 0 and y == 0:
 			if facing_direction == "right":
@@ -138,7 +140,12 @@ func dash(direction: Vector2):
 
 	velocity = Vector2(DASH_SPEED, 0)
 	velocity = velocity.rotated(direction.angle())
-	
+		
+	if abs(velocity.x) < 1:
+		velocity.x = 0
+	if abs(velocity.y) < 1:
+		velocity.y = 0
+
 	dash_timer = DASH_LENGTH
 
 func spring_jump_jutsu():

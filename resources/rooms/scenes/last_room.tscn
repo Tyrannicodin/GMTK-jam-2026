@@ -4,7 +4,7 @@
 [ext_resource type="TileSet" uid="uid://5bm0cxhfjd1" path="res://game/room_objects/room.tres" id="2_vrsfi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
-size = Vector2(1800, 960)
+size = Vector2(1792, 960)
 
 [node name="FirstRoom" type="Node2D" unique_id=1549269063]
 script = ExtResource("1_5j6yg")
@@ -24,11 +24,11 @@ position = Vector2(1920, 832)
 position = Vector2(960, 544)
 
 [node name="RoomArea" type="Area2D" parent="." unique_id=1244254917]
-visible = false
 position = Vector2(960, 540)
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomArea" unique_id=469854955]
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_grq6u")
 
 [connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]

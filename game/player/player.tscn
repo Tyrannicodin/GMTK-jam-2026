@@ -84,6 +84,7 @@ z_index = 1
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_b2mth")
+level_up_constant = null
 
 [node name="DamageTakenText" type="Label" parent="." unique_id=1336110013]
 unique_name_in_owner = true

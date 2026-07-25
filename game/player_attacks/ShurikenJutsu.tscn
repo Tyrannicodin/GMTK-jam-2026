@@ -12,6 +12,7 @@ collision_mask = 9
 contact_monitor = true
 max_contacts_reported = 4
 script = ExtResource("1_21vu1")
+damage = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1208373937]
 scale = Vector2(0.11953126, 0.11953126)

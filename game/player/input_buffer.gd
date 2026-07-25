@@ -37,8 +37,7 @@ func _physics_process(_delta: float) -> void:
 	if len(input_list) > 15:
 		input_list = input_list.slice(0, 15)
 
-# Only process inputs after 1 frame to make combos feel more consistent.
-var allow_after_frames = 1
+var allow_after_frames = 0
 # If inputs are unused for this amount of frames, they are thrown out.
 var max_fames_after = 8
 

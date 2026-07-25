@@ -15,6 +15,7 @@ var FlowerJutsu = preload("res://game/player_attacks/Flower.tscn")
 var facing_direction
 
 var flight_time := 0.0
+var time_on_ground := 0.0
 var dashed_since_left_ground = false
 var jumped_to_leave_ground = false
 
@@ -22,13 +23,13 @@ var dash_timer = -999
 var jutsu_timer = 0
 
 
-const WALK_FORCE = 8000
 const WALK_MAX_SPEED = 1000
-const STOP_FORCE = 8000
-const AIR_STOP_FORCE = 2000
+const AIR_STOP_FORCE = 4000
 const JUMP_SPEED = 1800
 const COYOTE_TIME = 0.15
 const TERMINAL_VELOCITY = 5000
+
+const LANDING_INPUT_DELAY = .1
 
 const DASH_LENGTH = .16
 const DASH_SPEED = 2500
@@ -102,8 +103,10 @@ func _physics_process(delta):
 		flight_time = 0
 		dashed_since_left_ground = false
 		jumped_to_leave_ground = false
+		time_on_ground += delta
 	else:
 		flight_time += delta
+		time_on_ground = 0
 
 	# Handle interactions.
 	if Input.is_action_just_pressed("interact"):
@@ -117,9 +120,9 @@ func _physics_process(delta):
 	# Jutsu are checked first because it has priority consuming inputs for the frame
 	execute_jutsu()
 	
-	if flight_time < COYOTE_TIME and not jumped_to_leave_ground:
+	if flight_time < COYOTE_TIME and not jumped_to_leave_ground and time_on_ground > LANDING_INPUT_DELAY:
 		if %InputBuffer.is_pressed("jump"):
-			velocity.y -= JUMP_SPEED
+			velocity.y = -JUMP_SPEED
 			jumped_to_leave_ground = true
 			if not dashing:
 				velocity.x += 800 * sign(Input.get_axis("left", "right"))
@@ -130,21 +133,13 @@ func _physics_process(delta):
 
 	if dash_timer <= 0:
 		var direction = %InputBuffer.get_axis("left", "right")
-		var walk = WALK_FORCE * direction
-		# Slow down the player if they're not trying to move.
-		if abs(walk) < WALK_FORCE * 0.2:
-			friction(delta)
-		else:
-			var INITIAL_SPEED = velocity.x
-			if abs(velocity.x) < WALK_MAX_SPEED:
-				velocity.x += walk * delta
-			elif sign(velocity.x) != sign(walk):
-				velocity.x += walk * delta
-				friction(delta)
-			else:
-				friction(delta)
-				if abs(velocity.x) < WALK_MAX_SPEED and abs(INITIAL_SPEED) > WALK_MAX_SPEED:
-					velocity.x = WALK_MAX_SPEED * sign(velocity.x)
+		var walk = WALK_MAX_SPEED * direction
+
+		friction(delta)
+
+		if direction != 0:
+			velocity.x = walk
+			
 
 		if (is_on_floor()):
 			if dash_count == 0:
@@ -161,8 +156,10 @@ func _physics_process(delta):
 func friction(delta):
 	# The velocity, slowed down a bit, and then reassigned.
 	if is_on_floor():
-		velocity.x = move_toward(velocity.x, 0, STOP_FORCE * delta)
+		# 100% friction on ground
+		velocity.x = 0
 	else:
+		# air has less friction
 		velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)
 
 func execute_jutsu():

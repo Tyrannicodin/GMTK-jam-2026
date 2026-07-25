@@ -18,3 +18,8 @@ func lock():
 	for door in get_tree().get_nodes_in_group("border_doors"):
 		if is_ancestor_of(door):
 			door.call("lock")
+
+func round_started():
+	for door in get_tree().get_nodes_in_group("border_doors"):
+		if is_ancestor_of(door):
+			door.call("unlock")

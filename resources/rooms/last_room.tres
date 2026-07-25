@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="RoomResource" format=3 uid="uid://ihhn7p2w3qf8"]
+
+[ext_resource type="PackedScene" uid="uid://d22w1nt8557i4" path="res://resources/rooms/scenes/last_room.tscn" id="1_evsmt"]
+[ext_resource type="Script" uid="uid://c20wqhkj3hga6" path="res://resources/room.gd" id="2_vve5f"]
+
+[resource]
+script = ExtResource("2_vve5f")
+scene = ExtResource("1_evsmt")
+max_probability = 0.0
+metadata/_custom_type_script = "uid://c20wqhkj3hga6"

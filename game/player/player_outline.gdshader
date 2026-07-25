@@ -1,6 +1,6 @@
 shader_type canvas_item;
 uniform float outline_size = 0.05;
-uniform vec3 outline_color: source_color;
+instance uniform vec3 outline_color: source_color;
 
 instance uniform float intensity: hint_range(0.0, 1.0, 0.01) = 0.0;
 const vec3 WHITE = vec3(1., 1., 1.);

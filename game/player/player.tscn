@@ -64,7 +64,6 @@ size = Vector2(30, 55)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5fytw"]
 shader = ExtResource("2_4ste8")
 shader_parameter/outline_size = 0.007
-shader_parameter/outline_color = Color(0.05, 0.025250003, 0.0050000013, 1)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_anr75"]
 viewport_path = NodePath("SubViewport")
@@ -113,6 +112,18 @@ script = ExtResource("8_epvkq")
 [node name="Attacks" type="Node2D" parent="." unique_id=1082968012]
 unique_name_in_owner = true
 
+[node name="StaminaChargedParticles" type="CPUParticles2D" parent="." unique_id=164959685]
+unique_name_in_owner = true
+texture = ExtResource("9_j0mij")
+emission_shape = 1
+emission_sphere_radius = 43.66
+gravity = Vector2(0, 0)
+tangential_accel_min = -100.0
+tangential_accel_max = 100.0
+scale_amount_min = 0.02
+scale_amount_max = 0.05
+color = Color(0.89, 1, 1, 1)
+
 [node name="TextureRect" type="TextureRect" parent="." unique_id=858388780]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_5fytw")
@@ -122,6 +133,20 @@ offset_top = -51.0
 offset_right = 461.0
 offset_bottom = 461.0
 texture = SubResource("ViewportTexture_anr75")
+
+[node name="StaminaChargedParticlesFront" type="CPUParticles2D" parent="." unique_id=36452154]
+unique_name_in_owner = true
+position = Vector2(0, 19)
+amount = 2
+texture = ExtResource("9_j0mij")
+emission_shape = 1
+emission_sphere_radius = 22.33
+gravity = Vector2(0, 0)
+tangential_accel_min = -100.0
+tangential_accel_max = 100.0
+scale_amount_min = 0.02
+scale_amount_max = 0.05
+color = Color(0.89, 1, 1, 1)
 
 [node name="DashParticles" type="CPUParticles2D" parent="." unique_id=1983856765]
 unique_name_in_owner = true

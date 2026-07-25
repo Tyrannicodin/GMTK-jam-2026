@@ -21,18 +21,18 @@ var dash_timer = -999
 var jutsu_timer = 0
 
 
-const WALK_FORCE = 8000
-const WALK_MAX_SPEED = 700
-const STOP_FORCE = 8000
-const AIR_STOP_FORCE = 4000
-const JUMP_SPEED = 1200
-const COYOTE_TIME = 0.15
-const TERMINAL_VELOCITY = 5000
+@export var WALK_FORCE = 16000
+@export var WALK_MAX_SPEED = 700
+@export var STOP_FORCE = 16000
+@export var AIR_STOP_FORCE = 4000
+@export var JUMP_SPEED = 1600
+@export var COYOTE_TIME = 0.15
+@export var TERMINAL_VELOCITY = 5000
 
-const DASH_LENGTH = .15
-const DASH_SPEED = 800
-const DASH_COOLDOWN = .25
-const JUTSU_COOLDOWN = .05
+@export var DASH_LENGTH = .15
+@export var DASH_SPEED = 800
+@export var DASH_COOLDOWN = .25
+@export var JUTSU_COOLDOWN = .05
 
 func _ready():
 	await get_tree().physics_frame

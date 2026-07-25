@@ -17,6 +17,11 @@ shader_parameter/speed = 2.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_km8ha"]
 animations = [{
+"frames": [],
+"loop": 1,
+"name": &"dash",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_a4w0n")
@@ -77,9 +82,8 @@ material = SubResource("ShaderMaterial_anr75")
 position = Vector2(49.999992, 49.999992)
 scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_km8ha")
-animation = &"walk"
+animation = &"dash"
 autoplay = "idle"
-frame = 1
 frame_progress = 0.09936812
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=5305132]

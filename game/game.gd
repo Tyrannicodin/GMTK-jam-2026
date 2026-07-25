@@ -40,23 +40,6 @@ func load_room_resources():
 func build_rooms() -> void:
 	for child in roomContainer.get_children():
 		child.queue_free()
-func set_time(time: float):
-	var s = str(float(time)).split(".")
-	
-	if s[0].length() > 1:
-		$Camera/BigText/Countdown/Character1.text = s[0][0]
-		$Camera/BigText/Countdown/Character2.text = s[0][1]
-	else:
-		$Camera/BigText/Countdown/Character2.text = s[0][0]
-		$Camera/BigText/Countdown/Character1.text = "0"
-
-	$Camera/BigText/Countdown/Character3.text = s[1][0]
-
-
-func _ready() -> void:
-	print("Hello from game!")
-	load_rooms()
-	set_time(time)
 
 	var initial_pos: Vector2 = Vector2.ZERO
 	var first_room = true
@@ -88,6 +71,18 @@ func _ready() -> void:
 		index += 1
 	
 	player.broadcast_player()
+
+func set_time(time: float):
+	var s = str(float(time)).split(".")
+	
+	if s[0].length() > 1:
+		$Camera/BigText/Countdown/Character1.text = s[0][0]
+		$Camera/BigText/Countdown/Character2.text = s[0][1]
+	else:
+		$Camera/BigText/Countdown/Character2.text = s[0][0]
+		$Camera/BigText/Countdown/Character1.text = "0"
+
+	$Camera/BigText/Countdown/Character3.text = s[1][0]
 
 
 func object_entered_room(object: Area2D, cameraTarget: Node2D, index: int):
@@ -135,11 +130,7 @@ func object_left_room(object: Area2D, room: Node2D, index: int):
 	#room.lock()
 
 func _physics_process(delta: float) -> void:
-<<<<<<< HEAD
-	%Timer.text = "%05.2f" % (time)
-=======
 	set_time(time)
->>>>>>> timer styling
 
 	if countdown:
 		time -= delta
@@ -149,9 +140,7 @@ func _physics_process(delta: float) -> void:
 		time = 0
 
 func on_player_damage(amount: int):
-	%Timer.sad(0.1)
 	time -= amount
 
 func on_gain_time(amount: float) -> void:
-	%Timer.happy(0.1)
 	time += amount

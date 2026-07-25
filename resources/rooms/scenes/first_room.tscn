@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://bnfwloa1o1cfi"]
+[gd_scene format=3 uid="uid://bnfwloa1o1cfi"]
 
 [ext_resource type="Script" uid="uid://db5oj88umoqqg" path="res://resources/rooms/scenes/room.gd" id="1_mjqvx"]
 [ext_resource type="Shader" uid="uid://c6ysc441ibawa" path="res://shaders/paper_tiles.gdshader" id="2_mjqvx"]

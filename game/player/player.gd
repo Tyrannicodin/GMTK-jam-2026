@@ -17,22 +17,25 @@ var facing_direction
 var flight_time := 0.0
 var dashed_since_left_ground = false
 var jumped_to_leave_ground = false
+
 var dash_timer = -999
+var jutsu_timer = 0
+
+
+@export var WALK_FORCE = 16000
+@export var WALK_MAX_SPEED = 700
+@export var STOP_FORCE = 16000
+@export var AIR_STOP_FORCE = 4000
+@export var JUMP_SPEED = 1600
+@export var COYOTE_TIME = 0.15
+@export var TERMINAL_VELOCITY = 5000
+
+@export var DASH_LENGTH = .15
+@export var DASH_SPEED = 800
+@export var DASH_COOLDOWN = .25
+@export var JUTSU_COOLDOWN = .05
 var dash_count = 1
 var dashing = false
-
-
-const WALK_FORCE = 8000
-const WALK_MAX_SPEED = 1000
-const STOP_FORCE = 8000
-const AIR_STOP_FORCE = 2000
-const JUMP_SPEED = 1800
-const COYOTE_TIME = 0.15
-const TERMINAL_VELOCITY = 5000
-
-const DASH_LENGTH = .16
-const DASH_SPEED = 2500
-const DASH_COOLDOWN = .25
 
 ## How much does more xp do you need per level
 @export var level_up_constant := 1.20
@@ -71,6 +74,7 @@ func get_direction():
 
 func _physics_process(delta):
 	dash_timer -= delta
+	jutsu_timer -= delta
 
 	# Add the gravity.
 	if dash_timer <= 0:
@@ -106,6 +110,9 @@ func _physics_process(delta):
 				parent.queue_free()
 
 	# Handle jump.
+	# Jutsu are checked first because it has priority consuming inputs for the frame
+	execute_jutsu()
+	
 	if flight_time < COYOTE_TIME and not jumped_to_leave_ground:
 		if %InputBuffer.is_pressed("jump"):
 			velocity.y -= JUMP_SPEED
@@ -118,7 +125,7 @@ func _physics_process(delta):
 				velocity.y += JUMP_SPEED/2
 
 	if dash_timer <= 0:
-		var direction = Input.get_axis("left", "right")
+		var direction = %InputBuffer.get_axis("left", "right")
 		var walk = WALK_FORCE * direction
 		# Slow down the player if they're not trying to move.
 		if abs(walk) < WALK_FORCE * 0.2:
@@ -139,14 +146,13 @@ func _physics_process(delta):
 			if dash_count == 0:
 				dash_count = 1
 			if direction:
-				$AnimatedSprite2D.play("walk")
+				%AnimatedSprite2D.play("walk")
 			else:
-				$AnimatedSprite2D.play("idle")
+				%AnimatedSprite2D.play("idle")
 		else:
-			$AnimatedSprite2D.play("jump")
+			%AnimatedSprite2D.play("jump")
 
 	move_and_slide()
-	execute_jutsu()
 
 func friction(delta):
 	# The velocity, slowed down a bit, and then reassigned.
@@ -156,15 +162,20 @@ func friction(delta):
 		velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)
 
 func execute_jutsu():
-	if %InputBuffer.is_combo_pressed(["up", "special"]):
+	if jutsu_timer > 0:
+		return
+	
+	jutsu_timer = JUTSU_COOLDOWN
+	
+	if %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
 		flower_jutsu()
 
-	if %InputBuffer.is_pressed("special") or %InputBuffer.is_combo_pressed(["right", "special"]) or %InputBuffer.is_combo_pressed(["left", "special"]):
+	elif %InputBuffer.is_just_pressed("special"):
 		shuriken_jutsu()
 
 	if %InputBuffer.is_combo_pressed(["dash"]):
-		var x = Input.get_axis("left", "right")
-		var y = Input.get_axis("up", "down")
+		var x = %InputBuffer.get_axis("left", "right")
+		var y = %InputBuffer.get_axis("up", "down")
 
 		if x == 0 and y == 0:
 			if facing_direction == "right":
@@ -184,6 +195,11 @@ func dash(direction: Vector2):
 	if dashed_since_left_ground:
 		return
 	dashed_since_left_ground = true
+		
+	if abs(velocity.x) < 1:
+		velocity.x = 0
+	if abs(velocity.y) < 1:
+		velocity.y = 0
 
 	velocity = direction * DASH_SPEED
 	

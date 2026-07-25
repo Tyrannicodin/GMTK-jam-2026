@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://c8o38o30vq1wj" path="res://icon.svg" id="1_j0t7f"]
 [ext_resource type="Script" uid="uid://lfjkc5ltahax" path="res://menu/volume.gd" id="3_6nwqt"]
 [ext_resource type="FontFile" uid="uid://bvvah1mhvhmb3" path="res://menu/font.tres" id="3_juveg"]
-[ext_resource type="Script" path="res://menu/keybinds.gd" id="4_pbjm4"]
 [ext_resource type="FontFile" uid="uid://4hb0rgt1uy0f" path="res://menu/font_extra_light.tres" id="4_v6yed"]
 
 [sub_resource type="FontVariation" id="FontVariation_043lm"]
@@ -84,12 +83,6 @@ size_flags_vertical = 3
 
 [node name="CheckBox" type="CheckBox" parent="Options/Volume/CenterContainer" unique_id=1036761615]
 layout_mode = 2
-
-[node name="Keybinds" type="GridContainer" parent="Options" unique_id=444171057]
-visible = false
-layout_mode = 2
-columns = 2
-script = ExtResource("4_pbjm4")
 
 [node name="Reset" type="Button" parent="Options" unique_id=966230255]
 layout_mode = 2

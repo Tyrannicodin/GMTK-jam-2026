@@ -29,7 +29,7 @@ const JUMP_SPEED = 1800
 const COYOTE_TIME = 0.15
 const TERMINAL_VELOCITY = 5000
 
-const LANDING_INPUT_DELAY = .1
+const LANDING_INPUT_DELAY = .05
 
 const DASH_LENGTH = .16
 const DASH_SPEED = 2500
@@ -120,8 +120,8 @@ func _physics_process(delta):
 	# Jutsu are checked first because it has priority consuming inputs for the frame
 	execute_jutsu()
 	
-	if flight_time < COYOTE_TIME and not jumped_to_leave_ground and time_on_ground > LANDING_INPUT_DELAY:
-		if %InputBuffer.is_pressed("jump"):
+	if flight_time < COYOTE_TIME and not jumped_to_leave_ground:
+		if %InputBuffer.is_just_pressed("jump") or (%InputBuffer.is_pressed("jump") and time_on_ground > LANDING_INPUT_DELAY):
 			velocity.y = -JUMP_SPEED
 			jumped_to_leave_ground = true
 			if not dashing:

@@ -140,6 +140,7 @@ func object_left_room(object: Area2D, room: Node2D, index: int):
 
 func _process(delta: float) -> void:
 	%StaminaBar.value = %Player.stamina
+	%XpBar.value = %Player.xp
 
 func _physics_process(delta: float) -> void:
 	time_since_taking_damage += delta
@@ -173,3 +174,7 @@ func on_player_damage(amount: int):
 
 func on_gain_time(amount: float) -> void:
 	time += amount
+
+func player_level_up(_lvl: int) -> void:
+	%XpBar.max_value = %Player.threshold
+	%StaminaBar.max_value = %Player.MAX_STAMINA

@@ -18,18 +18,20 @@ var flight_time := 0.0
 var dashed_since_left_ground = false
 var jumped_to_leave_ground = false
 var dash_timer = -999
+var dash_count = 1
+var dashing = false
 
 
 const WALK_FORCE = 8000
-const WALK_MAX_SPEED = 700
+const WALK_MAX_SPEED = 1000
 const STOP_FORCE = 8000
-const AIR_STOP_FORCE = 4000
-const JUMP_SPEED = 1200
+const AIR_STOP_FORCE = 2000
+const JUMP_SPEED = 1800
 const COYOTE_TIME = 0.15
 const TERMINAL_VELOCITY = 5000
 
-const DASH_LENGTH = .15
-const DASH_SPEED = 800
+const DASH_LENGTH = .16
+const DASH_SPEED = 2500
 const DASH_COOLDOWN = .25
 
 ## How much does more xp do you need per level
@@ -72,11 +74,12 @@ func _physics_process(delta):
 
 	# Add the gravity.
 	if dash_timer <= 0:
-		if velocity.y < 0:
-			# The ascent should be slower than the fall
-			velocity += get_gravity() * delta * .8
-		else:
-			velocity += get_gravity() * delta
+		if dashing:
+			dashing = false
+			if velocity.y <= 0:
+				velocity /= 2
+	if not dashing:
+		velocity += get_gravity() * delta
 		if velocity.y > TERMINAL_VELOCITY:
 			velocity.y = TERMINAL_VELOCITY
 
@@ -107,23 +110,34 @@ func _physics_process(delta):
 		if %InputBuffer.is_pressed("jump"):
 			velocity.y -= JUMP_SPEED
 			jumped_to_leave_ground = true
+			if not dashing:
+				velocity.x += 800 * sign(Input.get_axis("left", "right"))
+			if -velocity.y <= abs(velocity.x):
+				dashing = false
+			elif dashing:
+				velocity.y += JUMP_SPEED/2
 
 	if dash_timer <= 0:
 		var direction = Input.get_axis("left", "right")
 		var walk = WALK_FORCE * direction
 		# Slow down the player if they're not trying to move.
 		if abs(walk) < WALK_FORCE * 0.2:
-			# The velocity, slowed down a bit, and then reassigned.
-			if is_on_floor():
-				velocity.x = move_toward(velocity.x, 0, STOP_FORCE * delta)
-			else:
-				velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)
+			friction(delta)
 		else:
-			velocity.x += walk * delta
-		# Clamp to the maximum horizontal movement speed.
-		velocity.x = clamp(velocity.x, -WALK_MAX_SPEED, WALK_MAX_SPEED)
+			var INITIAL_SPEED = velocity.x
+			if abs(velocity.x) < WALK_MAX_SPEED:
+				velocity.x += walk * delta
+			elif sign(velocity.x) != sign(walk):
+				velocity.x += walk * delta
+				friction(delta)
+			else:
+				friction(delta)
+				if abs(velocity.x) < WALK_MAX_SPEED and abs(INITIAL_SPEED) > WALK_MAX_SPEED:
+					velocity.x = WALK_MAX_SPEED * sign(velocity.x)
 
 		if (is_on_floor()):
+			if dash_count == 0:
+				dash_count = 1
 			if direction:
 				$AnimatedSprite2D.play("walk")
 			else:
@@ -133,6 +147,13 @@ func _physics_process(delta):
 
 	move_and_slide()
 	execute_jutsu()
+
+func friction(delta):
+	# The velocity, slowed down a bit, and then reassigned.
+	if is_on_floor():
+		velocity.x = move_toward(velocity.x, 0, STOP_FORCE * delta)
+	else:
+		velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)
 
 func execute_jutsu():
 	if %InputBuffer.is_combo_pressed(["up", "special"]):
@@ -150,22 +171,25 @@ func execute_jutsu():
 				dash(Vector2(1, y))
 			else:
 				dash(Vector2(-1, y))
-		elif x != 0 and y != 0:
-			dash(Vector2(x/sqrt(2), y/sqrt(2)))
 		else:
-			dash(Vector2(x, y))
+			var nf = sqrt(pow(x,2) + pow(y,2)) # Normalization Factor
+			dash(Vector2(x/nf, y/nf))
+			
 
 func dash(direction: Vector2):
+	if dash_count < 1:
+		return
 	if dash_timer - DASH_LENGTH > -DASH_COOLDOWN:
 		return
 	if dashed_since_left_ground:
 		return
 	dashed_since_left_ground = true
 
-	velocity = Vector2(DASH_SPEED, 0)
-	velocity = velocity.rotated(direction.angle())
+	velocity = direction * DASH_SPEED
 	
 	dash_timer = DASH_LENGTH
+	dash_count -= 1
+	dashing = true
 
 func shuriken_jutsu():
 	for i in range(3):

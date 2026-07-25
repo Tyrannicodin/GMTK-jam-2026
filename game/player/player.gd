@@ -16,7 +16,9 @@ var facing_direction
 var flight_time := 0.0
 var dashed_since_left_ground = false
 var jumped_to_leave_ground = false
+
 var dash_timer = -999
+var jutsu_timer = 0
 
 
 const WALK_FORCE = 8000
@@ -30,6 +32,7 @@ const TERMINAL_VELOCITY = 5000
 const DASH_LENGTH = .15
 const DASH_SPEED = 800
 const DASH_COOLDOWN = .25
+const JUTSU_COOLDOWN = .05
 
 func _ready():
 	await get_tree().physics_frame
@@ -52,6 +55,7 @@ func get_direction():
 
 func _physics_process(delta):
 	dash_timer -= delta
+	jutsu_timer -= delta
 
 	# Add the gravity.
 	if dash_timer <= 0:
@@ -120,10 +124,15 @@ func _physics_process(delta):
 	move_and_slide()
 
 func execute_jutsu():
-	if %InputBuffer.is_combo_pressed(["up", "special"]):
+	if jutsu_timer > 0:
+		return
+	
+	jutsu_timer = JUTSU_COOLDOWN
+	
+	if %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
 		flower_jutsu()
 
-	if %InputBuffer.is_pressed("special") or %InputBuffer.is_combo_pressed(["right", "special"]) or %InputBuffer.is_combo_pressed(["left", "special"]):
+	elif %InputBuffer.is_just_pressed("special"):
 		shuriken_jutsu()
 
 	if %InputBuffer.is_combo_pressed(["dash"]):

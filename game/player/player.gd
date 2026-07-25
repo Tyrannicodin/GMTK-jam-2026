@@ -41,6 +41,8 @@ var dashing = false
 
 var diving = false
 
+var just_jumped = false
+
 var attack_cooldown = 0.4
 
 ## How much does more xp do you need per level
@@ -83,6 +85,8 @@ func get_direction():
 
 func _physics_process(delta):
 	%InputBuffer.check_inputs()
+	
+	just_jumped = false
 	
 	dash_timer -= delta
 	jutsu_timer -= delta
@@ -136,6 +140,7 @@ func _physics_process(delta):
 		if %InputBuffer.is_just_pressed("jump") or %InputBuffer.is_pressed("jump"):
 			velocity.y -= JUMP_SPEED
 			jumped_to_leave_ground = true
+			just_jumped = true
 			if dash_count < 1:
 				dash_count += 1
 			if not dashing:
@@ -146,11 +151,11 @@ func _physics_process(delta):
 				velocity.y += JUMP_SPEED/2
 	
 	# Handle "Basic" Attacks
-	if %InputBuffer.is_just_pressed("attack") and not diving:
+	if not diving:
 		# Add attack upgrade checks later
-		if dashing:
+		if dashing and %InputBuffer.is_just_pressed("attack"):
 			dash_attack()
-		elif %InputBuffer.is_combo_just_pressed(["left", "jump", "attack"], "attack") or %InputBuffer.is_combo_just_pressed(["right", "jump", "attack"], "attack"):
+		elif just_jumped and (%InputBuffer.is_combo_just_pressed(["left", "attack"], "attack") or %InputBuffer.is_combo_just_pressed(["right", "attack"], "attack")):
 			if flight_time < COYOTE_TIME:
 				pounce()
 
@@ -281,4 +286,5 @@ func dash_attack():
 	pass
 
 func pounce():
-	velocity *= 2
+	velocity *= 1.2
+	# Single Target, 10 damage on hit. For some reason, this only works when you hit jump after so keep that in mind while doing VFX.

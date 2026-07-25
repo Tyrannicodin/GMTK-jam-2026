@@ -82,10 +82,10 @@ func _physics_process(delta):
 
 	if velocity.x > 0:
 		facing_direction = "right"
-		$AnimatedSprite2D.flip_h = true
+		%AnimatedSprite2D.flip_h = true
 	if velocity.x < 0:
 		facing_direction = "left"
-		$AnimatedSprite2D.flip_h = false
+		%AnimatedSprite2D.flip_h = false
 
 	if is_on_floor():
 		flight_time = 0

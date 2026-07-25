@@ -3,17 +3,194 @@
 [ext_resource type="Script" uid="uid://cnf5udhk03rug" path="res://game/game.gd" id="1_l1rk1"]
 [ext_resource type="PackedScene" uid="uid://croela4nh3klu" path="res://game/player/player.tscn" id="2_vasa2"]
 [ext_resource type="Script" uid="uid://doji2ey67k72g" path="res://game/label.gd" id="3_h7iqs"]
+[ext_resource type="Texture2D" uid="uid://0tt8uofjyae" path="res://assets/rooms/parallax/bamboo_6.png" id="3_3vho3"]
+[ext_resource type="Texture2D" uid="uid://dl7uo8mx06ir2" path="res://assets/rooms/parallax/bamboo_4.png" id="4_qf6n1"]
+[ext_resource type="Texture2D" uid="uid://b5sphhgosysjc" path="res://assets/rooms/parallax/bamboo_5.png" id="5_vsp63"]
+[ext_resource type="Texture2D" uid="uid://btkp501u4chmw" path="res://assets/rooms/parallax/bush.png" id="6_b686c"]
+[ext_resource type="Texture2D" uid="uid://fcovptyfup6f" path="res://assets/rooms/parallax/bamboo_1.png" id="7_hb504"]
+[ext_resource type="Texture2D" uid="uid://b1ri6xxbfdwsu" path="res://assets/rooms/parallax/bamboo_2.png" id="8_ee6o4"]
+[ext_resource type="Texture2D" uid="uid://cgs18tp1docwg" path="res://assets/rooms/parallax/bamboo_3.png" id="9_4cobl"]
+[ext_resource type="Texture2D" uid="uid://dsk3gpbyfj2ih" path="res://assets/rooms/parallax/bush_foreground.png" id="10_ln7ps"]
+[ext_resource type="Texture2D" uid="uid://81s1gdmedkbm" path="res://assets/rooms/parallax/header_parallax.png" id="11_pxxsx"]
+[ext_resource type="FontFile" uid="uid://denhgdpgfquxd" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="11_qf6n1"]
+[ext_resource type="Shader" uid="uid://c6ysc441ibawa" path="res://shaders/paper_tiles.gdshader" id="11_vsp63"]
+[ext_resource type="Texture2D" uid="uid://b3h3vpdodqiso" path="res://assets/panda/irasu_paper.png" id="12_b686c"]
+
+[sub_resource type="Gradient" id="Gradient_16p70"]
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.05882353, 0.32156864, 0.23529412, 1, 0.08749517, 0.5020161, 0.37111184, 1, 0.05882353, 0.32156864, 0.23529412, 1)
+metadata/_snap_count = 2
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u8s88"]
+gradient = SubResource("Gradient_16p70")
+width = 1080
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qf6n1"]
+shader = ExtResource("11_vsp63")
+shader_parameter/tex = ExtResource("12_b686c")
+shader_parameter/scale = 0.2
+shader_parameter/speed = 3.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_grq6u"]
-font_size = 684
-outline_size = 81
-outline_color = Color(0.46229059, 0.46229059, 0.46229059, 1)
+font = ExtResource("11_qf6n1")
+font_size = 350
+font_color = Color(0.6901961, 0.99607843, 0.80784315, 1)
+outline_size = 70
+outline_color = Color(0.078431375, 0.4627451, 0.34117648, 1)
 shadow_size = 125
-shadow_color = Color(0, 0, 0, 0.6509804)
-shadow_offset = Vector2(15, 20)
+shadow_offset = Vector2(0, 0)
+stacked_outline_count = 1
+stacked_outline_0/size = 20
+stacked_outline_0/color = Color(0.050980393, 0.23529412, 0.10980392, 0.7254902)
 
 [node name="Game" type="Node2D" unique_id=1516163044]
+position = Vector2(1, 0)
 script = ExtResource("1_l1rk1")
+
+[node name="BackgroundParallax" type="Parallax2D" parent="." unique_id=19606761]
+scale = Vector2(0.95999956, 0.95999956)
+scroll_scale = Vector2(0, 0)
+scroll_offset = Vector2(-62, -67)
+repeat_size = Vector2(275, 0)
+repeat_times = 15
+
+[node name="Background" type="TextureRect" parent="BackgroundParallax" unique_id=1454690234]
+offset_left = 64.58333
+offset_top = 1203.1536
+offset_right = 1152.6101
+offset_bottom = 2858.5703
+rotation = -1.5707964
+scale = Vector2(1, 1.1599997)
+texture = SubResource("GradientTexture1D_u8s88")
+
+[node name="BambooParallax6" type="Parallax2D" parent="." unique_id=1437342047]
+scale = Vector2(0.95999956, 0.95999956)
+scroll_scale = Vector2(0.1, 0)
+scroll_offset = Vector2(-62, -67)
+repeat_size = Vector2(275, 0)
+repeat_times = 15
+
+[node name="TextureRect" type="TextureRect" parent="BambooParallax6" unique_id=1940962446]
+offset_left = 87.0
+offset_top = 26.000004
+offset_right = 179.0
+offset_bottom = 1026.0
+rotation = -0.011017799
+scale = Vector2(0.9201523, 0.9201523)
+texture = ExtResource("3_3vho3")
+
+[node name="BambooParallax7" type="Parallax2D" parent="." unique_id=1608116799]
+scale = Vector2(0.95999956, 0.95999956)
+scroll_scale = Vector2(0.1, 0)
+scroll_offset = Vector2(460.00006, -96)
+repeat_size = Vector2(230, 0)
+repeat_times = 15
+
+[node name="TextureRect" type="TextureRect" parent="BambooParallax7" unique_id=1325294537]
+offset_left = 146.87508
+offset_top = 43.750023
+offset_right = 238.87508
+offset_bottom = 1407.75
+rotation = -0.06752674
+scale = Vector2(0.9201523, 0.9201523)
+texture = ExtResource("3_3vho3")
+
+[node name="BambooParallax4" type="Parallax2D" parent="." unique_id=157025799]
+scroll_scale = Vector2(0.4, 0)
+scroll_offset = Vector2(79, 0)
+repeat_size = Vector2(375, 0)
+repeat_times = 10
+
+[node name="TextureRect" type="TextureRect" parent="BambooParallax4" unique_id=1346254903]
+offset_left = 87.0
+offset_top = 26.000004
+offset_right = 179.0
+offset_bottom = 1026.0
+rotation = 0.10570823
+scale = Vector2(0.9162259, 0.9162259)
+texture = ExtResource("4_qf6n1")
+
+[node name="BambooParallax5" type="Parallax2D" parent="." unique_id=1343688237]
+scroll_scale = Vector2(0.4, 0)
+scroll_offset = Vector2(-203, 33)
+repeat_size = Vector2(400, 0)
+repeat_times = 10
+
+[node name="TextureRect" type="TextureRect" parent="BambooParallax5" unique_id=656438200]
+offset_left = 87.0
+offset_top = 26.000004
+offset_right = 179.0
+offset_bottom = 1026.0
+rotation = -0.061760083
+scale = Vector2(0.9201523, 0.9201523)
+texture = ExtResource("5_vsp63")
+
+[node name="BushParallax" type="Parallax2D" parent="." unique_id=500989631]
+scroll_scale = Vector2(0.4, 0)
+scroll_offset = Vector2(-138, 64)
+repeat_size = Vector2(150, 0)
+repeat_times = 40
+
+[node name="TextureRect" type="TextureRect" parent="BushParallax" unique_id=1058611579]
+offset_left = -34.0
+offset_top = 768.0
+offset_right = 190.75
+offset_bottom = 968.0
+texture = ExtResource("6_b686c")
+
+[node name="BambooParallax" type="Parallax2D" parent="." unique_id=409399611]
+scroll_scale = Vector2(0.6, 0)
+repeat_size = Vector2(500, 0)
+repeat_times = 10
+
+[node name="TextureRect" type="TextureRect" parent="BambooParallax" unique_id=1412395543]
+offset_left = 249.0
+offset_top = 37.0
+offset_right = 341.0
+offset_bottom = 1037.0
+rotation = 0.045433458
+texture = ExtResource("7_hb504")
+
+[node name="BambooParallax2" type="Parallax2D" parent="." unique_id=1421457297]
+scroll_scale = Vector2(0.6, 0)
+scroll_offset = Vector2(-374, -31)
+repeat_size = Vector2(470, 0)
+repeat_times = 10
+
+[node name="TextureRect" type="TextureRect" parent="BambooParallax2" unique_id=262965286]
+offset_left = 249.0
+offset_top = 37.0
+offset_right = 341.0
+offset_bottom = 1037.0
+rotation = -0.07775001
+texture = ExtResource("8_ee6o4")
+
+[node name="BambooParallax3" type="Parallax2D" parent="." unique_id=973204785]
+scroll_scale = Vector2(0.6, 0)
+repeat_size = Vector2(450, 0)
+repeat_times = 10
+
+[node name="TextureRect" type="TextureRect" parent="BambooParallax3" unique_id=1399582164]
+offset_left = 85.0
+offset_top = 47.0
+offset_right = 177.0
+offset_bottom = 1047.0
+rotation = -0.092010245
+texture = ExtResource("9_4cobl")
+
+[node name="BushForegroundParallax2" type="Parallax2D" parent="." unique_id=303868674]
+scroll_scale = Vector2(1, 0)
+scroll_offset = Vector2(-206, -28)
+repeat_size = Vector2(210, 0)
+repeat_times = 20
+
+[node name="TextureRect" type="TextureRect" parent="BushForegroundParallax2" unique_id=934433665]
+offset_left = 6.0
+offset_top = 973.0
+offset_right = 243.0
+offset_bottom = 1185.0
+texture = ExtResource("10_ln7ps")
 
 [node name="Player" parent="." unique_id=1018705283 instance=ExtResource("2_vasa2")]
 motion_mode = 0
@@ -23,6 +200,7 @@ position = Vector2(960, 0)
 zoom = Vector2(0.875, 0.875)
 
 [node name="BigText" type="SubViewportContainer" parent="Camera" unique_id=336338847]
+material = SubResource("ShaderMaterial_qf6n1")
 offset_left = -1280.0
 offset_top = -720.0
 offset_right = 640.0
@@ -35,17 +213,53 @@ disable_3d = true
 transparent_bg = true
 handle_input_locally = false
 gui_disable_input = true
+oversampling = false
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
 
 [node name="Timer" type="Label" parent="Camera/BigText/Countdown" unique_id=965811959]
 unique_name_in_owner = true
+[node name="Character1" type="Label" parent="Camera/BigText/Countdown" unique_id=965811959]
+texture_filter = 5
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -207.0
+offset_right = -300.60315
 grow_horizontal = 2
 grow_vertical = 2
-text = "60.00"
+size_flags_horizontal = 4
+text = "6"
+label_settings = SubResource("LabelSettings_grq6u")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Character2" type="Label" parent="Camera/BigText/Countdown" unique_id=1435389723]
+texture_filter = 5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_right = -45.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "6"
+label_settings = SubResource("LabelSettings_grq6u")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Character3" type="Label" parent="Camera/BigText/Countdown" unique_id=1453155968]
+texture_filter = 5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 269.05252
+offset_right = 236.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "6"
 label_settings = SubResource("LabelSettings_grq6u")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -55,3 +269,31 @@ script = ExtResource("3_h7iqs")
 
 [connection signal="gain_time" from="Player" to="." method="on_gain_time"]
 [connection signal="take_damage" from="Player" to="." method="on_player_damage"]
+
+[node name="Dot" type="Label" parent="Camera/BigText/Countdown" unique_id=1409283555]
+texture_filter = 5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 102.0
+offset_right = 102.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "."
+label_settings = SubResource("LabelSettings_grq6u")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LeafParallax" type="Parallax2D" parent="." unique_id=658316919]
+z_index = 100
+scroll_scale = Vector2(1, 0)
+scroll_offset = Vector2(4, 64)
+repeat_size = Vector2(210, 0)
+repeat_times = 20
+
+[node name="TextureRect" type="TextureRect" parent="LeafParallax" unique_id=122933473]
+offset_left = -1.0
+offset_right = 223.75
+offset_bottom = 58.0
+texture = ExtResource("11_pxxsx")

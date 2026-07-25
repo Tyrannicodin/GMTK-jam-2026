@@ -48,7 +48,8 @@ func set_time(time: float):
 		$Camera/BigText/Countdown/Character2.text = s[0][1]
 	else:
 		$Camera/BigText/Countdown/Character2.text = s[0][0]
-	
+		$Camera/BigText/Countdown/Character1.text = "0"
+
 	$Camera/BigText/Countdown/Character3.text = s[1][0]
 
 

@@ -15,11 +15,15 @@
 [ext_resource type="Texture2D" uid="uid://fcovptyfup6f" path="res://assets/rooms/parallax/bamboo_1.png" id="7_hb504"]
 [ext_resource type="Texture2D" uid="uid://b1ri6xxbfdwsu" path="res://assets/rooms/parallax/bamboo_2.png" id="8_ee6o4"]
 [ext_resource type="Texture2D" uid="uid://cgs18tp1docwg" path="res://assets/rooms/parallax/bamboo_3.png" id="9_4cobl"]
+[ext_resource type="Texture2D" uid="uid://cj0j18ko5qwqk" path="res://assets/rooms/parallax/top_foilage_1.png" id="10_dxwpq"]
 [ext_resource type="Texture2D" uid="uid://dsk3gpbyfj2ih" path="res://assets/rooms/parallax/bush_foreground.png" id="10_ln7ps"]
+[ext_resource type="Texture2D" uid="uid://bx7epsxtniasc" path="res://assets/rooms/parallax/top_foilage_2.png" id="11_mhvfb"]
 [ext_resource type="Texture2D" uid="uid://81s1gdmedkbm" path="res://assets/rooms/parallax/header_parallax.png" id="11_pxxsx"]
 [ext_resource type="FontFile" uid="uid://denhgdpgfquxd" path="res://assets/fonts/DarumadropOne-Regular.ttf" id="11_qf6n1"]
 [ext_resource type="Shader" uid="uid://c6ysc441ibawa" path="res://shaders/paper_tiles.gdshader" id="11_vsp63"]
 [ext_resource type="Texture2D" uid="uid://b3h3vpdodqiso" path="res://assets/panda/irasu_paper.png" id="12_b686c"]
+[ext_resource type="Texture2D" uid="uid://3sidibg7x660" path="res://assets/rooms/parallax/top_foilage_3.png" id="12_mhvfb"]
+[ext_resource type="Texture2D" uid="uid://fi3iv4kuxdb0" path="res://assets/rooms/parallax/falling_leaf.png" id="23_5e03w"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ln7ps"]
 shader = ExtResource("6_ee6o4")
@@ -36,7 +40,7 @@ shader_parameter/offset = 0.0
 [sub_resource type="Gradient" id="Gradient_16p70"]
 interpolation_color_space = 2
 offsets = PackedFloat32Array(0.25, 0.5, 0.75)
-colors = PackedColorArray(0.081999995, 0.41, 0.30066666, 1, 0.08749517, 0.5020161, 0.37111184, 1, 0.05882353, 0.32156864, 0.23529412, 1)
+colors = PackedColorArray(0.081999995, 0.41, 0.30066666, 1, 0.08749517, 0.5020161, 0.37111184, 1, 0.148, 0.4, 0.28660008, 1)
 metadata/_snap_count = 4
 metadata/_snap_enabled = true
 
@@ -86,6 +90,51 @@ hue_variation_max = -0.030000022
 turbulence_noise_strength = 0.78
 turbulence_noise_scale = 9.231
 
+[sub_resource type="Curve" id="Curve_leid8"]
+_data = [Vector2(0.114864886, 0.3146068), 0.0, 0.0, 0, 0, Vector2(0.5202703, 0.47191018), 0.0, 0.0, 0, 0, Vector2(0.95270276, 0.32584274), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_5e03w"]
+curve = SubResource("Curve_leid8")
+
+[sub_resource type="Curve" id="Curve_5e03w"]
+_limits = [-36.40448, 60.674194, 0.0, 1.0]
+_data = [Vector2(0.020270273, 12.680244), 0.0, 0.0, 0, 0, Vector2(0.5, 15.95256), 0.0, 0.0, 0, 0, Vector2(0.972973, 13.771019), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_leid8"]
+curve = SubResource("Curve_5e03w")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_leid8"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1000, 1, 1)
+angle_min = -267.8
+angle_max = 284.6
+angle_curve = SubResource("CurveTexture_leid8")
+gravity = Vector3(10, 10, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = -2.2351742e-06
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+tangential_accel_min = -19.350002
+tangential_accel_max = 3.8599977
+alpha_curve = SubResource("CurveTexture_5e03w")
+hue_variation_min = -0.020000022
+hue_variation_max = 0.009999977
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5e03w"]
+shader = ExtResource("6_ee6o4")
+shader_parameter/speed = 1.0
+shader_parameter/minStrength = 0.0400000019
+shader_parameter/maxStrength = 0.10000000475
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = 0.0
+shader_parameter/heightOffset = 0.0
+shader_parameter/offset = 0.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hb504"]
 shader = ExtResource("6_ee6o4")
 shader_parameter/speed = 1.0
@@ -127,6 +176,24 @@ shadow_offset = Vector2(0, 0)
 stacked_outline_count = 1
 stacked_outline_0/size = 20
 stacked_outline_0/color = Color(0.050980393, 0.23529412, 0.10980392, 0.7254902)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_leid8"]
+shader = ExtResource("6_ee6o4")
+shader_parameter/speed = 1.3
+shader_parameter/minStrength = 0.05
+shader_parameter/maxStrength = 0.01
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = 0.0
+shader_parameter/heightOffset = 0.0
+shader_parameter/offset = 0.0
+
+[sub_resource type="Gradient" id="Gradient_mhvfb"]
+colors = PackedColorArray(0.039215688, 0.18039216, 0.08235294, 1, 0.039215688, 0.18039216, 0.08235294, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_km8ha"]
+gradient = SubResource("Gradient_mhvfb")
 
 [node name="Game" type="Node2D" unique_id=1516163044]
 position = Vector2(1, 0)
@@ -213,7 +280,10 @@ rotation = -0.06752674
 scale = Vector2(0.9201523, 0.9201523)
 texture = ExtResource("3_3vho3")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=1732486319]
+[node name="Particles" type="Parallax2D" parent="." unique_id=1321296904]
+scroll_scale = Vector2(0, 0)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Particles" unique_id=1732486319]
 position = Vector2(99.000046, 511)
 scale = Vector2(1.0000004, 1.0000004)
 texture = ExtResource("6_hb504")
@@ -224,6 +294,15 @@ trail_enabled = true
 trail_lifetime = 2.0
 trail_sections = 16
 process_material = SubResource("ParticleProcessMaterial_qqbol")
+
+[node name="FallingLeaves" type="GPUParticles2D" parent="Particles" unique_id=1870126175]
+position = Vector2(591, 64)
+amount = 15
+texture = ExtResource("23_5e03w")
+lifetime = 15.0
+preprocess = 2.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_leid8")
 
 [node name="BambooParallax4" type="Parallax2D" parent="." unique_id=157025799]
 scroll_scale = Vector2(0.4, 0)
@@ -254,6 +333,41 @@ offset_bottom = 1026.0
 rotation = -0.061760083
 scale = Vector2(0.9201523, 0.9201523)
 texture = ExtResource("5_vsp63")
+
+[node name="TopFoilage" type="Parallax2D" parent="." unique_id=1481556186]
+scroll_scale = Vector2(0.4, 0)
+scroll_offset = Vector2(-200, -20)
+repeat_size = Vector2(300, 0)
+repeat_times = 20
+
+[node name="TextureRect" type="TextureRect" parent="TopFoilage" unique_id=2128588009]
+material = SubResource("ShaderMaterial_5e03w")
+offset_left = 35.0
+offset_top = 77.0
+offset_right = 315.0
+offset_bottom = 225.0
+texture = ExtResource("10_dxwpq")
+
+[node name="TextureRect2" type="TextureRect" parent="TopFoilage" unique_id=2112035964]
+offset_left = 281.0
+offset_top = -19.0
+offset_right = 561.0
+offset_bottom = 129.0
+texture = ExtResource("11_mhvfb")
+
+[node name="TopFoilage2" type="Parallax2D" parent="." unique_id=1927910001]
+scroll_scale = Vector2(0.4, 0)
+scroll_offset = Vector2(-181, -51)
+repeat_size = Vector2(400, 0)
+repeat_times = 20
+
+[node name="TextureRect3" type="TextureRect" parent="TopFoilage2" unique_id=2125546618]
+offset_left = 598.0
+offset_top = 14.000015
+offset_right = 878.0
+offset_bottom = 162.00002
+rotation = 1.4610113
+texture = ExtResource("12_mhvfb")
 
 [node name="BushParallax" type="Parallax2D" parent="." unique_id=500989631]
 scroll_scale = Vector2(0.4, 0)
@@ -311,7 +425,7 @@ texture = ExtResource("9_4cobl")
 
 [node name="BushForegroundParallax2" type="Parallax2D" parent="." unique_id=303868674]
 scroll_scale = Vector2(1, 0)
-scroll_offset = Vector2(-206, -28)
+scroll_offset = Vector2(-203, -67)
 repeat_size = Vector2(210, 0)
 repeat_times = 20
 
@@ -419,12 +533,22 @@ vertical_alignment = 1
 [node name="LeafParallax" type="Parallax2D" parent="." unique_id=658316919]
 z_index = 100
 scroll_scale = Vector2(1, 0)
-scroll_offset = Vector2(4, 64)
+scroll_offset = Vector2(-200, 59)
 repeat_size = Vector2(210, 0)
 repeat_times = 20
 
 [node name="TextureRect" type="TextureRect" parent="LeafParallax" unique_id=122933473]
+material = SubResource("ShaderMaterial_leid8")
 offset_left = -1.0
+offset_top = -2.0
 offset_right = 223.75
-offset_bottom = 58.0
+offset_bottom = 56.0
 texture = ExtResource("11_pxxsx")
+
+[node name="TextureRect2" type="TextureRect" parent="LeafParallax" unique_id=1001546080]
+offset_left = 155.00002
+offset_top = -213.0
+offset_right = 411.0
+offset_bottom = -173.0
+scale = Vector2(2.1273532, 5.3204393)
+texture = SubResource("GradientTexture1D_km8ha")

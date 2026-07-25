@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b3h3vpdodqiso" path="res://assets/panda/irasu_paper.png" id="3_anr75"]
 [ext_resource type="Texture2D" uid="uid://d1sj3k2ln8qjj" path="res://assets/panda/panda3.png" id="4_5fytw"]
 [ext_resource type="Texture2D" uid="uid://ceekoaqdon7j2" path="res://assets/panda/4.png" id="4_a4w0n"]
+[ext_resource type="Script" uid="uid://dx4xnqkbaeiyo" path="res://game/player/input_buffer.gd" id="8_epvkq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anr75"]
 shader = ExtResource("2_4ste8")
@@ -79,3 +80,7 @@ unique_name_in_owner = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector" unique_id=214260944]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_grq6u")
+
+[node name="InputBuffer" type="Node" parent="." unique_id=1124039005]
+unique_name_in_owner = true
+script = ExtResource("8_epvkq")

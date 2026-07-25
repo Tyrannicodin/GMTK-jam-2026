@@ -9,6 +9,9 @@ size = Vector2(128, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oelsq"]
 size = Vector2(250, 200)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+size = Vector2(128, 128)
+
 [node name="Basic" type="CharacterBody2D" unique_id=592317870]
 collision_layer = 2
 script = ExtResource("1_oelsq")
@@ -39,5 +42,13 @@ collision_mask = 2
 position = Vector2(125, -90)
 shape = SubResource("RectangleShape2D_oelsq")
 
+[node name="Barrier Collider" type="Area2D" parent="." unique_id=1791886396]
+collision_layer = 32768
+collision_mask = 32768
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier Collider" unique_id=458343490]
+shape = SubResource("RectangleShape2D_g4v7s")
+
 [connection signal="body_entered" from="AttackLeft" to="." method="attack_left"]
 [connection signal="body_entered" from="AttackRight" to="." method="attack_right"]
+[connection signal="area_entered" from="Barrier Collider" to="." method="_on_barrier_collider_area_entered"]

@@ -2,27 +2,37 @@ class_name Player
 extends CharacterBody2D
 
 
+signal take_damage(amount: int)
+
 @onready var detector: Area2D = %Detector
 
 enum DIRECTIONS {UP, DOWN, FRONT, BACK}
 
-var direction_history: Array = []
-var jutsu_storage # Stores casted jutsu when special is held.
-var time_since_last_action = 0
-
 var facing_direction
-# While the player is dashing, we dont want their velocity to be affected
-# by movement keys or gravity
-var lock_velocity = 0
 
 var flight_time := 0.0
+var dashed_since_left_ground = false
+var jumped_to_leave_ground = false
+var dash_timer = -999
 
-const SPEED = 1000.0
-const JUMP_VELOCITY = -2400.0
-const COYOTE_TIME = 0.1
+
+const WALK_FORCE = 8000
+const WALK_MAX_SPEED = 700
+const STOP_FORCE = 8000
+const AIR_STOP_FORCE = 4000
+const JUMP_SPEED = 1200
+const COYOTE_TIME = 0.15
+const TERMINAL_VELOCITY = 5000
+
+const DASH_LENGTH = .15
+const DASH_SPEED = 800
+const DASH_COOLDOWN = .25
 
 func _ready():
 	await get_tree().physics_frame
+	broadcast_player()
+
+func broadcast_player():
 	get_tree().call_group("knows_player", "set_player", self)
 	
 func add_rewards(rewards: Reward) -> void:
@@ -30,15 +40,21 @@ func add_rewards(rewards: Reward) -> void:
 
 func deal_damage(amount: int):
 	print("Ow! Took ", amount, " damage!")
+	take_damage.emit(amount)
 
 func _physics_process(delta):
+	dash_timer -= delta
+
 	# Add the gravity.
-	if lock_velocity <= 0:
-		velocity += get_gravity() * delta
-	else:
-		velocity.y = 0
-	lock_velocity -= delta
-		
+	if dash_timer <= 0:
+		if velocity.y < 0:
+			# The ascent should be slower than the fall
+			velocity += get_gravity() * delta * .8
+		else:
+			velocity += get_gravity() * delta
+		if velocity.y > TERMINAL_VELOCITY:
+			velocity.y = TERMINAL_VELOCITY
+
 	if velocity.x > 0:
 		facing_direction = "right"
 		$AnimatedSprite2D.flip_h = true
@@ -48,6 +64,8 @@ func _physics_process(delta):
 
 	if is_on_floor():
 		flight_time = 0
+		dashed_since_left_ground = false
+		jumped_to_leave_ground = false
 	else:
 		flight_time += delta
 
@@ -60,62 +78,68 @@ func _physics_process(delta):
 				parent.queue_free()
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump"):
-		if flight_time < COYOTE_TIME:
-			velocity.y = JUMP_VELOCITY
-	
-	# Handle Jutsu
-	time_since_last_action += delta
-	# Max time between each input for a jutsu is .3s
-	if time_since_last_action > .3:
-		direction_history = []
-	
-	if Input.is_action_just_pressed("special"):
-		execute_jutsu()
+	if flight_time < COYOTE_TIME and not jumped_to_leave_ground:
+		if %InputBuffer.is_pressed("jump"):
+			velocity.y -= JUMP_SPEED
+			jumped_to_leave_ground = true
 
-	# Handle Input History
-	if Input.is_action_just_pressed("up"):
-		time_since_last_action = 0
-		direction_history.push_back("up")
-	elif Input.is_action_just_pressed("down"):
-		time_since_last_action = 0
-		direction_history.push_back("down")
-	elif Input.is_action_just_pressed("left"):
-		time_since_last_action = 0
-		direction_history.push_back("side")
-	elif Input.is_action_just_pressed("right"):
-		time_since_last_action = 0
-		direction_history.push_back("side")
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	if lock_velocity <= 0:
+	if dash_timer <= 0:
 		var direction = Input.get_axis("left", "right")
-		if direction:
-			velocity.x = max(velocity.x, SPEED) * direction
-			if (is_on_floor()):
+		var walk = WALK_FORCE * direction
+		# Slow down the player if they're not trying to move.
+		if abs(walk) < WALK_FORCE * 0.2:
+			# The velocity, slowed down a bit, and then reassigned.
+			if is_on_floor():
+				velocity.x = move_toward(velocity.x, 0, STOP_FORCE * delta)
+			else:
+				velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)
+		else:
+			velocity.x += walk * delta
+		# Clamp to the maximum horizontal movement speed.
+		velocity.x = clamp(velocity.x, -WALK_MAX_SPEED, WALK_MAX_SPEED)
+
+		if (is_on_floor()):
+			if direction:
 				$AnimatedSprite2D.play("walk")
 			else:
-				$AnimatedSprite2D.play("jump")
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			if (is_on_floor()):
 				$AnimatedSprite2D.play("idle")
-			else:
-				$AnimatedSprite2D.play("jump")
+		else:
+			$AnimatedSprite2D.play("jump")
 
 	move_and_slide()
+	execute_jutsu()
 
 func execute_jutsu():
-	var combo = direction_history.slice(max(len(direction_history) - 5, 0))
-	direction_history = []
-	print(combo)
-
-	if combo.slice(-2) == ["down", "up"]:
+	if %InputBuffer.is_combo_pressed(["up", "special"]):
+		pass
+	if %InputBuffer.is_combo_pressed(["down", "special"]):
 		spring_jump_jutsu()
-	if combo.slice(-1) == ["side"]:
+	if %InputBuffer.is_pressed("special") or %InputBuffer.is_combo_pressed(["right", "special"]) or %InputBuffer.is_combo_pressed(["left", "special"]):
 		sword_charge_jutsu()
 
+	if %InputBuffer.is_combo_pressed(["dash"]):
+		var x = Input.get_axis("left", "right")
+		var y = Input.get_axis("up", "down")
+
+		if x == 0 and y == 0:
+			if facing_direction == "right":
+				dash(Vector2(1, y))
+			else:
+				dash(Vector2(-1, y))
+		else:
+			dash(Vector2(x, y))
+
+func dash(direction: Vector2):
+	if dash_timer - DASH_LENGTH > -DASH_COOLDOWN:
+		return
+	if dashed_since_left_ground:
+		return
+	dashed_since_left_ground = true
+
+	velocity = Vector2(DASH_SPEED, 0)
+	velocity = velocity.rotated(direction.angle())
+	
+	dash_timer = DASH_LENGTH
 
 func spring_jump_jutsu():
 	print("spring jump!")
@@ -127,4 +151,3 @@ func sword_charge_jutsu():
 		velocity.x += 4000
 	else:
 		velocity.x -= 4000
-	lock_velocity = .2

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bgi4rwhtiptg8"]
 
-[ext_resource type="Texture2D" uid="uid://bmhjgt5fmhqj3" path="res://assets/attacks/ninja_syuriken2.png" id="1_0f0ir"]
 [ext_resource type="Script" uid="uid://bp2bcao2hstmo" path="res://game/player_attacks/shuriken_jutsu.gd" id="1_21vu1"]
+[ext_resource type="Texture2D" uid="uid://dep5ydkf7woll" path="res://assets/attacks/shuriken_combined.png" id="2_21vu1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h7iqs"]
 radius = 25.894014
@@ -15,8 +15,10 @@ script = ExtResource("1_21vu1")
 damage = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1208373937]
-scale = Vector2(0.11953126, 0.11953126)
-texture = ExtResource("1_0f0ir")
+position = Vector2(-1.4305115e-06, -1.4305115e-06)
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("2_21vu1")
+hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1090233966]
 position = Vector2(0.5, -0.5)

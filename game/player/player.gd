@@ -249,8 +249,6 @@ func execute_jutsu():
 		stamina -= 30
 
 	if %InputBuffer.is_combo_pressed(["dash"]):
-		stamina -= 30
-		
 		var x = %InputBuffer.get_axis("left", "right")
 		var y = %InputBuffer.get_axis("up", "down")
 

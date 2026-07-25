@@ -9,7 +9,11 @@
 [ext_resource type="Texture2D" uid="uid://d1sj3k2ln8qjj" path="res://assets/panda/panda3.png" id="4_5fytw"]
 [ext_resource type="Script" uid="uid://dx4xnqkbaeiyo" path="res://game/player/input_buffer.gd" id="8_epvkq"]
 [ext_resource type="Script" uid="uid://is8k5ng0s58f" path="res://game/player/dash_particles.gd" id="9_5ghna"]
-[ext_resource type="Texture2D" uid="uid://b7sgsi0gy2kpf" path="res://assets/attacks/ninja_syuriken2_white.png" id="9_j0mij"]
+[ext_resource type="Texture2D" uid="uid://dep5ydkf7woll" path="res://assets/attacks/shuriken_combined.png" id="10_gb4gm"]
+[ext_resource type="Material" uid="uid://cd78qhx0qmiho" path="res://shaders/shuriken_particle.tres" id="10_uv2nh"]
+[ext_resource type="Script" uid="uid://c3w6ef18pmmhx" path="res://game/player/hit_effect.gd" id="12_uv2nh"]
+[ext_resource type="FontFile" uid="uid://bvvah1mhvhmb3" path="res://menu/font.tres" id="13_3ep63"]
+[ext_resource type="Script" uid="uid://cyllyijewprqv" path="res://game/player/damage_taken_text.gd" id="13_n270p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anr75"]
 shader = ExtResource("2_epvkq")
@@ -65,7 +69,7 @@ size = Vector2(30, 55)
 shader = ExtResource("2_4ste8")
 shader_parameter/outline_size = 0.007
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_anr75"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_gb4gm"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="Curve" id="Curve_j0mij"]
@@ -73,7 +77,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_leid8"]
-colors = PackedColorArray(1, 1, 1, 1, 0.07683582, 0.07683582, 0.07683582, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.08, 0.08, 0.08, 0)
 
 [node name="Player" type="CharacterBody2D" unique_id=1018705283]
 z_index = 1
@@ -81,7 +85,22 @@ collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_b2mth")
 
+[node name="DamageTakenText" type="Label" parent="." unique_id=1336110013]
+unique_name_in_owner = true
+visible = false
+z_index = 10
+offset_right = 86.0
+offset_bottom = 53.0
+theme_override_colors/font_color = Color(0.7821811, 0.80951667, 0.8311229, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("13_3ep63")
+theme_override_font_sizes/font_size = 40
+text = "Hello"
+script = ExtResource("13_n270p")
+
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1313581665]
+process_mode = 3
 transparent_bg = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SubViewport" unique_id=560498824]
@@ -114,44 +133,56 @@ unique_name_in_owner = true
 
 [node name="StaminaChargedParticles" type="CPUParticles2D" parent="." unique_id=164959685]
 unique_name_in_owner = true
-texture = ExtResource("9_j0mij")
+visible = false
+material = ExtResource("10_uv2nh")
+instance_shader_parameters/intensity = 0.999999977648
+texture = ExtResource("10_gb4gm")
 emission_shape = 1
 emission_sphere_radius = 43.66
 gravity = Vector2(0, 0)
 tangential_accel_min = -100.0
 tangential_accel_max = 100.0
-scale_amount_min = 0.02
-scale_amount_max = 0.05
+scale_amount_min = 0.05
+scale_amount_max = 0.1
 color = Color(0.89, 1, 1, 1)
+anim_offset_max = 1.0
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=858388780]
 unique_name_in_owner = true
+process_mode = 3
 material = SubResource("ShaderMaterial_5fytw")
 instance_shader_parameters/intensity = 0.0
 offset_left = -51.0
 offset_top = -51.0
 offset_right = 461.0
 offset_bottom = 461.0
-texture = SubResource("ViewportTexture_anr75")
+texture = SubResource("ViewportTexture_gb4gm")
 
 [node name="StaminaChargedParticlesFront" type="CPUParticles2D" parent="." unique_id=36452154]
 unique_name_in_owner = true
+visible = false
+material = ExtResource("10_uv2nh")
+instance_shader_parameters/intensity = 0.999999977648
 position = Vector2(0, 19)
 amount = 2
-texture = ExtResource("9_j0mij")
+texture = ExtResource("10_gb4gm")
 emission_shape = 1
 emission_sphere_radius = 22.33
 gravity = Vector2(0, 0)
 tangential_accel_min = -100.0
 tangential_accel_max = 100.0
-scale_amount_min = 0.02
-scale_amount_max = 0.05
+scale_amount_min = 0.05
+scale_amount_max = 0.1
 color = Color(0.89, 1, 1, 1)
+anim_offset_max = 1.0
 
 [node name="DashParticles" type="CPUParticles2D" parent="." unique_id=1983856765]
 unique_name_in_owner = true
+visible = false
+material = ExtResource("10_uv2nh")
+instance_shader_parameters/intensity = 0.999999977648
 amount = 80
-texture = ExtResource("9_j0mij")
+texture = ExtResource("10_gb4gm")
 lifetime = 0.5
 lifetime_randomness = 0.4
 emission_shape = 1
@@ -161,8 +192,32 @@ initial_velocity_min = 50.0
 initial_velocity_max = 100.0
 angle_min = -81.0
 angle_max = 205.5
-scale_amount_min = 0.03
-scale_amount_max = 0.07
+scale_amount_min = 0.05
+scale_amount_max = 0.15
 scale_amount_curve = SubResource("Curve_j0mij")
 color_ramp = SubResource("Gradient_leid8")
+anim_offset_max = 1.0
 script = ExtResource("9_5ghna")
+
+[node name="HitEffect" type="Node2D" parent="." unique_id=897539310]
+unique_name_in_owner = true
+script = ExtResource("12_uv2nh")
+
+[node name="Effect" type="CPUParticles2D" parent="HitEffect" unique_id=730442362]
+material = ExtResource("10_uv2nh")
+instance_shader_parameters/intensity = 0.999999977648
+emitting = false
+amount = 100
+texture = ExtResource("10_gb4gm")
+lifetime = 0.25
+one_shot = true
+preprocess = 0.11
+explosiveness = 0.8
+lifetime_randomness = 0.05
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 500.0
+initial_velocity_max = 1000.0
+scale_amount_min = 0.1
+scale_amount_max = 0.15
+anim_offset_max = 1.0

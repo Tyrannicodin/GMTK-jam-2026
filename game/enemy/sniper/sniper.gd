@@ -15,7 +15,7 @@ func attack():
 	illuminating.tween_property(line, "modulate", Color(1, 0, 0, 1), 0.5)
 	illuminating.tween_callback(
 		func():
-			player.deal_damage(damage)
+			player.deal_damage(self, damage)
 			line.modulate = Color(1, 0, 0, 0)
 	).set_delay(0.25)
 	illuminating.tween_callback(func(): attacking = false).set_delay(1)

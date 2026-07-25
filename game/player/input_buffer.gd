@@ -30,6 +30,7 @@ func check_inputs() -> void:
 		"special",
 		"jump",
 		"dash",
+		"attack",
 	]:
 		if Input.is_action_pressed(input):
 			input_list.push_front(ButtonInput.create(input))

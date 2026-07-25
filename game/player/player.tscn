@@ -81,6 +81,7 @@ z_index = 1
 collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_b2mth")
+level_up_constant = null
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1313581665]
 transparent_bg = true

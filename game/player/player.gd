@@ -39,6 +39,8 @@ const JUTSU_COOLDOWN = .05
 var dash_count = 1
 var dashing = false
 
+var attack_cooldown = 0.4
+
 ## How much does more xp do you need per level
 @export var level_up_constant := 1.20
 
@@ -120,11 +122,11 @@ func _physics_process(delta):
 			if parent.get("rewards"):
 				add_rewards(parent.get("rewards"))
 				parent.queue_free()
-
-	# Handle jump.
+	
 	# Jutsu are checked first because it has priority consuming inputs for the frame
 	execute_jutsu()
 	
+	# Handle jump.
 	if flight_time < COYOTE_TIME and not jumped_to_leave_ground:
 		if %InputBuffer.is_just_pressed("jump") or (%InputBuffer.is_pressed("jump") and time_on_ground > LANDING_INPUT_DELAY):
 			velocity.y = -JUMP_SPEED
@@ -135,6 +137,12 @@ func _physics_process(delta):
 				dashing = false
 			elif dashing:
 				velocity.y += JUMP_SPEED/2
+	
+	if %InputBuffer.is_just_pressed("attack"):
+		# Add attack upgrade checks later
+		if dashing:
+			dash_attack()
+		if 
 
 	if dash_timer <= 0:
 		var direction = %InputBuffer.get_axis("left", "right")
@@ -229,3 +237,6 @@ func flower_jutsu():
 	var f = FlowerJutsu.instantiate()
 	f.global_position = self.global_position - Vector2(0, 100)
 	get_parent().add_child(f)
+
+func dash_attack():
+	pass

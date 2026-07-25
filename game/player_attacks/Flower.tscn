@@ -9,6 +9,7 @@ radius = 87.005745
 [node name="Flower" type="RigidBody2D" unique_id=1069549266]
 collision_layer = 4
 script = ExtResource("1_aeddv")
+damage = 12
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=773006969]
 texture = ExtResource("1_m7jse")

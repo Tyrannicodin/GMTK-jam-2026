@@ -1,5 +1,10 @@
 extends CenterContainer
 
+
+const SCENE_PATH = "res://game/game.tscn"
+
+var loading := false
+
 @onready var menu = $MainMenu
 @onready var options = $Options
 
@@ -12,7 +17,8 @@ func _ready() -> void:
 
 func start_pressed() -> void:
 	print("Starting the game")
-	get_tree().change_scene_to_file("res://game/game.tscn")
+	ResourceLoader.load_threaded_request(SCENE_PATH)
+	loading = true
 
 func options_pressed() -> void:
 	options.show()
@@ -24,3 +30,16 @@ func options_back_pressed() -> void:
 
 func quit_pressed() -> void:
 	get_tree().quit()
+
+func _process(_delta):
+	if not loading:
+		return
+	else:
+		%Progress.show()
+	
+	var progress = []
+	var status = ResourceLoader.load_threaded_get_status(SCENE_PATH, progress)
+	if status == ResourceLoader.THREAD_LOAD_LOADED:
+		get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(SCENE_PATH))
+	
+	%Progress.value = progress[0]

@@ -1398,8 +1398,9 @@ rotation = -0.092010245
 texture = ExtResource("9_4cobl")
 
 [node name="BushForegroundParallax2" type="Parallax2D" parent="." unique_id=303868674]
+z_index = 100
 scroll_scale = Vector2(1, 0)
-scroll_offset = Vector2(-203, -67)
+scroll_offset = Vector2(-203, 82.14)
 repeat_size = Vector2(210, 0)
 repeat_times = 20
 
@@ -1805,8 +1806,8 @@ text = "Try again"
 
 [connection signal="gain_time" from="Player" to="." method="on_gain_time"]
 [connection signal="level_up" from="Player" to="." method="player_level_up"]
-[connection signal="take_damage" from="Player" to="." method="on_player_damage"]
 [connection signal="take_damage" from="Player" to="." method="_on_player_take_damage"]
+[connection signal="take_damage" from="Player" to="." method="on_player_damage"]
 [connection signal="unlock_selected" from="Player" to="." method="unlock_chosen"]
 [connection signal="pressed" from="CanvasLayer/Win/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="back_to_menu"]
 [connection signal="pressed" from="CanvasLayer/Win/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Button2" to="." method="endless_mode"]

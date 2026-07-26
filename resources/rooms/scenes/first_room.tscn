@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://b3h3vpdodqiso" path="res://assets/panda/irasu_paper.png" id="3_l3e3y"]
 [ext_resource type="Texture2D" uid="uid://dl7uo8mx06ir2" path="res://assets/rooms/parallax/bamboo_4.png" id="3_ta4ph"]
 [ext_resource type="TileSet" uid="uid://5bm0cxhfjd1" path="res://game/room_objects/room.tres" id="4_l3e3y"]
-[ext_resource type="PackedScene" uid="uid://bmmuknymvntxs" path="res://game/room_objects/border_door/border_door.tscn" id="4_mjqvx"]
 [ext_resource type="Texture2D" uid="uid://b5sphhgosysjc" path="res://assets/rooms/parallax/bamboo_5.png" id="5_1k8tw"]
 [ext_resource type="Texture2D" uid="uid://dh72q7418qyl0" path="res://assets/rooms/objects/building_doujou.png" id="6_16p70"]
 [ext_resource type="Texture2D" uid="uid://btkp501u4chmw" path="res://assets/rooms/parallax/bush.png" id="6_yf7oq"]
@@ -212,10 +211,6 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomArea" unique_id=469854955]
 shape = SubResource("RectangleShape2D_grq6u")
-
-[node name="BorderDoor" parent="." unique_id=573432752 instance=ExtResource("4_mjqvx")]
-position = Vector2(1851, 920)
-locked = true
 
 [node name="Label" type="Label" parent="." unique_id=435851006]
 offset_left = 794.0

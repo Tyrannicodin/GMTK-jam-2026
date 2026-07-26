@@ -236,7 +236,7 @@ func _physics_process(delta):
 		if collision.get_normal() != Vector2.UP:
 			continue
 		
-		var collider: TileMapLayer = collision.get_collider()
+		var collider = collision.get_collider()
 		if collider is not TileMapLayer:
 			continue
 			

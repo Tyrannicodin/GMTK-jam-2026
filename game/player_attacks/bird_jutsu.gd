@@ -1,6 +1,6 @@
 @tool
 
-extends RigidBody2D
+extends Attack
 
 var lifetime = 0
 

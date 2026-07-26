@@ -15,15 +15,17 @@ radius = 45.502747
 
 [node name="Bird" type="RigidBody2D" unique_id=549474378 groups=["attack"]]
 collision_layer = 4
-collision_mask = 8
+collision_mask = 9
 gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 4
 script = ExtResource("1_qwxiq")
+damage = 5
+stamina = null
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1208373937]
 material = SubResource("ShaderMaterial_8bboj")
-position = Vector2(0, 95.45818)
+position = Vector2(0, 65.04022)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("1_10flm")
 

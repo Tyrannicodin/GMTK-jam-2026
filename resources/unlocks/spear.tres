@@ -8,6 +8,6 @@ id = &"Spear"
 name = "Spear"
 description = "Pointy end towards enemies.
 Cooldown: 2s
-Jutsu: up"
+Jutsu: up + X"
 color = Color(0, 0, 0.7294118, 0.49411765)
 metadata/_custom_type_script = "uid://css3rkmhd2ek2"

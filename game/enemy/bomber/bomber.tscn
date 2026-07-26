@@ -2,6 +2,13 @@
 
 [ext_resource type="PackedScene" uid="uid://bfierd6nwqsba" path="res://game/enemy/basic/basic.tscn" id="1_4fgy8"]
 [ext_resource type="Script" uid="uid://p6he0orvw30b" path="res://game/enemy/bomber/bomber.gd" id="2_ehpnv"]
+[ext_resource type="Script" uid="uid://fb5r68g6soxn" path="res://resources/reward.gd" id="3_8jha4"]
+
+[sub_resource type="Resource" id="Resource_row7s"]
+script = ExtResource("3_8jha4")
+xp = 5.0
+time = 3.0
+metadata/_custom_type_script = "uid://fb5r68g6soxn"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
 size = Vector2(128, 128)
@@ -9,7 +16,7 @@ size = Vector2(128, 128)
 [node name="Bomber" unique_id=592317870 instance=ExtResource("1_4fgy8")]
 script = ExtResource("2_ehpnv")
 health = 5
-reward = null
+reward = SubResource("Resource_row7s")
 
 [node name="Barrier Collider" type="Area2D" parent="." index="5" unique_id=1791886396]
 collision_layer = 32768

@@ -299,6 +299,7 @@ RING_RADIUS = 85
 
 [node name="LevelUp" type="AudioStreamPlayer2D" parent="." unique_id=709410226]
 stream = ExtResource("22_n0jev")
+volume_db = 3.0
 
 [node name="Weapon" type="AudioStreamPlayer2D" parent="." unique_id=1085694605]
 stream = SubResource("AudioStreamRandomizer_dourk")

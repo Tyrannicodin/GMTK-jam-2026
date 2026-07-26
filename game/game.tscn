@@ -156,7 +156,7 @@ shader_parameter/offset = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ee6o4"]
 shader = ExtResource("6_ee6o4")
-shader_parameter/speed = 1.3
+shader_parameter/speed = 1.5
 shader_parameter/minStrength = 0.010000000475
 shader_parameter/maxStrength = 0.02000000095
 shader_parameter/strengthScale = 100.0
@@ -1396,6 +1396,20 @@ offset_right = 177.0
 offset_bottom = 1047.0
 rotation = -0.092010245
 texture = ExtResource("9_4cobl")
+
+[node name="BushForegroundParallax3" type="Parallax2D" parent="." unique_id=679500624]
+scroll_scale = Vector2(1, 0)
+scroll_offset = Vector2(-29, -32)
+repeat_size = Vector2(210, 0)
+repeat_times = 20
+
+[node name="TextureRect" type="TextureRect" parent="BushForegroundParallax3" unique_id=1413144853]
+material = SubResource("ShaderMaterial_ee6o4")
+offset_left = 6.0
+offset_top = 990.0
+offset_right = 243.0
+offset_bottom = 1268.0
+texture = ExtResource("10_ln7ps")
 
 [node name="BushForegroundParallax2" type="Parallax2D" parent="." unique_id=303868674]
 z_index = 100

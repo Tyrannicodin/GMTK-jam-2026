@@ -1,6 +1,7 @@
 extends Node2D
 
 signal round_start
+signal hide_unlocks
 
 const FIRST_ROOM = preload("res://resources/rooms/first_room.tres")
 const LAST_ROOM = preload("res://resources/rooms/last_room.tres")
@@ -8,6 +9,7 @@ const LAST_ROOM = preload("res://resources/rooms/last_room.tres")
 var rooms = [FIRST_ROOM]
 
 var possible_rooms: Array[RoomResource] = []
+var possible_unlocks: Array[UnlockResource] = []
 
 @onready var cameraNode = $Camera
 @onready var player = $Player
@@ -26,7 +28,7 @@ var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	print("Hello from game!")
-	load_room_resources()
+	load_resources()
 	set_time(time, 0)
 
 	pick_room(0)
@@ -39,13 +41,17 @@ func pick_room(at: int):
 	)
 	rooms.push_back(possible_rooms[rng.rand_weighted(chances)])
 
-func load_room_resources():
+func load_resources():
 	for file in DirAccess.open("res://resources/rooms").get_files():
 		possible_rooms.push_back(load("res://resources/rooms/%s" % file))
+	for file in DirAccess.open("res://resources/unlocks").get_files():
+		possible_unlocks.push_back(load("res://resources/unlocks/%s" % file))
 
 func build_rooms() -> void:
 	for child in roomContainer.get_children():
 		child.queue_free()
+
+	var unlocks = roll_unlocks()
 
 	var initial_pos: Vector2 = Vector2.ZERO
 	var first_room = true
@@ -72,6 +78,9 @@ func build_rooms() -> void:
 			player.position = entry.global_position
 			player.reset_physics_interpolation()
 			first_room = false
+			
+			room_scene.set_unlocks(unlocks, hide_unlocks)
+			
 		initial_pos = exit.global_position
 
 		index += 1
@@ -140,6 +149,7 @@ func object_left_room(object: Area2D, room: Node2D, index: int):
 
 func _process(delta: float) -> void:
 	%StaminaBar.value = %Player.stamina
+	%XpBar.value = %Player.xp
 
 func _physics_process(delta: float) -> void:
 	time_since_taking_damage += delta
@@ -173,3 +183,25 @@ func on_player_damage(amount: int):
 
 func on_gain_time(amount: float) -> void:
 	time += amount
+
+func player_level_up(_lvl: int) -> void:
+	%XpBar.max_value = %Player.threshold
+	%StaminaBar.max_value = %Player.MAX_STAMINA
+
+func roll_unlocks() -> Array[UnlockResource]:
+	var probs = possible_unlocks.map(func(value: UnlockResource): return value.probability)
+	var selections = []
+	while len(selections) < 3 and len(selections) != len(possible_unlocks):
+		var selected = rng.rand_weighted(probs)
+		if selected in selections:
+			continue
+		selections.push_back(selected)
+	return selections.map(func(value: int): return possible_unlocks[value])
+
+func unlock_chosen(unlock: UnlockResource) -> void:
+	possible_unlocks.remove_at(possible_unlocks.find(unlock))
+	if get(unlock.id) != null:
+		set(unlock.id, true)
+	else:
+		%Player.set(unlock.id, true)
+	hide_unlocks.emit()

@@ -4,6 +4,8 @@ extends CharacterBody2D
 
 signal take_damage(amount: int)
 signal gain_time(amount: int)
+signal level_up(level:int)
+signal unlock_selected(unlock: UnlockResource)
 
 @onready var detector: Area2D = %Detector
 
@@ -44,7 +46,8 @@ const DASH_COOLDOWN = .25
 const JUTSU_COOLDOWN = .05
 const ATTACK_COOLDOWN = 0.4
 
-const MAX_STAMINA = 100
+var MAX_STAMINA = 100
+const STAMINA_LEVEL_GAIN = 10
 const STAMINA_RESTORATION_PER_SECOND = 10
 
 var dash_count = 1
@@ -69,11 +72,17 @@ var threshold = 10
 var xp = 0 :
 	set(value):
 		if xp + value >= threshold:
-			level += 1
-			threshold *= level_up_constant
 			xp = xp + value - threshold
+			run_level_up()
 		else:
 			xp += value
+
+func run_level_up() -> void:
+	level += 1
+	print("Levelled up.")
+	threshold *= level_up_constant
+	MAX_STAMINA += STAMINA_LEVEL_GAIN
+	level_up.emit(level)
 
 func _ready():
 	await get_tree().physics_frame
@@ -88,7 +97,6 @@ func broadcast_player():
 	
 func add_rewards(rewards: Reward) -> void:
 	if not rewards:
-		print("Rewards is NIL")
 		return
 	print("Got rewards: %fs, %sxp" % [rewards.time, rewards.xp])
 	gain_time.emit(rewards.time)
@@ -213,7 +221,10 @@ func _physics_process(delta):
 			if parent.get("rewards"):
 				add_rewards(parent.get("rewards"))
 				parent.queue_free()
-	
+			elif parent.get("unlock"):
+				unlock_selected.emit(parent.get("unlock"))
+
+	# Handle jump.
 	# Jutsu are checked first because it has priority consuming inputs for the frame
 	execute_jutsu()
 	
@@ -437,3 +448,7 @@ func pounce():
 
 func _on_animated_sprite_2d_animation_finished():
 	%AnimatedSprite2D.play(last_animation)
+
+var tmp: bool = false :
+	set(value):
+		print("Tried to make tmp trueitive!")

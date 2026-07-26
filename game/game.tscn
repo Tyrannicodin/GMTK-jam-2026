@@ -467,6 +467,17 @@ offset_right = 591.0
 offset_bottom = 68.0
 value = 100.0
 
+[node name="XpBar" type="ProgressBar" parent="Camera/UI Layer" unique_id=888474918]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -591.0
+offset_bottom = 68.0
+grow_horizontal = 0
+value = 100.0
+
 [node name="BigText" type="SubViewportContainer" parent="Camera" unique_id=336338847]
 material = SubResource("ShaderMaterial_qf6n1")
 offset_left = -1280.0
@@ -580,5 +591,7 @@ scale = Vector2(2.1273532, 5.3204393)
 texture = SubResource("GradientTexture1D_km8ha")
 
 [connection signal="gain_time" from="Player" to="." method="on_gain_time"]
-[connection signal="take_damage" from="Player" to="." method="on_player_damage"]
 [connection signal="take_damage" from="Player" to="." method="_on_player_take_damage"]
+[connection signal="level_up" from="Player" to="." method="player_level_up"]
+[connection signal="take_damage" from="Player" to="." method="on_player_damage"]
+[connection signal="unlock_selected" from="Player" to="." method="unlock_chosen"]

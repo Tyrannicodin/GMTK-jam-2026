@@ -87,7 +87,8 @@ func set_ready_params(weapon: Sprite2D, ready):
 func ready_check():
 	set_ready_params(%Spear, spear_ready)
 	set_ready_params(%Shuriken, shuriken_ready)
-	set_ready_params(%Shield, crazy_bird_ready)
+	set_ready_params(%Shield, shield_ready)
+	set_ready_params(%CrazyBird, crazy_bird_ready)
 	set_ready_params(%Hatchet, hatchet_ready)
 	set_ready_params(%Dagger, dagger_ready)
 	set_ready_params(%Spin, spin_ready)

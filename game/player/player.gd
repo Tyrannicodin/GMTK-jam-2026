@@ -162,7 +162,14 @@ func deal_damage(weapon: Node2D, amount: int):
 	print("Ow! Took ", amount, " damage!")
 
 	
-	if curr_shield_cooldown > 0:
+	if curr_shield_cooldown <= 0 and "Shield" in unlocked_weapons:
+		var d: Label = %DamageTakenText.duplicate()
+		d.text = "Blocked!"
+		d.global_position = global_position
+		get_parent().add_child(d)
+		d.visible = true
+		curr_shield_cooldown = SHIELD_COOLDOWN
+	else:
 		%TextureRect.set_instance_shader_parameter("intensity", 1)
 		%TextureRect.queue_redraw()
 
@@ -176,13 +183,6 @@ func deal_damage(weapon: Node2D, amount: int):
 		get_parent().add_child(d)
 		d.visible = true
 		take_damage.emit(amount)
-	else:
-		var d: Label = %DamageTakenText.duplicate()
-		d.text = "Blocked!"
-		d.global_position = global_position
-		get_parent().add_child(d)
-		d.visible = true
-		curr_shield_cooldown = SHIELD_COOLDOWN
 
 func get_direction():
 	if facing_direction == "right":

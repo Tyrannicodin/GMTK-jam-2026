@@ -168,6 +168,14 @@ func deal_damage(weapon: Node2D, amount: int):
 		take_damage.emit(amount)
 	else:
 		curr_shield_cooldown = SHIELD_COOLDOWN
+	
+	await get_tree().create_timer(0.15).timeout
+
+	var d: Label = %DamageTakenText.duplicate()
+	d.text = "-" + str(amount) + "s"
+	d.global_position = global_position
+	get_parent().add_child(d)
+	d.visible = true
 
 func get_direction():
 	if facing_direction == "right":
@@ -246,10 +254,15 @@ func _physics_process(delta):
 		dashed_since_left_ground = false
 		jumped_to_leave_ground = false
 		just_jumped = false
+		
+		if time_on_ground == 0:
+			$Land.play(0.01)
+		
 		time_on_ground += delta
 		if diving:
 			diving = false
 			# Spawn Shockwave
+
 	else:
 		flight_time += delta
 		time_on_ground = 0
@@ -418,6 +431,8 @@ func dash(direction: Vector2):
 	dash_count -= 1
 	dashing = true
 	
+	$Dash.play(0.01)
+	
 	%DashParticles.emit_for_time(DASH_LENGTH, direction)
 	%AnimatedSprite2D.play("dash")
 
@@ -425,6 +440,7 @@ func shuriken_jutsu():
 	if curr_shuriken_cooldown > 0:
 		return
 	curr_shuriken_cooldown = SHURIKEN_COOLDOWN
+	$Shuriken.play(0.01)
 
 	for i in range(3):
 		var s: RigidBody2D = ShurikenJutsu.instantiate()
@@ -438,6 +454,7 @@ func shuriken_jutsu():
 func flower_jutsu():
 	if stamina < 30:
 		return
+	$Weapon.play(0.01)
 	var f = FlowerJutsu.instantiate()
 	f.global_position = self.global_position - Vector2(0, 100)
 	get_parent().add_child(f)
@@ -457,7 +474,8 @@ func bird_jutsu():
 	if curr_crazy_bird_cooldown > 0:
 		return
 	curr_crazy_bird_cooldown = CRAZY_BIRD_COOLDOWN
-
+	$Bird.play(0.01)
+	
 	var s: RigidBody2D = BirdJutsu.instantiate()
 	s.global_position = self.global_position
 	get_parent().add_child(s)
@@ -510,10 +528,12 @@ func spin_jutsu():
 		s.linear_velocity.y = -sin(r) * speed
 		if i % 5 == 0:
 			await get_tree().create_timer(.001).timeout
+			$Shuriken.play(0.01)
 
 func burst_jutsu():
 	if stamina < 30:
 		return
+	$Weapon.play(0.01)
 	parry_timer = 0.1
 	freeze_timer = 0.1
 	# Maybe also deal damage in a small radius.
@@ -530,6 +550,7 @@ func scug_jutsu():
 	if curr_spear_cooldown > 0:
 		return
 	curr_spear_cooldown = SPEAR_COOLDOWN
+	$Weapon.play(0.01)
 
 	var s: RigidBody2D = SpearJutsu.instantiate()
 	s.global_position = self.global_position
@@ -558,3 +579,8 @@ func _on_animated_sprite_2d_animation_finished():
 var tmp: bool = false :
 	set(value):
 		print("Tried to make tmp trueitive!")
+
+func _on_animated_sprite_2d_frame_changed() -> void:
+	if (%AnimatedSprite2D.animation == "walk" and (%AnimatedSprite2D.frame == 1 or %AnimatedSprite2D.frame == 3)):
+		$Footsteps.play(0.01)
+		

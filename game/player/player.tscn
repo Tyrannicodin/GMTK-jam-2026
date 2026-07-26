@@ -17,8 +17,19 @@
 [ext_resource type="Material" uid="uid://cd78qhx0qmiho" path="res://shaders/shuriken_particle.tres" id="10_uv2nh"]
 [ext_resource type="Script" uid="uid://c3w6ef18pmmhx" path="res://game/player/hit_effect.gd" id="12_uv2nh"]
 [ext_resource type="FontFile" uid="uid://bvvah1mhvhmb3" path="res://menu/font.tres" id="13_3ep63"]
+[ext_resource type="Texture2D" uid="uid://bpu7ouo3p5wns" path="res://assets/panda/panda4.png" id="13_ib3u0"]
 [ext_resource type="Script" uid="uid://cyllyijewprqv" path="res://game/player/damage_taken_text.gd" id="13_n270p"]
 [ext_resource type="PackedScene" uid="uid://0lqcs2qc3jp6" path="res://game/player/WeaponRing.tscn" id="19_0e4oy"]
+[ext_resource type="AudioStream" uid="uid://bme7y406f7igw" path="res://assets/sound/step_1.mp3" id="20_brh81"]
+[ext_resource type="AudioStream" uid="uid://dxdg5u3cywi1f" path="res://assets/sound/land.mp3" id="21_bp242"]
+[ext_resource type="AudioStream" uid="uid://bxqvmp5tfh84x" path="res://assets/sound/weapon.mp3" id="21_cgi3i"]
+[ext_resource type="AudioStream" uid="uid://bq2i0wgloytfl" path="res://assets/sound/step_2.mp3" id="21_ib3u0"]
+[ext_resource type="AudioStream" uid="uid://hcamsswuw142" path="res://assets/sound/step_3.mp3" id="22_bp242"]
+[ext_resource type="AudioStream" uid="uid://b13e5bw4xidhs" path="res://assets/sound/shuriken.mp3" id="22_w24bm"]
+[ext_resource type="AudioStream" uid="uid://5y0l8o22qxtj" path="res://assets/sound/dash.mp3" id="22_y6drd"]
+[ext_resource type="AudioStream" uid="uid://chqnq3y7rr727" path="res://assets/sound/bird.mp3" id="23_22cju"]
+[ext_resource type="AudioStream" uid="uid://cweo0i20n0q6s" path="res://assets/sound/step_4.mp3" id="23_cgi3i"]
+[ext_resource type="AudioStream" uid="uid://c5lk2l50484cx" path="res://assets/sound/step_5.mp3" id="24_y6drd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anr75"]
 shader = ExtResource("2_epvkq")
@@ -78,6 +89,9 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("2_a4w0n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_ib3u0")
 }],
 "loop": 1,
 "name": &"walk",
@@ -100,6 +114,30 @@ point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_leid8"]
 colors = PackedColorArray(1, 1, 1, 1, 0.08, 0.08, 0.08, 0)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dourk"]
+random_pitch = 1.1892071
+streams_count = 1
+stream_0/stream = ExtResource("21_cgi3i")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_cgi3i"]
+random_pitch = 1.1892071
+streams_count = 1
+stream_0/stream = ExtResource("22_y6drd")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_bp242"]
+random_pitch = 1.0594631
+streams_count = 1
+stream_0/stream = ExtResource("21_bp242")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_km8ha"]
+random_pitch = 1.0174797
+streams_count = 5
+stream_0/stream = ExtResource("20_brh81")
+stream_1/stream = ExtResource("21_ib3u0")
+stream_2/stream = ExtResource("22_bp242")
+stream_3/stream = ExtResource("23_cgi3i")
+stream_4/stream = ExtResource("24_y6drd")
 
 [node name="Player" type="CharacterBody2D" unique_id=1018705283]
 z_index = 1
@@ -131,8 +169,9 @@ material = SubResource("ShaderMaterial_anr75")
 position = Vector2(49.999992, 49.999992)
 scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_km8ha")
-animation = &"dash"
+animation = &"walk"
 autoplay = "idle"
+frame_progress = 0.7015539
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=5305132]
 position = Vector2(1, 11)
@@ -247,4 +286,31 @@ anim_offset_max = 1.0
 unique_name_in_owner = true
 RING_RADIUS = 85
 
+[node name="Weapon" type="AudioStreamPlayer2D" parent="." unique_id=1085694605]
+stream = SubResource("AudioStreamRandomizer_dourk")
+volume_db = -8.0
+
+[node name="Shuriken" type="AudioStreamPlayer2D" parent="." unique_id=1792282629]
+stream = ExtResource("22_w24bm")
+volume_db = -8.0
+
+[node name="Bird" type="AudioStreamPlayer2D" parent="." unique_id=313744524]
+visible = false
+stream = ExtResource("23_22cju")
+
+[node name="Dash" type="AudioStreamPlayer2D" parent="." unique_id=1140123446]
+stream = SubResource("AudioStreamRandomizer_cgi3i")
+volume_db = -8.0
+
+[node name="Land" type="AudioStreamPlayer2D" parent="." unique_id=190564479]
+stream = SubResource("AudioStreamRandomizer_bp242")
+volume_db = -4.0
+max_polyphony = 2
+
+[node name="Footsteps" type="AudioStreamPlayer2D" parent="." unique_id=1221454584]
+stream = SubResource("AudioStreamRandomizer_km8ha")
+volume_db = -2.0
+max_polyphony = 3
+
 [connection signal="animation_finished" from="SubViewport/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="frame_changed" from="SubViewport/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

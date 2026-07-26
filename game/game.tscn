@@ -29,6 +29,8 @@
 [ext_resource type="Texture2D" uid="uid://fi3iv4kuxdb0" path="res://assets/rooms/parallax/falling_leaf.png" id="23_5e03w"]
 [ext_resource type="Texture2D" uid="uid://diybf46qpaopr" path="res://assets/ui/nenga_mark02_take.png" id="23_58yx1"]
 [ext_resource type="Texture2D" uid="uid://i0c5kedxxnl7" path="res://assets/ui/xp_bar_top.png" id="23_hbvmx"]
+[ext_resource type="AudioStream" uid="uid://dum3i8jlec3v4" path="res://assets/sound/ambiance.mp3" id="30_hbvmx"]
+[ext_resource type="AudioStream" uid="uid://dwlv67b88igdx" path="res://assets/sound/bgm.mp3" id="31_fegy3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ln7ps"]
 shader = ExtResource("6_ee6o4")
@@ -1691,6 +1693,16 @@ offset_right = 411.0
 offset_bottom = -173.0
 scale = Vector2(2.1273532, 5.3204393)
 texture = SubResource("GradientTexture1D_km8ha")
+
+[node name="Ambience" type="AudioStreamPlayer" parent="." unique_id=892448229]
+unique_name_in_owner = true
+stream = ExtResource("30_hbvmx")
+volume_db = -12.0
+
+[node name="Bgm" type="AudioStreamPlayer" parent="." unique_id=2001686425]
+unique_name_in_owner = true
+stream = ExtResource("31_fegy3")
+volume_db = -5.0
 
 [connection signal="gain_time" from="Player" to="." method="on_gain_time"]
 [connection signal="level_up" from="Player" to="." method="player_level_up"]

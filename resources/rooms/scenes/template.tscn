@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://db5oj88umoqqg" path="res://resources/rooms/scenes/room.gd" id="1_vrnh0"]
 [ext_resource type="TileSet" uid="uid://5bm0cxhfjd1" path="res://game/room_objects/room.tres" id="2_g364e"]
+[ext_resource type="PackedScene" uid="uid://kkpl80x7124d" path="res://game/room_objects/chest/chest.tscn" id="3_r16wt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vc104"]
 size = Vector2(1920, 1080)
@@ -29,6 +30,10 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomArea" unique_id=317257611]
 position = Vector2(960, 540)
 shape = SubResource("RectangleShape2D_vc104")
+
+[node name="Chest" parent="." unique_id=1912984734 instance=ExtResource("3_r16wt")]
+position = Vector2(1024, 544)
+metadata/_scene_painted = true
 
 [connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]
 [connection signal="area_exited" from="RoomArea" to="." method="on_area_exited"]

@@ -28,7 +28,6 @@ shader_parameter/samples = 10
 
 [node name="WeaponRing" type="Node2D" unique_id=974362532]
 script = ExtResource("1_1w4ex")
-unlocked_weapons = Array[String](["Nuke"])
 spear_ready = false
 shuriken_ready = false
 crazy_bird_ready = false
@@ -119,6 +118,7 @@ texture = ExtResource("9_ldce5")
 
 [node name="Nuke" type="Sprite2D" parent="." unique_id=61596734]
 unique_name_in_owner = true
+visible = false
 modulate = Color(0.05, 0.05, 0.05, 1)
 material = SubResource("ShaderMaterial_ncf6v")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)

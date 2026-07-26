@@ -71,7 +71,7 @@ var STAMINA_NOT_CHARGED_OUTLINE_COLOR = Color("0d0601")
 
 var last_animation = "idle"
 
-var unlocked_weapons: Array[String] = ["Shuriken", "Nuke"]
+var unlocked_weapons: Array[String] = ["Shuriken"]
 
 # Weapons
 var SPEAR_COOLDOWN = 2
@@ -566,7 +566,7 @@ func nuke_jutsu():
 	if curr_nuke_cooldown > 0:
 		return
 	curr_nuke_cooldown = NUKE_COOLDOWN
-	
+
 	$Explosion.play()
 	
 	var s: RigidBody2D = NukeJutsu.instantiate()

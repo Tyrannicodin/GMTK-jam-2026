@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends WeaponScript
 
 var time_alive = 0
 

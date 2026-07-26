@@ -19,6 +19,7 @@ collision_layer = 4
 collision_mask = 8
 gravity_scale = 0.0
 script = ExtResource("1_ol8vy")
+damage = 1000
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=773006969]
 material = SubResource("ShaderMaterial_jbppu")

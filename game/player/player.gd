@@ -48,7 +48,7 @@ const INVULN_TIME = .3
 
 const DASH_LENGTH = .16
 const DASH_SPEED = 2500
-const DASH_COOLDOWN = .25
+const DASH_COOLDOWN = .05
 const JUTSU_COOLDOWN = .05
 const ATTACK_COOLDOWN = 0.4
 
@@ -64,6 +64,9 @@ var dashing = false
 var diving = false
 
 var just_jumped = false
+
+var hyperable = false
+var ultraboosted = false
 
 var attack_cooldown = 0
 var STAMINA_CHARGED_OUTLINE_COLOR = Color("e1eced")
@@ -275,6 +278,10 @@ func _physics_process(delta):
 		%AnimatedSprite2D.flip_h = false
 
 	if is_on_floor():
+		if flight_time > 0 and not ultraboosted:
+			velocity.x *= 1.2
+			ultraboosted = true
+		
 		flight_time = 0
 		dashed_since_left_ground = false
 		jumped_to_leave_ground = false
@@ -291,6 +298,7 @@ func _physics_process(delta):
 	else:
 		flight_time += delta
 		time_on_ground = 0
+		ultraboosted = false
 		if flight_time > COYOTE_TIME:
 			just_jumped = false
 
@@ -337,6 +345,8 @@ func _physics_process(delta):
 				dash_count += 1
 			if not dashing:
 				velocity.x += 800 * sign(Input.get_axis("left", "right"))
+			elif velocity.y > 0 and velocity.x != 0:
+				velocity.x = 4000 * sign(velocity.x)
 			if -velocity.y <= abs(velocity.x):
 				dashing = false
 			elif dashing:
@@ -445,25 +455,22 @@ func execute_jutsu():
 func dash(direction: Vector2):
 	if diving:
 		return
+	if dashing:
+		return
 	if dash_count < 1:
 		return
 	if dash_timer - DASH_LENGTH > -DASH_COOLDOWN:
 		return
 	if dashed_since_left_ground:
 		return
-
-	dashed_since_left_ground = true
-
-	if abs(velocity.x) < 1:
-		velocity.x = 0
-	if abs(velocity.y) < 1:
-		velocity.y = 0
-
-	velocity = direction * DASH_SPEED
+	
+	velocity.x = max(direction.x * DASH_SPEED, velocity.x)
+	velocity.y = direction.y * DASH_SPEED
 	
 	dash_timer = DASH_LENGTH
 	dash_count -= 1
 	dashing = true
+	dashed_since_left_ground = true
 	
 	$Dash.play(0.01)
 	

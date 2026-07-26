@@ -27,11 +27,15 @@ func check_inputs() -> void:
 		"down",
 		"left",
 		"right",
+	]:
+		if Input.is_action_pressed(input):
+			input_list.push_front(ButtonInput.create(input))
+	for input in [
 		"jump",
 		"dash",
 		"attack",
 	]:
-		if Input.is_action_pressed(input):
+		if Input.is_action_just_pressed(input):
 			input_list.push_front(ButtonInput.create(input))
 
 	if len(input_list) > 15:

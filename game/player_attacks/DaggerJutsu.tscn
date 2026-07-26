@@ -21,7 +21,7 @@ gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 4
 script = ExtResource("1_t44ci")
-damage = 4
+damage = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=773006969]
 material = SubResource("ShaderMaterial_jbppu")

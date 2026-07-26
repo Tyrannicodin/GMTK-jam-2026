@@ -227,7 +227,7 @@ func on_gain_time(amount: float) -> void:
 func player_level_up(_lvl: int) -> void:
 	%XpBar.max_value = %Player.threshold
 	%StaminaBar.max_value = %Player.MAX_STAMINA
-	base_time += 1
+	base_time += 0.5
 	time += 1
 
 func roll_unlocks() -> Array[UnlockResource]:

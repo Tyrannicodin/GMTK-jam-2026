@@ -150,7 +150,7 @@ func object_left_room(object: Area2D, room: Node2D, index: int):
 func _process(delta: float) -> void:
 	%StaminaBar.value = %Player.stamina
 	%XpBar.value = %Player.xp
-	%PlayerLevel.text = "LV" + %Player.PlayerLevel
+	%PlayerLevel.text = "LV%s" % %Player.level
 	
 func _physics_process(delta: float) -> void:
 	time_since_taking_damage += delta

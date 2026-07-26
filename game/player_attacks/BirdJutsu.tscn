@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://cnu70xv20nhyb"]
+
+[ext_resource type="Texture2D" uid="uid://cnd0p457mp23j" path="res://assets/attacks/crazy_bird.png" id="1_10flm"]
+[ext_resource type="Script" uid="uid://bgi515nuel33d" path="res://game/player_attacks/bird_jutsu.gd" id="1_qwxiq"]
+[ext_resource type="Shader" uid="uid://c6agybqntnsmx" path="res://shaders/magic_outline.gdshader" id="2_jbppu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8bboj"]
+shader = ExtResource("2_jbppu")
+shader_parameter/border_color = Color(0.73039997, 0.88, 0.7877466, 1)
+shader_parameter/radius = 15.0
+shader_parameter/samples = 15
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h7iqs"]
+radius = 45.502747
+
+[node name="Bird" type="RigidBody2D" unique_id=549474378 groups=["attack"]]
+collision_layer = 4
+collision_mask = 8
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 4
+script = ExtResource("1_qwxiq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1208373937]
+material = SubResource("ShaderMaterial_8bboj")
+position = Vector2(0, 73.975555)
+scale = Vector2(0.23, 0.23)
+texture = ExtResource("1_10flm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1090233966]
+position = Vector2(0.5, -0.5)
+shape = SubResource("CircleShape2D_h7iqs")
+
+[node name="Timer" type="Timer" parent="." unique_id=1864738481]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="on_collision"]
+[connection signal="timeout" from="Timer" to="." method="timeout"]

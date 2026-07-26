@@ -1,10 +1,20 @@
 [gd_scene format=3 uid="uid://bgi4rwhtiptg8"]
 
 [ext_resource type="Script" uid="uid://bp2bcao2hstmo" path="res://game/player_attacks/shuriken_jutsu.gd" id="1_21vu1"]
+[ext_resource type="Shader" uid="uid://c6agybqntnsmx" path="res://shaders/magic_outline.gdshader" id="1_ndyyx"]
 [ext_resource type="Texture2D" uid="uid://dep5ydkf7woll" path="res://assets/attacks/shuriken_combined.png" id="2_21vu1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h7iqs"]
 radius = 25.894014
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ndyyx"]
+shader = ExtResource("1_ndyyx")
+shader_parameter/border_color = Color(0.7654, 0.89, 0.81316334, 1)
+shader_parameter/radius = 2.0
+shader_parameter/samples = 3
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_0xfd7"]
+viewport_path = NodePath("SubViewport")
 
 [node name="Shuriken" type="RigidBody2D" unique_id=549474378 groups=["attack"]]
 collision_layer = 4
@@ -14,12 +24,6 @@ max_contacts_reported = 4
 script = ExtResource("1_21vu1")
 damage = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1208373937]
-position = Vector2(-1.4305115e-06, -1.4305115e-06)
-scale = Vector2(0.36, 0.36)
-texture = ExtResource("2_21vu1")
-hframes = 5
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1090233966]
 position = Vector2(0.5, -0.5)
 shape = SubResource("CircleShape2D_h7iqs")
@@ -28,6 +32,25 @@ shape = SubResource("CircleShape2D_h7iqs")
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=988533758]
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="Sprite" type="Sprite2D" parent="SubViewport" unique_id=1208373937]
+unique_name_in_owner = true
+position = Vector2(64, 64)
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("2_21vu1")
+hframes = 5
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=84399714]
+material = SubResource("ShaderMaterial_ndyyx")
+offset_left = -63.0
+offset_top = -64.0
+offset_right = 65.0
+offset_bottom = 64.0
+texture = SubResource("ViewportTexture_0xfd7")
 
 [connection signal="body_entered" from="." to="." method="on_collision"]
 [connection signal="timeout" from="Timer" to="." method="timeout"]

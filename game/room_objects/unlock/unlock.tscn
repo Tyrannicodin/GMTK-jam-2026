@@ -1,22 +1,16 @@
 [gd_scene format=3 uid="uid://pcqinpqfnysf"]
 
 [ext_resource type="Script" uid="uid://bkqvdmp24bw85" path="res://game/room_objects/unlock/unlock.gd" id="1_6bqdw"]
-[ext_resource type="FontFile" uid="uid://bvvah1mhvhmb3" path="res://menu/font.tres" id="1_jtt40"]
-
-[sub_resource type="Theme" id="Theme_6bqdw"]
-default_font = ExtResource("1_jtt40")
-Label/colors/font_color = Color(1, 1, 1, 1)
-Label/colors/font_outline_color = Color(0, 0, 0, 1)
-Label/constants/outline_size = 8
-Label/font_sizes/font_size = 18
-Label/fonts/font = ExtResource("1_jtt40")
+[ext_resource type="Theme" uid="uid://bo5pkj4e4ib0a" path="res://game/textbox_theme.tres" id="1_jtt40"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6bqdw"]
 size = Vector2(200, 238)
 
 [node name="Unlock" type="PanelContainer" unique_id=1854251029]
 custom_minimum_size = Vector2(200, 0)
-theme = SubResource("Theme_6bqdw")
+offset_right = 200.0
+offset_bottom = 238.0
+theme = ExtResource("1_jtt40")
 script = ExtResource("1_6bqdw")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1747494492]
@@ -25,15 +19,17 @@ layout_mode = 2
 [node name="Name" type="Label" parent="VBoxContainer" unique_id=578127523]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "Name here"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Keybind" type="Label" parent="VBoxContainer" unique_id=632999783]
+[node name="Description" type="Label" parent="VBoxContainer" unique_id=1695317107]
 unique_name_in_owner = true
 custom_maximum_size = Vector2(200, 150)
 layout_mode = 2
-text = "Cooldow: 1s"
+theme_override_font_sizes/font_size = 20
+text = "Description here"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
@@ -42,16 +38,18 @@ autowrap_mode = 3
 unique_name_in_owner = true
 custom_maximum_size = Vector2(200, 150)
 layout_mode = 2
-text = "↑ + x"
+theme_override_font_sizes/font_size = 20
+text = "Cooldown: 1s"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Description" type="Label" parent="VBoxContainer" unique_id=1695317107]
+[node name="Keybind" type="Label" parent="VBoxContainer" unique_id=632999783]
 unique_name_in_owner = true
 custom_maximum_size = Vector2(200, 150)
 layout_mode = 2
-text = "Description here"
+theme_override_font_sizes/font_size = 36
+text = "Key"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3

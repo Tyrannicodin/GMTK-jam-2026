@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UnlockResource" format=3 uid="uid://crcdgr0aqgcan"]
+
+[ext_resource type="Script" uid="uid://css3rkmhd2ek2" path="res://resources/unlock.gd" id="1_4w0ox"]
+
+[resource]
+script = ExtResource("1_4w0ox")
+id = &"Nuke"
+name = "Nuke"
+description = "It's a really big bomb.
+"
+keybind = "← + → + x"
+cooldown = "20"
+color = Color(0.8156863, 0.70980394, 0.019607844, 0.49411765)
+metadata/_custom_type_script = "uid://css3rkmhd2ek2"

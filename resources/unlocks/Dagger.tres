@@ -7,7 +7,8 @@ script = ExtResource("1_nku77")
 id = &"Dagger"
 name = "Dagger"
 description = "Like a spear, but shorter.
-Cooldown: 1s
-Jutsu: down + X"
+"
+keybind = "↓ + x"
+cooldown = "1"
 color = Color(0.21568628, 0.7411765, 0.7294118, 0.49411765)
 metadata/_custom_type_script = "uid://css3rkmhd2ek2"

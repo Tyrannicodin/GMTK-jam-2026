@@ -15,6 +15,7 @@ extends Node2D
 @export var hatchet_ready = true
 @export var dagger_ready = true
 @export var spin_ready = true
+@export var nuke_ready = true
 
 var time = 0.0
 
@@ -74,7 +75,8 @@ func check_unlocks():
 	else: %Dagger.hide()
 	if "Spin" in unlocked_weapons: %Spin.show()
 	else: %Spin.hide()
-
+	if "Nuke" in unlocked_weapons: %Nuke.show()
+	else: %Nuke.hide()
 
 func set_ready_params(weapon: Sprite2D, ready):
 	if ready:
@@ -87,7 +89,9 @@ func set_ready_params(weapon: Sprite2D, ready):
 func ready_check():
 	set_ready_params(%Spear, spear_ready)
 	set_ready_params(%Shuriken, shuriken_ready)
-	set_ready_params(%Shield, crazy_bird_ready)
+	set_ready_params(%Shield, shield_ready)
+	set_ready_params(%CrazyBird, crazy_bird_ready)
 	set_ready_params(%Hatchet, hatchet_ready)
 	set_ready_params(%Dagger, dagger_ready)
 	set_ready_params(%Spin, spin_ready)
+	set_ready_params(%Nuke, nuke_ready)

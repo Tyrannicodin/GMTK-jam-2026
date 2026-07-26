@@ -30,6 +30,7 @@
 [ext_resource type="AudioStream" uid="uid://chqnq3y7rr727" path="res://assets/sound/bird.mp3" id="23_22cju"]
 [ext_resource type="AudioStream" uid="uid://cweo0i20n0q6s" path="res://assets/sound/step_4.mp3" id="23_cgi3i"]
 [ext_resource type="AudioStream" uid="uid://c5lk2l50484cx" path="res://assets/sound/step_5.mp3" id="24_y6drd"]
+[ext_resource type="AudioStream" uid="uid://b6ky3rdpwmmdp" path="res://assets/sound/ExplosionBlast_S08WA.111.wav" id="31_wrff0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anr75"]
 shader = ExtResource("2_epvkq")
@@ -292,33 +293,32 @@ RING_RADIUS = 85
 [node name="Weapon" type="AudioStreamPlayer2D" parent="." unique_id=1085694605]
 stream = SubResource("AudioStreamRandomizer_dourk")
 volume_db = -8.0
-bus = &"SFX"
 
 [node name="Shuriken" type="AudioStreamPlayer2D" parent="." unique_id=1792282629]
 stream = ExtResource("22_w24bm")
 volume_db = -8.0
-bus = &"SFX"
 
 [node name="Bird" type="AudioStreamPlayer2D" parent="." unique_id=313744524]
 stream = ExtResource("23_22cju")
-bus = &"SFX"
 
 [node name="Dash" type="AudioStreamPlayer2D" parent="." unique_id=1140123446]
 stream = SubResource("AudioStreamRandomizer_cgi3i")
 volume_db = -8.0
-bus = &"SFX"
 
 [node name="Land" type="AudioStreamPlayer2D" parent="." unique_id=190564479]
 stream = SubResource("AudioStreamRandomizer_bp242")
 volume_db = -4.0
 max_polyphony = 2
-bus = &"SFX"
 
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="." unique_id=1221454584]
 stream = SubResource("AudioStreamRandomizer_km8ha")
 volume_db = -2.0
 max_polyphony = 3
-bus = &"SFX"
+
+[node name="Explosion" type="AudioStreamPlayer2D" parent="." unique_id=1148050783]
+stream = ExtResource("31_wrff0")
+volume_db = -2.0
+max_polyphony = 3
 
 [connection signal="animation_finished" from="SubViewport/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="SubViewport/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

@@ -1,34 +1,34 @@
-[gd_scene format=3 uid="uid://4ucw6uqw783u"]
+[gd_scene format=3 uid="uid://ehf0doxe5eig"]
 
-[ext_resource type="Script" uid="uid://dtyepqim3b1em" path="res://game/player_attacks/flower.gd" id="1_8kc5w"]
-[ext_resource type="Texture2D" uid="uid://cmoeer2xnki3g" path="res://assets/attacks/buki_yari.png" id="2_8kc5w"]
-[ext_resource type="Shader" uid="uid://c6agybqntnsmx" path="res://shaders/magic_outline.gdshader" id="2_mey5v"]
+[ext_resource type="Script" uid="uid://dtyepqim3b1em" path="res://game/player_attacks/flower.gd" id="1_3fpaq"]
+[ext_resource type="Shader" uid="uid://c6agybqntnsmx" path="res://shaders/magic_outline.gdshader" id="2_ii465"]
+[ext_resource type="Texture2D" uid="uid://dglc0vanhxg7t" path="res://assets/attacks/hatchet.png" id="3_3fpaq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jbppu"]
-shader = ExtResource("2_mey5v")
+shader = ExtResource("2_ii465")
 shader_parameter/border_color = Color(0.7294118, 0.8784314, 0.7882353, 1)
 shader_parameter/radius = 15.0
 shader_parameter/samples = 15
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8kc5w"]
-size = Vector2(6, 118)
+size = Vector2(64, 19)
 
 [node name="Spear" type="RigidBody2D" unique_id=1069549266]
 position = Vector2(-1, -1)
 collision_layer = 4
-collision_mask = 9
-script = ExtResource("1_8kc5w")
-damage = 15
+collision_mask = 8
+script = ExtResource("1_3fpaq")
+damage = 11
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=773006969]
 material = SubResource("ShaderMaterial_jbppu")
 position = Vector2(1.0000042, -76.00001)
 rotation = -0.60467213
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_8kc5w")
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_3fpaq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=718669560]
-position = Vector2(1, -76)
+position = Vector2(3, -81.5)
 shape = SubResource("RectangleShape2D_8kc5w")
 
 [node name="Timer" type="Timer" parent="." unique_id=361677401]

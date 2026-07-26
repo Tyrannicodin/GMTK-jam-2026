@@ -5,6 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://bmhjgt5fmhqj3" path="res://assets/attacks/ninja_syuriken2.png" id="3_bo8m0"]
 [ext_resource type="Shader" uid="uid://b8gkhcqhgu1r4" path="res://shaders/instance_outline.gdshader" id="4_ncf6v"]
 [ext_resource type="Texture2D" uid="uid://cnd0p457mp23j" path="res://assets/attacks/crazy_bird.png" id="4_nd836"]
+[ext_resource type="Texture2D" uid="uid://dglc0vanhxg7t" path="res://assets/attacks/hatchet.png" id="6_ncf6v"]
+[ext_resource type="Texture2D" uid="uid://4cotyx75vn6f" path="res://assets/attacks/war_tate_pelta.png" id="6_wjqu0"]
+[ext_resource type="Texture2D" uid="uid://cjphml7tohrry" path="res://assets/attacks/dagger.png" id="8_yp58t"]
+[ext_resource type="Texture2D" uid="uid://dvslh47e7egt7" path="res://assets/attacks/character_typhoon.png" id="9_ldce5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8bboj"]
 shader = ExtResource("4_ncf6v")
@@ -18,14 +22,18 @@ shader_parameter/samples = 10
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ncf6v"]
 shader = ExtResource("4_ncf6v")
-shader_parameter/radius = 30.0
-shader_parameter/samples = 5
+shader_parameter/radius = 20.0
+shader_parameter/samples = 10
 
 [node name="WeaponRing" type="Node2D" unique_id=974362532]
 script = ExtResource("1_1w4ex")
 spear_ready = false
 shuriken_ready = false
 crazy_bird_ready = false
+shield_ready = null
+hatchet_ready = null
+dagger_ready = null
+spin_ready = null
 TIME_FOR_ROTATION = 20.0
 RING_RADIUS = 100
 
@@ -33,17 +41,17 @@ RING_RADIUS = 100
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_8bboj")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
-position = Vector2(-95.10565, -32.29987)
-rotation = -0.04660564
-scale = Vector2(0.2, 0.2)
+position = Vector2(-95.10565, -32.62116)
+rotation = -0.05731526
+scale = Vector2(0.18, 0.18)
 texture = ExtResource("2_78561")
 
 [node name="Shuriken" type="Sprite2D" parent="." unique_id=1377884300]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_7be1g")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
-position = Vector2(-1.8369702e-14, -101.83167)
-rotation = -0.061055757
+position = Vector2(-74.31448, -69.78453)
+rotation = -0.09571556
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_bo8m0")
 
@@ -51,7 +59,43 @@ texture = ExtResource("3_bo8m0")
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_ncf6v")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
-position = Vector2(95.10565, -27.97904)
-rotation = 0.09742196
+position = Vector2(-40.673664, -94.148384)
+rotation = -0.093128026
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_nd836")
+
+[node name="Shield" type="Sprite2D" parent="." unique_id=570853322]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ncf6v")
+instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+position = Vector2(-1.8369702e-14, -101.51982)
+rotation = -0.05066069
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_wjqu0")
+
+[node name="Hatchet" type="Sprite2D" parent="." unique_id=298829912]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ncf6v")
+instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+position = Vector2(40.673664, -90.949524)
+rotation = 0.013500842
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_ncf6v")
+
+[node name="Dagger" type="Sprite2D" parent="." unique_id=625597656]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ncf6v")
+instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+position = Vector2(74.31448, -64.75663)
+rotation = 0.07188097
+scale = Vector2(0.06, 0.06)
+texture = ExtResource("8_yp58t")
+
+[node name="Spin" type="Sprite2D" parent="." unique_id=1738094008]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ncf6v")
+instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+position = Vector2(95.10565, -27.917305)
+rotation = 0.09947983
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("9_ldce5")

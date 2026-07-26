@@ -12,6 +12,9 @@ variation_opentype = {
 2003265652: 700
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_grq6u"]
+bg_color = Color(0.15692809, 0.31772497, 0.26398972, 1)
+
 [node name="Menu" type="CenterContainer" unique_id=1814581019]
 anchors_preset = 15
 anchor_right = 1.0
@@ -73,18 +76,6 @@ layout_mode = 2
 columns = 2
 script = ExtResource("3_6nwqt")
 
-[node name="Label" type="Label" parent="Options/Volume" unique_id=1855535925]
-layout_mode = 2
-text = "Show tutorial"
-
-[node name="CenterContainer" type="CenterContainer" parent="Options/Volume" unique_id=1867961415]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="CheckBox" type="CheckBox" parent="Options/Volume/CenterContainer" unique_id=1036761615]
-layout_mode = 2
-
 [node name="Reset" type="Button" parent="Options" unique_id=966230255]
 layout_mode = 2
 text = "Reset keybinds"
@@ -95,10 +86,16 @@ theme_override_fonts/font = SubResource("FontVariation_043lm")
 theme_override_font_sizes/font_size = 36
 text = "Go Back"
 
+[node name="Progress" type="ProgressBar" parent="." unique_id=1066545872]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(1000, 100)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_grq6u")
+max_value = 1.0
+
 [connection signal="pressed" from="MainMenu/Start" to="." method="start_pressed"]
 [connection signal="pressed" from="MainMenu/Options" to="." method="options_pressed"]
 [connection signal="pressed" from="MainMenu/Quit" to="." method="quit_pressed"]
-[connection signal="set_show_tutorial" from="Options/Volume" to="Options/Volume/CenterContainer/CheckBox" method="set_pressed_no_signal"]
-[connection signal="toggled" from="Options/Volume/CenterContainer/CheckBox" to="Options/Volume" method="show_tutorial_changed"]
 [connection signal="pressed" from="Options/Reset" to="Options/Volume" method="reset_keybidns"]
 [connection signal="pressed" from="Options/Back" to="." method="options_back_pressed"]

@@ -178,6 +178,7 @@ func object_entered_room(object: Area2D, room: Node2D, index: int):
 		cameraTarget.global_position - Vector2(1280, 720),
 		0.7
 	).set_trans(Tween.TRANS_CUBIC)
+	tween.parallel().tween_property(cameraNode, "zoom", Vector2(0.85, 0.85) * max(room.get_node("RoomArea/CollisionShape2D").shape.size.x / 1800, room.get_node("RoomArea/CollisionShape2D").shape.size.y / 960), 0.5)
 
 func object_left_room(object: Area2D, room: Node2D, index: int):
 	if object.get_parent() != player or index == len(rooms) or index == 0 or not countdown:

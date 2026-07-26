@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bkjhgkgp4s00s"]
+
+[ext_resource type="Script" uid="uid://dtyepqim3b1em" path="res://game/player_attacks/flower.gd" id="1_t44ci"]
+[ext_resource type="Shader" uid="uid://c6agybqntnsmx" path="res://shaders/magic_outline.gdshader" id="2_vo3vm"]
+[ext_resource type="Texture2D" uid="uid://cjphml7tohrry" path="res://assets/attacks/dagger.png" id="3_t44ci"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbppu"]
+shader = ExtResource("2_vo3vm")
+shader_parameter/border_color = Color(0.7294118, 0.8784314, 0.7882353, 1)
+shader_parameter/radius = 15.0
+shader_parameter/samples = 15
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8kc5w"]
+size = Vector2(64, 19)
+
+[node name="Dagger" type="RigidBody2D" unique_id=1069549266]
+position = Vector2(-1, -1)
+collision_layer = 4
+collision_mask = 8
+gravity_scale = 0.0
+script = ExtResource("1_t44ci")
+damage = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=773006969]
+material = SubResource("ShaderMaterial_jbppu")
+position = Vector2(2, -2)
+rotation = -2.350361
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_t44ci")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=718669560]
+shape = SubResource("RectangleShape2D_8kc5w")
+
+[node name="Timer" type="Timer" parent="." unique_id=361677401]
+wait_time = 5.0
+one_shot = true
+autostart = true

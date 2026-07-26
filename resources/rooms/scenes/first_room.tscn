@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://wevawk3t8fee" path="res://assets/enemies/crab_master.png" id="16_2gob5"]
 [ext_resource type="Texture2D" uid="uid://bk1wdeypatsnb" path="res://assets/enemies/dog_dude.png" id="17_j0lha"]
 [ext_resource type="FontFile" uid="uid://bvvah1mhvhmb3" path="res://menu/font.tres" id="18_yi5h7"]
+[ext_resource type="Script" uid="uid://cnsirxwl5xor" path="res://resources/rooms/scenes/tutorial.gd" id="19_rb245"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_12vg5"]
 shader = ExtResource("2_mjqvx")
@@ -89,7 +90,7 @@ Label/constants/outline_size = 0
 Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 1
-Label/font_sizes/font_size = 16
+Label/font_sizes/font_size = 24
 Label/fonts/font = ExtResource("18_yi5h7")
 Label/styles/focus = SubResource("StyleBoxFlat_rb245")
 Label/styles/normal = SubResource("StyleBoxEmpty_hxpfx")
@@ -300,11 +301,13 @@ offset_bottom = 1048.0
 alignment = 1
 
 [node name="MasterCrab" type="Sprite2D" parent="." unique_id=151177281]
+unique_name_in_owner = true
 position = Vector2(274, 558.00006)
 scale = Vector2(0.06526318, 0.06526318)
 texture = ExtResource("16_2gob5")
 
 [node name="DogDude" type="Sprite2D" parent="." unique_id=2080573104]
+unique_name_in_owner = true
 position = Vector2(1300.4375, 938.8485)
 scale = Vector2(0.11398414, 0.11398414)
 texture = ExtResource("17_j0lha")
@@ -317,6 +320,9 @@ offset_top = 558.00006
 offset_right = 314.0
 offset_bottom = 598.00006
 
+[node name="Node" type="Node" parent="Control" unique_id=1999818837]
+script = ExtResource("19_rb245")
+
 [node name="CrabGuyBox" type="PanelContainer" parent="Control" unique_id=449834914]
 unique_name_in_owner = true
 layout_mode = 0
@@ -326,11 +332,13 @@ offset_right = 266.48193
 offset_bottom = -58.00006
 theme = SubResource("Theme_km8ha")
 
-[node name="Label" type="Label" parent="Control/CrabGuyBox" unique_id=63191603]
+[node name="CrabGuyText" type="Label" parent="Control/CrabGuyBox" unique_id=63191603]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 text = "This is a label"
 horizontal_alignment = 1
-vertical_alignment = 3
+autowrap_mode = 2
 
 [node name="DogGuyBox" type="PanelContainer" parent="Control" unique_id=1458059873]
 unique_name_in_owner = true
@@ -341,11 +349,15 @@ offset_right = 1293.4819
 offset_bottom = 296.99994
 theme = SubResource("Theme_km8ha")
 
-[node name="Label" type="Label" parent="Control/DogGuyBox" unique_id=506425363]
+[node name="DogGuyText" type="Label" parent="Control/DogGuyBox" unique_id=506425363]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 text = "This is a label"
 horizontal_alignment = 1
 vertical_alignment = 3
+autowrap_mode = 2
 
 [connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]
 [connection signal="area_exited" from="RoomArea" to="." method="on_area_exited"]
+[connection signal="input_done" from="Control/Node" to="Control/Node" method="_on_input_done"]

@@ -15,6 +15,7 @@ var ShurikenJutsu = preload("res://game/player_attacks/ShurikenJutsu.tscn")
 var BirdJutsu = preload("res://game/player_attacks/BirdJutsu.tscn")
 var FlowerJutsu = preload("res://game/player_attacks/Flower.tscn")
 var SpearJutsu = preload("res://game/player_attacks/SpearJutsu.tscn")
+var HatchetJutsu = preload("res://game/player_attacks/HatchetJutsu.tscn")
 
 var facing_direction
 
@@ -68,13 +69,17 @@ var STAMINA_NOT_CHARGED_OUTLINE_COLOR = Color("0d0601")
 var last_animation = "idle"
 
 # Weapons
-var SPEAR_COOLDOWN = 1
-var SHURIKEN_COOLDOWN = .5
-var CRAZY_BIRD_COOLDOWN = 1.5
+var SPEAR_COOLDOWN = 2
+var SHURIKEN_COOLDOWN = 1
+var CRAZY_BIRD_COOLDOWN = 3
+var SHIELD_COOLDOWN = 2
+var HATCHET_COOLDOWN = 2
 
 var curr_spear_cooldown = 0
 var curr_shuriken_cooldown = 0
 var curr_crazy_bird_cooldown = 0
+var curr_shield_cooldown = 0
+var curr_hatchet_cooldown = 0
 
 ## How much does more xp do you need per level
 @export var level_up_constant := 1.20
@@ -127,25 +132,36 @@ func deal_damage(weapon: Node2D, amount: int):
 	invuln_time = INVULN_TIME
 
 	time_since_damage_taken = 0
-	%TextureRect.set_instance_shader_parameter("intensity", 1)
-	%TextureRect.queue_redraw()
   
 	print("Ow! Took ", amount, " damage!")
 
 	
-	var he: Node2D = %HitEffect.spawn()
-	he.global_position = self.global_position
-	get_parent().add_child(he)
-	
-	var d: Label = %DamageTakenText.duplicate()
-	d.text = "-" + str(amount) + "s"
-	d.global_position = global_position
-	get_parent().add_child(d)
-	d.visible = true
-	
+	if curr_shield_cooldown > 0:
+		%TextureRect.set_instance_shader_parameter("intensity", 1)
+		%TextureRect.queue_redraw()
+
+		var he: Node2D = %HitEffect.spawn()
+		he.global_position = self.global_position
+		get_parent().add_child(he)
+		
+		var d: Label = %DamageTakenText.duplicate()
+		d.text = "-" + str(amount) + "s"
+		d.global_position = global_position
+		get_parent().add_child(d)
+		d.visible = true
+	else:
+		var d: Label = %DamageTakenText.duplicate()
+		d.text = "Blocked!"
+		d.global_position = global_position
+		get_parent().add_child(d)
+		d.visible = true
+
 	await get_tree().create_timer(0).timeout
 
-	take_damage.emit(amount)
+	if curr_shield_cooldown > 0:
+		take_damage.emit(amount)
+	else:
+		curr_shield_cooldown = SHIELD_COOLDOWN
 
 func get_direction():
 	if facing_direction == "right":
@@ -197,11 +213,14 @@ func _physics_process(delta):
 	curr_spear_cooldown -= delta
 	curr_shuriken_cooldown -= delta
 	curr_crazy_bird_cooldown -= delta
+	curr_hatchet_cooldown -= delta
+	curr_shield_cooldown -= delta
 
 	%WeaponRing.spear_ready = curr_spear_cooldown < 0
 	%WeaponRing.shuriken_ready = curr_shuriken_cooldown < 0
 	%WeaponRing.crazy_bird_ready = curr_crazy_bird_cooldown < 0
-
+	%WeaponRing.hatchet_ready = curr_hatchet_cooldown < 0
+	%WeaponRing.shield_ready = curr_shield_cooldown < 0
 
 	# Add the gravity.
 	if dash_timer <= 0:
@@ -347,6 +366,7 @@ func execute_jutsu():
 		%AnimatedSprite2D.play("jutsu")
 		# flower_jutsu()
 		scug_jutsu()
+		hatchet_jutsu()
 	
 	elif %InputBuffer.is_combo_just_pressed(["down", "special"], "special"):
 		%AnimatedSprite2D.play("jutsu")
@@ -448,7 +468,19 @@ func bird_jutsu():
 	s.linear_velocity.x = get_direction() * 500
 	s.linear_velocity.y = 0
 
-	stamina -= 30
+func hatchet_jutsu():
+	if curr_hatchet_cooldown > 0:
+		return
+	curr_hatchet_cooldown = HATCHET_COOLDOWN
+
+	var s: RigidBody2D = HatchetJutsu.instantiate()
+	s.global_position = self.global_position
+	get_parent().add_child(s)
+
+	s.linear_velocity.x = get_direction() * 500
+	s.linear_velocity.y = -1500
+	s.angular_velocity = 30
+
 
 func spin_jutsu():
 	if stamina < 30:

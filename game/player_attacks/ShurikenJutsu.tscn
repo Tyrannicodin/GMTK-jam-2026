@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dep5ydkf7woll" path="res://assets/attacks/shuriken_combined.png" id="2_21vu1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h7iqs"]
-radius = 25.894014
+radius = 16.56804
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ndyyx"]
 shader = ExtResource("1_ndyyx")
@@ -40,7 +40,7 @@ size = Vector2i(128, 128)
 [node name="Sprite" type="Sprite2D" parent="SubViewport" unique_id=1208373937]
 unique_name_in_owner = true
 position = Vector2(64, 64)
-scale = Vector2(0.36, 0.36)
+scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_21vu1")
 hframes = 5
 

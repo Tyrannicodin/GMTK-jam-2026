@@ -4,6 +4,8 @@ extends Node2D
 @export var spear_ready = true
 @export var shuriken_ready = true
 @export var crazy_bird_ready = true
+@export var shield_ready = true
+@export var hatchet_ready = true
 
 var time = 0.0
 
@@ -50,3 +52,11 @@ func ready_check():
 		%CrazyBird.set_instance_shader_parameter("border_color", READY_BORDER_COLOR)
 	else:
 		%CrazyBird.set_instance_shader_parameter("border_color", NOT_READY_BORDER_COLOR)
+	if shield_ready:
+		%Shield.set_instance_shader_parameter("border_color", READY_BORDER_COLOR)
+	else:
+		%Shield.set_instance_shader_parameter("border_color", NOT_READY_BORDER_COLOR)
+	if hatchet_ready:
+		%Hatchet.set_instance_shader_parameter("border_color", READY_BORDER_COLOR)
+	else:
+		%Hatchet.set_instance_shader_parameter("border_color", NOT_READY_BORDER_COLOR)

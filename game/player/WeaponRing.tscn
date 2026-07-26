@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://bmhjgt5fmhqj3" path="res://assets/attacks/ninja_syuriken2.png" id="3_bo8m0"]
 [ext_resource type="Shader" uid="uid://b8gkhcqhgu1r4" path="res://shaders/instance_outline.gdshader" id="4_ncf6v"]
 [ext_resource type="Texture2D" uid="uid://cnd0p457mp23j" path="res://assets/attacks/crazy_bird.png" id="4_nd836"]
+[ext_resource type="Texture2D" uid="uid://dglc0vanhxg7t" path="res://assets/attacks/hatchet.png" id="6_ncf6v"]
+[ext_resource type="Texture2D" uid="uid://4cotyx75vn6f" path="res://assets/attacks/war_tate_pelta.png" id="6_wjqu0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8bboj"]
 shader = ExtResource("4_ncf6v")
@@ -18,14 +20,16 @@ shader_parameter/samples = 10
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ncf6v"]
 shader = ExtResource("4_ncf6v")
-shader_parameter/radius = 30.0
-shader_parameter/samples = 5
+shader_parameter/radius = 20.0
+shader_parameter/samples = 10
 
 [node name="WeaponRing" type="Node2D" unique_id=974362532]
 script = ExtResource("1_1w4ex")
 spear_ready = false
 shuriken_ready = false
 crazy_bird_ready = false
+shield_ready = null
+hatchet_ready = null
 TIME_FOR_ROTATION = 20.0
 RING_RADIUS = 100
 
@@ -33,8 +37,8 @@ RING_RADIUS = 100
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_8bboj")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
-position = Vector2(-95.10565, -32.29987)
-rotation = -0.04660564
+position = Vector2(-95.10565, -33.59869)
+rotation = -0.08989964
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_78561")
 
@@ -42,8 +46,8 @@ texture = ExtResource("2_78561")
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_7be1g")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
-position = Vector2(-1.8369702e-14, -101.83167)
-rotation = -0.061055757
+position = Vector2(-58.778526, -83.46447)
+rotation = -0.08542571
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_bo8m0")
 
@@ -51,7 +55,25 @@ texture = ExtResource("3_bo8m0")
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_ncf6v")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
-position = Vector2(95.10565, -27.97904)
-rotation = 0.09742196
+position = Vector2(-1.8369702e-14, -100.07235)
+rotation = -0.0024117765
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("4_nd836")
+
+[node name="Shield" type="Sprite2D" parent="." unique_id=570853322]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ncf6v")
+instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+position = Vector2(58.778526, -78.417114)
+rotation = 0.08281954
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_wjqu0")
+
+[node name="Hatchet" type="Sprite2D" parent="." unique_id=298829912]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ncf6v")
+instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+position = Vector2(95.10565, -28.144491)
+rotation = 0.09190695
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_ncf6v")

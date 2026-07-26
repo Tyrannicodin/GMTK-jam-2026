@@ -41,6 +41,7 @@ func _physics_process(delta):
 func damage_self(amount: int) -> void:
 	health -= amount
 	flash_time = .1
+	$Hit.play(0.01)
 
 	if health <= 0:
 		if player != null:

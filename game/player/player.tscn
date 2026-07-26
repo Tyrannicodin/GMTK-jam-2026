@@ -26,6 +26,7 @@
 [ext_resource type="AudioStream" uid="uid://bxqvmp5tfh84x" path="res://assets/sound/weapon.mp3" id="21_cgi3i"]
 [ext_resource type="AudioStream" uid="uid://bq2i0wgloytfl" path="res://assets/sound/step_2.mp3" id="21_ib3u0"]
 [ext_resource type="AudioStream" uid="uid://hcamsswuw142" path="res://assets/sound/step_3.mp3" id="22_bp242"]
+[ext_resource type="AudioStream" uid="uid://c8wuv0k523ech" path="res://assets/sound/level_up.mp3" id="22_n0jev"]
 [ext_resource type="AudioStream" uid="uid://b13e5bw4xidhs" path="res://assets/sound/shuriken.mp3" id="22_w24bm"]
 [ext_resource type="AudioStream" uid="uid://5y0l8o22qxtj" path="res://assets/sound/dash.mp3" id="22_y6drd"]
 [ext_resource type="AudioStream" uid="uid://chqnq3y7rr727" path="res://assets/sound/bird.mp3" id="23_22cju"]
@@ -295,6 +296,9 @@ anim_offset_max = 1.0
 unique_name_in_owner = true
 unlocked_weapons = Array[String]([])
 RING_RADIUS = 85
+
+[node name="LevelUp" type="AudioStreamPlayer2D" parent="." unique_id=709410226]
+stream = ExtResource("22_n0jev")
 
 [node name="Weapon" type="AudioStreamPlayer2D" parent="." unique_id=1085694605]
 stream = SubResource("AudioStreamRandomizer_dourk")

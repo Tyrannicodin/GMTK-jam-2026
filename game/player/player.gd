@@ -114,6 +114,7 @@ func run_level_up() -> void:
 	curr_shield_cooldown = 0
 	curr_dagger_cooldown = 0
 	curr_spin_cooldown = 0
+	$LevelUp.play(0.01)
 	level_up.emit(level)
 
 func _ready():

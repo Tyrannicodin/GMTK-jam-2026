@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://fb5r68g6soxn" path="res://resources/reward.gd" id="2_12i0x"]
 [ext_resource type="Texture2D" uid="uid://c8o38o30vq1wj" path="res://icon.svg" id="2_ru8yo"]
 [ext_resource type="Shader" uid="uid://dsslb28dealca" path="res://shaders/whiteout.gdshader" id="3_12i0x"]
+[ext_resource type="AudioStream" uid="uid://be65nuyn1uh81" path="res://assets/sound/hit.mp3" id="5_c8xm2"]
 
 [sub_resource type="Resource" id="Resource_oelsq"]
 script = ExtResource("2_12i0x")
@@ -19,6 +20,11 @@ shader = ExtResource("3_12i0x")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oelsq"]
 size = Vector2(250, 200)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_km8ha"]
+random_pitch = 1.4142135
+streams_count = 1
+stream_0/stream = ExtResource("5_c8xm2")
 
 [node name="Basic" type="CharacterBody2D" unique_id=592317870]
 collision_layer = 10
@@ -55,6 +61,10 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRight" unique_id=477507595]
 position = Vector2(125, -90)
 shape = SubResource("RectangleShape2D_oelsq")
+
+[node name="Hit" type="AudioStreamPlayer2D" parent="." unique_id=1260110725]
+stream = SubResource("AudioStreamRandomizer_km8ha")
+max_polyphony = 4
 
 [connection signal="body_entered" from="AttackLeft" to="." method="attack_left"]
 [connection signal="body_entered" from="AttackRight" to="." method="attack_right"]

@@ -14,10 +14,10 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="Template Game"
+config/name="Panda Peril"
 run/main_scene="uid://buphc88egqhj5"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://cy6v7qiiwuxgn"
 
 [audio]
 

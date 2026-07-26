@@ -12,6 +12,7 @@ func _ready() -> void:
 
 func start_pressed() -> void:
 	print("Starting the game")
+	get_tree().change_scene_to_file("res://game/game.tscn")
 
 func options_pressed() -> void:
 	options.show()

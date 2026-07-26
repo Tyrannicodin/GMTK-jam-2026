@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://bpu7ouo3p5wns" path="res://assets/panda/panda4.png" id="13_ib3u0"]
 [ext_resource type="Script" uid="uid://cyllyijewprqv" path="res://game/player/damage_taken_text.gd" id="13_n270p"]
 [ext_resource type="PackedScene" uid="uid://0lqcs2qc3jp6" path="res://game/player/WeaponRing.tscn" id="19_0e4oy"]
+[ext_resource type="AudioStream" uid="uid://be65nuyn1uh81" path="res://assets/sound/hit.mp3" id="19_wrff0"]
 [ext_resource type="AudioStream" uid="uid://bme7y406f7igw" path="res://assets/sound/step_1.mp3" id="20_brh81"]
 [ext_resource type="AudioStream" uid="uid://dxdg5u3cywi1f" path="res://assets/sound/land.mp3" id="21_bp242"]
 [ext_resource type="AudioStream" uid="uid://bxqvmp5tfh84x" path="res://assets/sound/weapon.mp3" id="21_cgi3i"]
@@ -260,6 +261,12 @@ scale_amount_curve = SubResource("Curve_j0mij")
 color_ramp = SubResource("Gradient_leid8")
 anim_offset_max = 1.0
 script = ExtResource("9_5ghna")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="." unique_id=38016279]
+unique_name_in_owner = true
+stream = ExtResource("19_wrff0")
+volume_db = 3.0
+max_polyphony = 3
 
 [node name="HitEffect" type="Node2D" parent="." unique_id=897539310]
 unique_name_in_owner = true

@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bnru07qfl3h68"]
+
+[ext_resource type="Shader" uid="uid://c6ysc441ibawa" path="res://shaders/paper_tiles.gdshader" id="1_rceop"]
+[ext_resource type="Texture2D" uid="uid://b3h3vpdodqiso" path="res://assets/panda/irasu_paper.png" id="2_qhypp"]
+
+[resource]
+shader = ExtResource("1_rceop")
+shader_parameter/tex = ExtResource("2_qhypp")
+shader_parameter/scale = 1.0
+shader_parameter/speed = 2.0

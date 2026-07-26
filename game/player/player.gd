@@ -43,7 +43,7 @@ const AIR_STOP_FORCE = 2000
 const JUMP_SPEED = 1800
 const COYOTE_TIME = 0.15
 const TERMINAL_VELOCITY = 5000
-const INVULN_TIME = .15
+const INVULN_TIME = .3
 
 const DASH_LENGTH = .16
 const DASH_SPEED = 2500
@@ -139,6 +139,9 @@ func add_rewards(rewards: Reward) -> void:
 func deal_damage(weapon: Node2D, amount: int):
 	if invuln_time > 0:
 		return
+		
+	var old_velocity = velocity
+	print(old_velocity)
   
 	if parry_timer > 0:
 		print("Parried ", amount, " damage")
@@ -183,6 +186,12 @@ func deal_damage(weapon: Node2D, amount: int):
 		get_parent().add_child(d)
 		d.visible = true
 		take_damage.emit(amount)
+		%HitSound.play(0.03)
+		
+		var knockback = global_position.direction_to(weapon.global_position).rotated(PI) * 1400.0
+		print(knockback)
+		knockback.y = min(knockback.y, -1000.0)
+		velocity = knockback
 
 func get_direction():
 	if facing_direction == "right":

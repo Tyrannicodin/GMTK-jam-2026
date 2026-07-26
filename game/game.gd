@@ -33,8 +33,8 @@ var possible_unlocks: Array[UnlockResource] = []
 @onready var player = $Player
 @onready var roomContainer = $Rooms
 
-var time: float = 30.0
-var base_time := 30.0
+var time: float = 15.0
+var base_time := 15.0
 var time_before_taking_damage: float = 60.0
 var time_since_taking_damage: float = 0.0
 var game_paused_for_damage_frames: bool = false
@@ -159,7 +159,7 @@ func object_entered_room(object: Area2D, room: Node2D, index: int):
 	if index == len(rooms):
 		countdown = false
 		var reward = Reward.new()
-		reward.xp = time / 10.0
+		reward.xp = 10.0
 	elif index != 0:
 		countdown = true
 	
@@ -228,7 +228,7 @@ func player_level_up(_lvl: int) -> void:
 	%XpBar.max_value = %Player.threshold
 	%StaminaBar.max_value = %Player.MAX_STAMINA
 	base_time += 0.5
-	time += 1
+	#time += 1
 
 func roll_unlocks() -> Array[UnlockResource]:
 	var probs = possible_unlocks.map(func(value: UnlockResource): return value.probability)

@@ -70,6 +70,8 @@ var STAMINA_NOT_CHARGED_OUTLINE_COLOR = Color("0d0601")
 
 var last_animation = "idle"
 
+var unlocked_weapons: Array[String] = ["Shuriken"]
+
 # Weapons
 var SPEAR_COOLDOWN = 2
 var SHURIKEN_COOLDOWN = 1
@@ -185,6 +187,9 @@ func get_direction():
 	return -1
 
 func _process(delta: float) -> void:
+	
+	%WeaponRing.unlocked_weapons = unlocked_weapons
+
 	stamina += STAMINA_RESTORATION_PER_SECOND * delta
 	
 	invuln_time -= delta

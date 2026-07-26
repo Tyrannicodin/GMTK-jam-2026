@@ -30,7 +30,7 @@ func _process(delta: float) -> void:
 	ready_check()
 
 func _ready() -> void:
-	unlocked_weapons = ["Shuriken"]
+	unlocked_weapons = []
 
 func display_weapons():
 	var visible_weapons = get_children().filter(func(x): return x.visible)
@@ -38,7 +38,12 @@ func display_weapons():
 	
 	for i in range(number_of_weapons):
 		var weapon: Sprite2D = visible_weapons[i]
-		var percent = .55 + (float(i) / float(number_of_weapons - 1)) * .4
+
+		var percent = 0 
+		if number_of_weapons > 1:
+			percent += .55 + (float(i) / float(number_of_weapons - 1)) * .4
+		else:
+			percent = .75
 		weapon.position = percent_to_pos(percent)
 
 		weapon.rotation = sin(time * 2 + percent * 10) * .1
@@ -52,6 +57,9 @@ func percent_to_pos(percent: float):
 	return Vector2(x, y)
 
 func check_unlocks():
+	if not is_visible_in_tree():
+		return
+
 	if "Spear" in unlocked_weapons: %Spear.show()
 	else: %Spear.hide()
 	if "Shuriken" in unlocked_weapons: %Shuriken.show()

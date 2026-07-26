@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bfierd6nwqsba" path="res://game/enemy/basic/basic.tscn" id="1_x2sy8"]
 [ext_resource type="Script" uid="uid://cxmrvi0aj1jt5" path="res://game/enemy/sniper/sniper.gd" id="2_dl67t"]
-[ext_resource type="Texture2D" uid="uid://c8o38o30vq1wj" path="res://icon.svg" id="3_dl67t"]
 [ext_resource type="Script" uid="uid://fb5r68g6soxn" path="res://resources/reward.gd" id="3_p5cjf"]
+[ext_resource type="Texture2D" uid="uid://bsai3ujncojod" path="res://assets/enemies/Spider_Sniper.png" id="4_p5cjf"]
 
 [sub_resource type="Resource" id="Resource_senip"]
 script = ExtResource("3_p5cjf")
@@ -11,11 +11,11 @@ xp = 5.0
 time = 5.0
 metadata/_custom_type_script = "uid://fb5r68g6soxn"
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qx0ke"]
-size = Vector2(128, 128)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4pt04"]
+size = Vector2(64, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
-size = Vector2(128, 128)
+size = Vector2(64, 32)
 
 [node name="Sniper" unique_id=592317870 groups=["knows_player"] instance=ExtResource("1_x2sy8")]
 collision_layer = 2
@@ -23,34 +23,34 @@ script = ExtResource("2_dl67t")
 health = 5
 reward = SubResource("Resource_senip")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=514927345]
-shape = SubResource("RectangleShape2D_qx0ke")
+[node name="Collision" parent="." index="0" unique_id=514927345]
+shape = SubResource("RectangleShape2D_4pt04")
 
-[node name="Sprite2D" type="Sprite2D" parent="." index="2" unique_id=1292170047]
-modulate = Color(1, 0.49019608, 0.49019608, 1)
-texture = ExtResource("3_dl67t")
-
-[node name="RayCast2D" parent="." index="3" unique_id=932088438]
+[node name="RayCast2D" parent="." index="1" unique_id=932088438]
 collision_mask = 3
 
-[node name="Line2D" type="Line2D" parent="." index="5" unique_id=527735908]
+[node name="Sprite" parent="." index="2" unique_id=1292170047]
+scale = Vector2(0.125, 0.12499999)
+texture = ExtResource("4_p5cjf")
+
+[node name="Line2D" type="Line2D" parent="." index="3" unique_id=527735908]
 modulate = Color(1, 1, 1, 0)
 points = PackedVector2Array(0, 0, 319, 245)
 width = 3.0
 default_color = Color(1, 0, 0, 1)
 
-[node name="Barrier Collider" type="Area2D" parent="." index="6" unique_id=1791886396]
+[node name="Barrier Collider" type="Area2D" parent="." index="4" unique_id=1791886396]
 collision_layer = 32768
 collision_mask = 32768
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier Collider" index="0" unique_id=458343490]
 shape = SubResource("RectangleShape2D_g4v7s")
 
-[node name="AttackLeft" parent="." index="7" unique_id=1718289444]
+[node name="AttackLeft" parent="." index="5" unique_id=1718289444]
 monitoring = false
 monitorable = false
 
-[node name="AttackRight" parent="." index="8" unique_id=1013030700]
+[node name="AttackRight" parent="." index="6" unique_id=1013030700]
 monitoring = false
 monitorable = false
 

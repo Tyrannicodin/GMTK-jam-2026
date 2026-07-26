@@ -247,5 +247,6 @@ anim_offset_max = 1.0
 
 [node name="WeaponRing" parent="." unique_id=974362532 instance=ExtResource("19_0e4oy")]
 unique_name_in_owner = true
+RING_RADIUS = 85
 
 [connection signal="animation_finished" from="SubViewport/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

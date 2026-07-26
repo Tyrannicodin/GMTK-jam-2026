@@ -1,6 +1,12 @@
 @tool
 extends Node2D
 
+@export var unlocked_weapons: Array[String]:
+	set(value):
+		unlocked_weapons = value
+		check_unlocks()
+	get():
+		return unlocked_weapons
 @export var spear_ready = true
 @export var shuriken_ready = true
 @export var crazy_bird_ready = true
@@ -36,6 +42,10 @@ func percent_to_pos(percent: float):
 	y += sin(time * 2 + percent * 10) * 3
 	
 	return Vector2(x, y)
+
+func check_unlocks():
+	if "spear" in unlocked_weapons:
+		%Spear.show()
 
 func ready_check():
 	if spear_ready:

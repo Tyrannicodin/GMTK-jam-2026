@@ -104,6 +104,8 @@ func _ready():
 	%StaminaChargedParticlesFront.show()
 	%DashParticles.show()
 
+	self.velocity.x = 1
+
 func broadcast_player():
 	get_tree().call_group("knows_player", "set_player", self)
 	

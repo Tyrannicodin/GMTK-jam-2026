@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bk1wdeypatsnb" path="res://assets/enemies/dog_dude.png" id="17_j0lha"]
 [ext_resource type="FontFile" uid="uid://bvvah1mhvhmb3" path="res://menu/font.tres" id="18_yi5h7"]
 [ext_resource type="Script" uid="uid://cnsirxwl5xor" path="res://resources/rooms/scenes/tutorial.gd" id="19_rb245"]
+[ext_resource type="PackedScene" uid="uid://bw0yfn8sqm065" path="res://game/enemy/snake/snake.tscn" id="20_hxpfx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_12vg5"]
 shader = ExtResource("2_mjqvx")
@@ -268,7 +269,7 @@ tile_set = ExtResource("4_l3e3y")
 navigation_enabled = false
 
 [node name="EntryMarker" type="Marker2D" parent="." unique_id=403655921]
-position = Vector2(960, 810)
+position = Vector2(651, 883)
 
 [node name="ExitMarker" type="Marker2D" parent="." unique_id=867143847]
 position = Vector2(1920, 832)
@@ -357,6 +358,12 @@ text = "This is a label"
 horizontal_alignment = 1
 vertical_alignment = 3
 autowrap_mode = 2
+
+[node name="SnakeEnemy" parent="." unique_id=592317870 instance=ExtResource("20_hxpfx")]
+unique_name_in_owner = true
+process_mode = 4
+visible = false
+position = Vector2(1151, 864)
 
 [connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]
 [connection signal="area_exited" from="RoomArea" to="." method="on_area_exited"]

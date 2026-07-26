@@ -164,10 +164,6 @@ func object_left_room(object: Area2D, room: Node2D, index: int):
 	if object.get_parent() != player or index == len(rooms) or index == 0 or not countdown:
 		return
 	
-	var reward = Reward.new()
-	reward.time = 3
-	$Player.add_rewards(reward)
-
 	room.lock()
 
 func _process(delta: float) -> void:

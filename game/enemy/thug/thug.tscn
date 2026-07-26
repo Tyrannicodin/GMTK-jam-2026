@@ -4,6 +4,13 @@
 [ext_resource type="Script" uid="uid://ch5h5myxuk3g1" path="res://game/enemy/thug/thug.gd" id="2_jlg15"]
 [ext_resource type="Script" uid="uid://raujjq1ec3cb" path="res://game/enemy/thug/stomp.gd" id="2_xftu6"]
 [ext_resource type="Texture2D" uid="uid://gsyfuoudrqmf" path="res://assets/enemies/spikes.png" id="3_2e2gb"]
+[ext_resource type="Script" uid="uid://fb5r68g6soxn" path="res://resources/reward.gd" id="3_2nj6i"]
+
+[sub_resource type="Resource" id="Resource_itkmp"]
+script = ExtResource("3_2nj6i")
+xp = 4.0
+time = 4.0
+metadata/_custom_type_script = "uid://fb5r68g6soxn"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2nj6i"]
 size = Vector2(220, 200)
@@ -20,7 +27,7 @@ size = Vector2(128, 128)
 [node name="Thug" unique_id=592317870 groups=["knows_player"] instance=ExtResource("1_0wqbc")]
 script = ExtResource("2_jlg15")
 damage = 2
-reward = null
+reward = SubResource("Resource_itkmp")
 
 [node name="AttackLeft" parent="." index="3" unique_id=1718289444]
 visible = true

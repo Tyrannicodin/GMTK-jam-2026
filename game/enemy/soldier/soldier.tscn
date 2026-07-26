@@ -4,6 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://dkmscmsojuafp" path="res://assets/enemies/sword.png" id="2_espqf"]
 [ext_resource type="Script" uid="uid://dlibaq1hyctae" path="res://game/enemy/soldier/soldier.gd" id="2_l7w4l"]
 [ext_resource type="Script" uid="uid://cg6rbqhsw2wo0" path="res://game/enemy/soldier/sword.gd" id="3_26ba4"]
+[ext_resource type="Script" uid="uid://fb5r68g6soxn" path="res://resources/reward.gd" id="3_l7w4l"]
+
+[sub_resource type="Resource" id="Resource_8x80n"]
+script = ExtResource("3_l7w4l")
+xp = 2.0
+time = 1.0
+metadata/_custom_type_script = "uid://fb5r68g6soxn"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
 size = Vector2(6, 165)
@@ -15,7 +22,7 @@ size = Vector2(128, 128)
 script = ExtResource("2_l7w4l")
 damage = 3
 health = 7
-reward = null
+reward = SubResource("Resource_8x80n")
 
 [node name="Weapon" type="Node2D" parent="." index="5" unique_id=395621868 groups=["knows_player"]]
 script = ExtResource("3_26ba4")

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_yihal")
-id = &"spear"
+id = &"Spear"
 name = "Spear"
 description = "Pointy end towards enemies.
 Cooldown: 2s

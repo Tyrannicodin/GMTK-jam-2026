@@ -254,6 +254,7 @@ func unlock_chosen(unlock: UnlockResource) -> void:
 		print(unlock.id)
 		%Player.unlocked_weapons.push_back(unlock.id)
 	hide_unlocks.emit()
+	%SelectWeapon.play(0.01)
 	roomContainer.get_child(0).call("unlock")
 
 func endless_mode() -> void:

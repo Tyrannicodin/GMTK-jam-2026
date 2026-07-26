@@ -40,7 +40,7 @@ var story = [
 		%SnakeEnemy.process_mode = Node.PROCESS_MODE_INHERIT
 		%SnakeEnemy.show()
 		),
-	TextBox.crab_text("Quick, go attack the snake! Use Shuriken by pressing X."),
+	TextBox.crab_text("Quick, go attack the snake! Use Shuriken by pressing X. Dash to select an upgrade [C]"),
 	TextBox.crab_text("He must be using Illusion Jitsu to hide. I'll try to break the spell. Try to find Dogstorm!"),
 ]
 

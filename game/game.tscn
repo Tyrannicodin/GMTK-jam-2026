@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://i0c5kedxxnl7" path="res://assets/ui/xp_bar_top.png" id="23_hbvmx"]
 [ext_resource type="AudioStream" uid="uid://dum3i8jlec3v4" path="res://assets/sound/ambiance.mp3" id="30_hbvmx"]
 [ext_resource type="AudioStream" uid="uid://dwlv67b88igdx" path="res://assets/sound/bgm.mp3" id="31_fegy3"]
+[ext_resource type="AudioStream" uid="uid://bc0i0whc1qwpf" path="res://assets/sound/select_weapon.mp3" id="32_pvdu1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ln7ps"]
 shader = ExtResource("6_ee6o4")
@@ -1721,6 +1722,11 @@ volume_db = -12.0
 unique_name_in_owner = true
 stream = ExtResource("31_fegy3")
 volume_db = -5.0
+
+[node name="SelectWeapon" type="AudioStreamPlayer" parent="." unique_id=1704897306]
+unique_name_in_owner = true
+stream = ExtResource("32_pvdu1")
+volume_db = -10.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1607211166]
 

@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://c3w6ef18pmmhx" path="res://game/player/hit_effect.gd" id="12_uv2nh"]
 [ext_resource type="FontFile" uid="uid://bvvah1mhvhmb3" path="res://menu/font.tres" id="13_3ep63"]
 [ext_resource type="Script" uid="uid://cyllyijewprqv" path="res://game/player/damage_taken_text.gd" id="13_n270p"]
+[ext_resource type="PackedScene" uid="uid://0lqcs2qc3jp6" path="res://game/player/WeaponRing.tscn" id="19_0e4oy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anr75"]
 shader = ExtResource("2_epvkq")
@@ -243,5 +244,8 @@ initial_velocity_max = 1000.0
 scale_amount_min = 0.1
 scale_amount_max = 0.15
 anim_offset_max = 1.0
+
+[node name="WeaponRing" parent="." unique_id=974362532 instance=ExtResource("19_0e4oy")]
+unique_name_in_owner = true
 
 [connection signal="animation_finished" from="SubViewport/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -169,7 +169,7 @@ shader_parameter/speed = 3.0
 [sub_resource type="LabelSettings" id="LabelSettings_grq6u"]
 font = ExtResource("11_qf6n1")
 font_size = 350
-font_color = Color(0.6901961, 0.99607843, 0.80784315, 1)
+font_color = Color(0.765, 0.9, 0.81674993, 1)
 outline_size = 70
 outline_color = Color(0.078431375, 0.4627451, 0.34117648, 1)
 shadow_size = 125
@@ -462,6 +462,7 @@ grow_vertical = 2
 
 [node name="StaminaBar" type="ProgressBar" parent="Camera/UI Layer" unique_id=1487046457]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 offset_right = 591.0
 offset_bottom = 68.0

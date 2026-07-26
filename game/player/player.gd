@@ -14,6 +14,7 @@ enum DIRECTIONS {UP, DOWN, FRONT, BACK}
 var ShurikenJutsu = preload("res://game/player_attacks/ShurikenJutsu.tscn")
 var BirdJutsu = preload("res://game/player_attacks/BirdJutsu.tscn")
 var FlowerJutsu = preload("res://game/player_attacks/Flower.tscn")
+var SpearJutsu = preload("res://game/player_attacks/SpearJutsu.tscn")
 
 var facing_direction
 
@@ -59,11 +60,19 @@ var diving = false
 var just_jumped = false
 
 var attack_cooldown = 0
-
 var STAMINA_CHARGED_OUTLINE_COLOR = Color("e1eced")
 var STAMINA_NOT_CHARGED_OUTLINE_COLOR = Color("0d0601")
 
 var last_animation = "idle"
+
+# Weapons
+var SPEAR_COOLDOWN = 1
+var SHURIKEN_COOLDOWN = .5
+var CRAZY_BIRD_COOLDOWN = 1.5
+
+var curr_spear_cooldown = 0
+var curr_shuriken_cooldown = 0
+var curr_crazy_bird_cooldown = 0
 
 ## How much does more xp do you need per level
 @export var level_up_constant := 1.20
@@ -171,6 +180,7 @@ func _physics_process(delta):
 	parry_timer -= delta
 	freeze_timer -= delta
 	attack_cooldown -= delta
+	jutsu_timer -= delta
 	if (jutsu_timer < 0):
 		jutsu_timer = 0;
 	time_since_damage_taken += delta
@@ -180,6 +190,16 @@ func _physics_process(delta):
 	
 	# Make the dash look pretty
 	%TextureRect.set_instance_shader_parameter("intensity", max(damage_taken_intensity, dash_intensity))
+
+	# Weapon cooldown
+	curr_spear_cooldown -= delta
+	curr_shuriken_cooldown -= delta
+	curr_crazy_bird_cooldown -= delta
+
+	%WeaponRing.spear_ready = curr_spear_cooldown < 0
+	%WeaponRing.shuriken_ready = curr_shuriken_cooldown < 0
+	%WeaponRing.crazy_bird_ready = curr_crazy_bird_cooldown < 0
+
 
 	# Add the gravity.
 	if dash_timer <= 0:
@@ -300,15 +320,15 @@ func friction(delta):
 		# air has less friction
 		velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)
 
-func execute_jutsu():	
+func execute_jutsu():
 	if jutsu_timer > 0:
 		return
 
 	jutsu_timer = JUTSU_COOLDOWN
-	
+
 	if %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
 		%AnimatedSprite2D.play("jutsu")
-		flower_jutsu()
+		# flower_jutsu()
 		scug_jutsu()
 	
 	elif %InputBuffer.is_combo_just_pressed(["down", "special"], "special"):
@@ -368,8 +388,10 @@ func dash(direction: Vector2):
 	%AnimatedSprite2D.play("dash")
 
 func shuriken_jutsu():
-	if stamina < 30:
+	if curr_shuriken_cooldown > 0:
 		return
+	curr_shuriken_cooldown = SHURIKEN_COOLDOWN
+
 	for i in range(3):
 		var s: RigidBody2D = ShurikenJutsu.instantiate()
 		s.global_position = self.global_position
@@ -398,19 +420,17 @@ func dive_jutsu():
 	stamina -= 30
 
 func bird_jutsu():
-	if stamina < 30:
+	if curr_crazy_bird_cooldown > 0:
 		return
+	curr_crazy_bird_cooldown = CRAZY_BIRD_COOLDOWN
 
 	var s: RigidBody2D = BirdJutsu.instantiate()
 	s.global_position = self.global_position
 	get_parent().add_child(s)
 
-	s.linear_velocity.x = get_direction() * 2000
+	s.linear_velocity.x = get_direction() * 500
 	s.linear_velocity.y = 0
-	await get_tree().create_timer(.1).timeout
-	
-	velocity.x -= %InputBuffer.get_axis("left", "right") * 2000
-	# Shoot out a bird,
+
 	stamina -= 30
 
 func spin_jutsu():
@@ -435,10 +455,16 @@ func missiles_jutsu():
 	stamina -= 30
 
 func scug_jutsu():
-	if stamina < 30:
+	if curr_spear_cooldown > 0:
 		return
-	# Throw like a piece of rebar(spear) straight up. Was going to be a backflip(rev. super) combo move.
-	stamina -= 30
+	curr_spear_cooldown = SPEAR_COOLDOWN
+
+	var s: RigidBody2D = SpearJutsu.instantiate()
+	s.global_position = self.global_position
+	get_parent().add_child(s)
+
+	s.linear_velocity.y -= 2000
+
 
 func attack():
 	attack_cooldown = ATTACK_COOLDOWN # Basic Attack

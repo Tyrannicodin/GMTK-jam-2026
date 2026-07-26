@@ -139,7 +139,7 @@ func object_entered_room(object: Area2D, cameraTarget: Node2D, index: int):
 	).set_trans(Tween.TRANS_CUBIC)
 
 func object_left_room(object: Area2D, room: Node2D, index: int):
-	if object.get_parent() != player or index == len(rooms) - 1 or index == 0:
+	if object.get_parent() != player or index == len(rooms) or index == 0 or not countdown:
 		return
 	
 	var reward = Reward.new()

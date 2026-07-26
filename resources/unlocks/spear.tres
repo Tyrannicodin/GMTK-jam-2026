@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnlockResource" format=3 uid="uid://bkprrpxrng5qx"]
+
+[ext_resource type="Script" uid="uid://css3rkmhd2ek2" path="res://resources/unlock.gd" id="1_yihal"]
+
+[resource]
+script = ExtResource("1_yihal")
+id = &"spear"
+name = "Spear"
+description = "Pointy end towards enemies.
+Cooldown: 2s
+Jutsu: up"
+color = Color(0, 0, 0.7294118, 0.49411765)
+metadata/_custom_type_script = "uid://css3rkmhd2ek2"

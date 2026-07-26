@@ -1805,8 +1805,8 @@ volume_db = -5.0
 
 [connection signal="gain_time" from="Player" to="." method="on_gain_time"]
 [connection signal="level_up" from="Player" to="." method="player_level_up"]
-[connection signal="take_damage" from="Player" to="." method="_on_player_take_damage"]
 [connection signal="take_damage" from="Player" to="." method="on_player_damage"]
+[connection signal="take_damage" from="Player" to="." method="_on_player_take_damage"]
 [connection signal="unlock_selected" from="Player" to="." method="unlock_chosen"]
 [connection signal="pressed" from="Camera/UI Layer/Win/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="back_to_menu"]
 [connection signal="pressed" from="Camera/UI Layer/Win/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Button2" to="." method="endless_mode"]

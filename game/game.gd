@@ -216,7 +216,7 @@ func player_level_up(_lvl: int) -> void:
 func roll_unlocks() -> Array[UnlockResource]:
 	var probs = possible_unlocks.map(func(value: UnlockResource): return value.probability)
 	var selections = []
-	while len(selections) < 3 and len(selections) != len(possible_unlocks):
+	while len(selections) < 2 and len(selections) != len(possible_unlocks):
 		var selected = rng.rand_weighted(probs)
 		if selected in selections:
 			continue
@@ -227,8 +227,11 @@ func unlock_chosen(unlock: UnlockResource) -> void:
 	possible_unlocks.remove_at(possible_unlocks.find(unlock))
 	if get(unlock.id) != null:
 		set(unlock.id, true)
-	else:
+	elif %Player.get(unlock.id) != null:
 		%Player.set(unlock.id, true)
+	else:
+		print(unlock.id)
+		%Player.unlocked_weapons.push_back(unlock.id)
 	hide_unlocks.emit()
 	roomContainer.get_child(0).call("unlock")
 

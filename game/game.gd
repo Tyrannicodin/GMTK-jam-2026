@@ -26,10 +26,23 @@ var PAUSE_FOR_S_WHEN_TAKING_DAMAGE = .2
 
 var rng = RandomNumberGenerator.new()
 
+func play_ambience():
+	%Ambience.play()
+	await get_tree().create_timer(%Ambience.stream.get_length()).timeout
+	play_ambience()
+	
+func play_bgm():
+	%Bgm.play()
+	await get_tree().create_timer(%Bgm.stream.get_length()).timeout
+	play_bgm()
+	
 func _ready() -> void:
 	print("Hello from game!")
 	load_resources()
 	set_time(time, 0)
+	
+	play_ambience()
+	play_bgm()
 
 	pick_room(0)
 	build_rooms()

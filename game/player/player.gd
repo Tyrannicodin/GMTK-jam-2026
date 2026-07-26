@@ -258,6 +258,9 @@ func _physics_process(delta):
 	%WeaponRing.dagger_ready = curr_dagger_cooldown < 0
 	%WeaponRing.spin_ready = curr_spin_cooldown < 0
 	%WeaponRing.nuke_ready = curr_nuke_cooldown < 0
+	
+	if not dashing:
+		hyperable = false
 
 	# Add the gravity.
 	if dash_timer <= 0:
@@ -289,8 +292,12 @@ func _physics_process(delta):
 		
 		if time_on_ground == 0:
 			$Land.play(0.01)
+			
+			if dashing:
+				hyperable = true
 		
 		time_on_ground += delta
+		
 		if diving:
 			diving = false
 			# Spawn Shockwave
@@ -345,8 +352,9 @@ func _physics_process(delta):
 				dash_count += 1
 			if not dashing:
 				velocity.x += 800 * sign(Input.get_axis("left", "right"))
-			elif velocity.y > 0 and velocity.x != 0:
+			elif hyperable and velocity.x != 0:
 				velocity.x = 4000 * sign(velocity.x)
+				dashing = false
 			if -velocity.y <= abs(velocity.x):
 				dashing = false
 			elif dashing:
@@ -467,6 +475,7 @@ func dash(direction: Vector2):
 	velocity.x = max(direction.x * DASH_SPEED, velocity.x)
 	velocity.y = direction.y * DASH_SPEED
 	
+	time_on_ground = 0
 	dash_timer = DASH_LENGTH
 	dash_count -= 1
 	dashing = true

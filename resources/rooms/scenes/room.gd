@@ -3,6 +3,7 @@ extends Node2D
 
 signal object_entered(area: Area2D)
 signal object_exited(area: Area2D)
+signal completed_stage()
 
 @onready var tilemap = $TileMapLayer
 

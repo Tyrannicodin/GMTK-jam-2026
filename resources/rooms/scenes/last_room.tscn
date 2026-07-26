@@ -90,7 +90,7 @@ navigation_enabled = false
 position = Vector2(0, 832)
 
 [node name="ExitMarker" type="Marker2D" parent="." unique_id=867143847]
-position = Vector2(1920, 832)
+position = Vector2(2406, 0)
 
 [node name="CameraMarker" type="Marker2D" parent="." unique_id=1092025349]
 position = Vector2(960, 544)
@@ -104,6 +104,7 @@ position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_grq6u")
 
 [node name="DogDude" type="Sprite2D" parent="." unique_id=1030058281]
+visible = false
 position = Vector2(1102, 970)
 scale = Vector2(0.11398414, 0.11398414)
 texture = ExtResource("4_vrsfi")

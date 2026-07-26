@@ -72,6 +72,7 @@ func build_rooms() -> void:
 
 	for room in rooms + [LAST_ROOM]:
 		var room_scene: Node2D = room.scene.instantiate()
+		room_scene.done.connect(_finished_stage)
 
 		var entry: Marker2D = room_scene.get_node("EntryMarker")
 		var exit: Marker2D = room_scene.get_node("ExitMarker")
@@ -116,6 +117,9 @@ func set_time(time: float, delta: float):
 		$Camera/BigText/Countdown/Character1.text = "0"
 
 	$Camera/BigText/Countdown/Character3.text = s[1][0]
+	
+func _finished_stage():
+	round_start.emit
 
 
 func object_entered_room(object: Area2D, cameraTarget: Node2D, index: int):
@@ -128,11 +132,8 @@ func object_entered_room(object: Area2D, cameraTarget: Node2D, index: int):
 		var time_tween = get_tree().create_tween()
 		var reward = Reward.new()
 		reward.xp = time / 10.0
-		time_tween.tween_property(self, "time", 0, 1.5).set_delay(5)
-		time_tween.parallel().tween_callback(func(): $Player.add_rewards(reward))
-		time_tween.tween_callback(build_rooms).set_delay(5)
-		time_tween.tween_property(self, "time", 60, 2).set_delay(1)
-		time_tween.tween_callback(round_start.emit)
+		
+		await get_tree().create_timer(3.0).timeout
 	elif index != 0:
 		countdown = true
 	

@@ -170,6 +170,7 @@ func _physics_process(delta):
 	parry_timer -= delta
 	freeze_timer -= delta
 	attack_cooldown -= delta
+	jutsu_timer -= delta
 	if (jutsu_timer < 0):
 		jutsu_timer = 0;
 	time_since_damage_taken += delta
@@ -299,12 +300,12 @@ func friction(delta):
 		# air has less friction
 		velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)
 
-func execute_jutsu():	
+func execute_jutsu():
 	if jutsu_timer > 0:
 		return
-				
+
 	jutsu_timer = JUTSU_COOLDOWN
-	
+
 	if %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
 		%AnimatedSprite2D.play("jutsu")
 		flower_jutsu()

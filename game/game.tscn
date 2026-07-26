@@ -440,7 +440,6 @@ texture = ExtResource("10_ln7ps")
 [node name="Player" parent="." unique_id=1018705283 instance=ExtResource("2_vasa2")]
 unique_name_in_owner = true
 motion_mode = 0
-level_up_constant = 1.2
 
 [node name="Camera" type="Camera2D" parent="." unique_id=364632602]
 unique_name_in_owner = true

@@ -18,6 +18,7 @@ var SpearJutsu = preload("res://game/player_attacks/SpearJutsu.tscn")
 var HatchetJutsu = preload("res://game/player_attacks/HatchetJutsu.tscn")
 var DaggerJutsu = preload("res://game/player_attacks/DaggerJutsu.tscn")
 var ShurikenSpinJutsu = preload("res://game/player_attacks/SpinJutsuShuriken.tscn")
+var NukeJutsu = preload("res://game/player_attacks/NukeJutsu.tscn")
 
 var facing_direction
 
@@ -80,6 +81,7 @@ var SHIELD_COOLDOWN = 2
 var HATCHET_COOLDOWN = 2
 var DAGGER_COOLDOWN = 1
 var SPIN_COOLDOWN = 10
+var NUKE_COOLDOWN = 5
 
 var curr_spear_cooldown = 0
 var curr_shuriken_cooldown = 0
@@ -88,6 +90,7 @@ var curr_shield_cooldown = 0
 var curr_hatchet_cooldown = 0
 var curr_dagger_cooldown = 0
 var curr_spin_cooldown = 0
+var curr_nuke_cooldown = 0
 
 ## How much does more xp do you need per level
 @export var level_up_constant := 1.20
@@ -194,13 +197,13 @@ func deal_damage(weapon: Node2D, amount: int):
 		knockback.y = min(knockback.y, -1000.0)
 		velocity = knockback
 
+
 func get_direction():
 	if facing_direction == "right":
 		return 1
 	return -1
 
 func _process(delta: float) -> void:
-	
 	%WeaponRing.unlocked_weapons = unlocked_weapons
 
 	stamina += STAMINA_RESTORATION_PER_SECOND * delta
@@ -242,6 +245,7 @@ func _physics_process(delta):
 	curr_shield_cooldown -= delta
 	curr_dagger_cooldown -= delta
 	curr_spin_cooldown -= delta
+	curr_nuke_cooldown -= delta
 
 	%WeaponRing.spear_ready = curr_spear_cooldown < 0
 	%WeaponRing.shuriken_ready = curr_shuriken_cooldown < 0
@@ -250,6 +254,7 @@ func _physics_process(delta):
 	%WeaponRing.shield_ready = curr_shield_cooldown < 0
 	%WeaponRing.dagger_ready = curr_dagger_cooldown < 0
 	%WeaponRing.spin_ready = curr_spin_cooldown < 0
+	%WeaponRing.nuke_ready = curr_nuke_cooldown < 0
 
 	# Add the gravity.
 	if dash_timer <= 0:
@@ -296,9 +301,12 @@ func _physics_process(delta):
 			if parent.get("rewards"):
 				add_rewards(parent.get("rewards"))
 				parent.queue_free()
-			elif parent.get("unlock"):
-				unlock_selected.emit(parent.get("unlock"))
 
+	for area in detector.get_overlapping_areas():
+		if area.get_parent().get("unlock"):
+			if %InputBuffer.is_just_pressed("dash"):
+				unlock_selected.emit(area.get_parent().get("unlock"))
+	
 	# Handle jump.
 	# Jutsu are checked first because it has priority consuming inputs for the frame
 	execute_jutsu()
@@ -409,6 +417,7 @@ func execute_jutsu():
 	elif %InputBuffer.is_combo_just_pressed(["left", "right", "special"], "special"):
 		%AnimatedSprite2D.play("jutsu")
 		spin_jutsu()
+		nuke_jutsu()
 	
 	elif %InputBuffer.is_combo_just_pressed(["left", "special"], "special") or %InputBuffer.is_combo_just_pressed(["right", "special"], "special") or %InputBuffer.is_just_pressed("special"):
 		%AnimatedSprite2D.play("jutsu")
@@ -438,8 +447,9 @@ func dash(direction: Vector2):
 		return
 	if dashed_since_left_ground:
 		return
+
 	dashed_since_left_ground = true
-	
+
 	if abs(velocity.x) < 1:
 		velocity.x = 0
 	if abs(velocity.y) < 1:
@@ -560,6 +570,21 @@ func spin_jutsu():
 		if i % 5 == 0:
 			await get_tree().create_timer(.001).timeout
 			$Shuriken.play(0.01)
+
+func nuke_jutsu():
+	if not "Nuke" in unlocked_weapons:
+		return
+	if curr_nuke_cooldown > 0:
+		return
+	curr_nuke_cooldown = NUKE_COOLDOWN
+
+	$Explosion.play()
+	
+	var s: RigidBody2D = NukeJutsu.instantiate()
+	s.global_position = self.global_position
+	get_parent().add_child(s)
+
+
 
 func burst_jutsu():
 	if stamina < 30:

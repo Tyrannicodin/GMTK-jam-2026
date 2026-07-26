@@ -9,5 +9,5 @@ name = "Shield"
 description = "Parry!
 Cooldown: 3s
 Jutsu: passive"
-color = Color(0.021434635, 0.021434637, 0.021434627, 0.49411765)
+color = Color(0.8156863, 0.70980394, 0.019607844, 0.49411765)
 metadata/_custom_type_script = "uid://css3rkmhd2ek2"

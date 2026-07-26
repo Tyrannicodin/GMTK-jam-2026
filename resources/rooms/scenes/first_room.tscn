@@ -265,7 +265,7 @@ navigation_enabled = false
 position = Vector2(651, 883)
 
 [node name="ExitMarker" type="Marker2D" parent="." unique_id=867143847]
-position = Vector2(1920, 832)
+position = Vector2(1952, 832)
 
 [node name="CameraMarker" type="Marker2D" parent="." unique_id=1092025349]
 position = Vector2(960, 544)

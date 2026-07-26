@@ -32,6 +32,7 @@
 [ext_resource type="AudioStream" uid="uid://chqnq3y7rr727" path="res://assets/sound/bird.mp3" id="23_22cju"]
 [ext_resource type="AudioStream" uid="uid://cweo0i20n0q6s" path="res://assets/sound/step_4.mp3" id="23_cgi3i"]
 [ext_resource type="AudioStream" uid="uid://c5lk2l50484cx" path="res://assets/sound/step_5.mp3" id="24_y6drd"]
+[ext_resource type="AudioStream" uid="uid://b6ky3rdpwmmdp" path="res://assets/sound/ExplosionBlast_S08WA.111.wav" id="31_wrff0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_anr75"]
 shader = ExtResource("2_epvkq")
@@ -323,6 +324,11 @@ max_polyphony = 2
 
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="." unique_id=1221454584]
 stream = SubResource("AudioStreamRandomizer_km8ha")
+volume_db = -2.0
+max_polyphony = 3
+
+[node name="Explosion" type="AudioStreamPlayer2D" parent="." unique_id=1148050783]
+stream = ExtResource("31_wrff0")
 volume_db = -2.0
 max_polyphony = 3
 

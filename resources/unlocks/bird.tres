@@ -7,7 +7,8 @@ script = ExtResource("1_8yrrs")
 id = &"Hatchet"
 name = "Hatchet"
 description = "Usually for chopping wood.
-Cooldown: 2s
-Jutsu: up + X"
+"
+keybind = "↑ + x"
+cooldown = "2s"
 color = Color(0.7254902, 0, 0.14509805, 0.49411765)
 metadata/_custom_type_script = "uid://css3rkmhd2ek2"

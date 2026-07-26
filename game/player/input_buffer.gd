@@ -27,7 +27,6 @@ func check_inputs() -> void:
 		"down",
 		"left",
 		"right",
-		"special",
 		"jump",
 		"dash",
 		"attack",

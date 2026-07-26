@@ -347,9 +347,7 @@ func _physics_process(delta):
 		# Add attack upgrade checks later
 		if dashing and %InputBuffer.is_just_pressed("attack"):
 			dash_attack()
-		elif just_jumped and (%InputBuffer.is_combo_just_pressed(["left", "attack"], "attack") or %InputBuffer.is_combo_just_pressed(["right", "attack"], "attack")):
-			if flight_time < COYOTE_TIME:
-				pounce()
+		elif just_jumped and flight_time < COYOTE_TIME and (%InputBuffer.is_combo_just_pressed(["left", "attack"], "attack") or %InputBuffer.is_combo_just_pressed(["right", "attack"], "attack")):
 			pounce()
 		elif attack_cooldown <= 0 and %InputBuffer.is_just_pressed("attack"):
 			attack()
@@ -403,23 +401,29 @@ func execute_jutsu():
 		return
 
 	jutsu_timer = JUTSU_COOLDOWN
+	
+	if dashing and %InputBuffer.is_combo_pressed(["attack"]):
+		dash_attack()
+	
+	elif just_jumped and flight_time < COYOTE_TIME and (%InputBuffer.is_combo_just_pressed(["left", "attack"], "attack") or %InputBuffer.is_combo_just_pressed(["right", "attack"], "attack")):
+		pounce()
 
-	if %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
+	elif %InputBuffer.is_combo_just_pressed(["up", "attack"], "attack"):
 		%AnimatedSprite2D.play("jutsu")
 		# flower_jutsu()
 		scug_jutsu()
 		hatchet_jutsu()
 	
-	elif %InputBuffer.is_combo_just_pressed(["down", "special"], "special"):
+	elif %InputBuffer.is_combo_just_pressed(["down", "attack"], "attack"):
 		%AnimatedSprite2D.play("jutsu")
 		dagger_jutsu()
 	
-	elif %InputBuffer.is_combo_just_pressed(["left", "right", "special"], "special"):
+	elif %InputBuffer.is_combo_just_pressed(["left", "right", "attack"], "attack"):
 		%AnimatedSprite2D.play("jutsu")
 		spin_jutsu()
 		nuke_jutsu()
 	
-	elif %InputBuffer.is_combo_just_pressed(["left", "special"], "special") or %InputBuffer.is_combo_just_pressed(["right", "special"], "special") or %InputBuffer.is_just_pressed("special"):
+	elif %InputBuffer.is_combo_just_pressed(["left", "attack"], "attack") or %InputBuffer.is_combo_just_pressed(["right", "attack"], "attack") or %InputBuffer.is_just_pressed("attack"):
 		%AnimatedSprite2D.play("jutsu")
 		shuriken_jutsu()
 		bird_jutsu()

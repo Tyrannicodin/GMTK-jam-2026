@@ -1,4 +1,5 @@
 extends RigidBody2D
+class_name Attack
 
 @export var damage = 1
 @export var stamina = 1

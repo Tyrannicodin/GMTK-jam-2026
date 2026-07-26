@@ -1,4 +1,4 @@
-extends "res://game/player_attacks/attack.gd"
+extends Attack
 
 func _process(_delta: float) -> void:
 	if linear_velocity.x > 0:

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnlockResource" format=3 uid="uid://buskxhsgefvcl"]
+
+[ext_resource type="Script" uid="uid://css3rkmhd2ek2" path="res://resources/unlock.gd" id="1_xwxdq"]
+
+[resource]
+script = ExtResource("1_xwxdq")
+id = &"CrazyBird"
+name = "Bird friend"
+description = "I think it likes you!
+Cooldown: 3s
+Jutsu: left/right + X"
+color = Color(0.7254902, 0, 0.7294118, 0.49411765)
+metadata/_custom_type_script = "uid://css3rkmhd2ek2"

@@ -498,10 +498,11 @@ func bird_jutsu():
 	s.linear_velocity.y = 0
 
 func hatchet_jutsu():
-	if not "Hachet" in unlocked_weapons:
+	if not "Hatchet" in unlocked_weapons:
 		return
 	if curr_hatchet_cooldown > 0:
 		return
+	
 	curr_hatchet_cooldown = HATCHET_COOLDOWN
 
 	var s: RigidBody2D = HatchetJutsu.instantiate()

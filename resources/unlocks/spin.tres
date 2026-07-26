@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnlockResource" format=3 uid="uid://dbln5raca752y"]
+
+[ext_resource type="Script" uid="uid://css3rkmhd2ek2" path="res://resources/unlock.gd" id="1_mo5po"]
+
+[resource]
+script = ExtResource("1_mo5po")
+id = &"Shield"
+name = "Shield"
+description = "Parry!
+Cooldown: 3s
+Jutsu: passive"
+color = Color(0.021434635, 0.021434637, 0.021434627, 0.49411765)
+metadata/_custom_type_script = "uid://css3rkmhd2ek2"

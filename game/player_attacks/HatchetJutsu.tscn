@@ -16,7 +16,9 @@ size = Vector2(64, 19)
 [node name="Spear" type="RigidBody2D" unique_id=1069549266]
 position = Vector2(-1, -1)
 collision_layer = 4
-collision_mask = 8
+collision_mask = 9
+contact_monitor = true
+max_contacts_reported = 4
 script = ExtResource("1_3fpaq")
 damage = 11
 
@@ -35,3 +37,6 @@ shape = SubResource("RectangleShape2D_8kc5w")
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[connection signal="body_entered" from="." to="." method="on_collision"]
+[connection signal="timeout" from="Timer" to="." method="timeout"]

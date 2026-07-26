@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UnlockResource" format=3 uid="uid://d0e3brom5xwth"]
+
+[ext_resource type="Script" uid="uid://css3rkmhd2ek2" path="res://resources/unlock.gd" id="1_2ja6f"]
+
+[resource]
+script = ExtResource("1_2ja6f")
+id = &"Spin"
+name = "Spinjitsu"
+description = "Go, Ninja, Go!
+Cooldown: 10s
+Jutsu: left + right + X"
+color = Color(0.021434635, 0.021434637, 0.021434627, 0.49411765)
+metadata/_custom_type_script = "uid://css3rkmhd2ek2"

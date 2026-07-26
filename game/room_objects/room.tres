@@ -6,6 +6,15 @@
 [sub_resource type="TileMapPattern" id="TileMapPattern_fg2lr"]
 tile_data = PackedInt32Array(0, 393219, 8, 65536, 393219, 9, 131072, 393219, 10, 196608, 393219, 11, 1, 458755, 8, 65537, 458755, 9, 131073, 458755, 10, 196609, 458755, 11, 2, 524291, 8, 65538, 524291, 9, 131074, 524291, 10, 196610, 524291, 11, 3, 589827, 8, 65539, 589827, 9, 131075, 589827, 10, 196611, 589827, 11, 4, 655363, 8, 65540, 655363, 9, 131076, 655363, 10, 196612, 655363, 11, 5, 720899, 8, 65541, 720899, 9, 131077, 720899, 10, 196613, 720899, 11)
 
+[sub_resource type="TileMapPattern" id="TileMapPattern_qqbol"]
+tile_data = PackedInt32Array(0, 393219, 3, 65536, 393219, 4, 131072, 393219, 5)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_hrqh2"]
+tile_data = PackedInt32Array(0, 458755, 3, 65536, 458755, 4, 131072, 458755, 5)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_yej37"]
+tile_data = PackedInt32Array(0, 3, 1, 65536, 3, 1, 131072, 3, 1, 196608, 3, 2, 262144, 458755, 3, 327680, 458755, 4, 393216, 458755, 5, 1, 196611, 1, 65537, 196611, 1, 131073, 196611, 2, 196609, 65539, 2)
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fg2lr"]
 rough = true
 bounce = 1.0
@@ -506,18 +515,19 @@ texture_region_size = Vector2i(32, 32)
 7:3/0 = 0
 7:4/0 = 0
 6:0/0 = 0
-6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -1.593153, -16, -13.382492, 16, -13.382492, 16, -1.9117851)
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -13.352884, 16, -1.7192554, -16, -1.7765636)
 6:0/0/physics_layer_0/polygon_0/one_way = true
 7:0/0 = 0
-7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -1.593153, -16, -13.382492, 16, -13.382492, 16, -1.9117851)
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -13.352884, -16, -13.352884, -16, -1.7192554, 16, -1.7765636)
 7:0/0/physics_layer_0/polygon_0/one_way = true
 8:0/0 = 0
-8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -1.593153, -16, -13.382492, 16, -13.382492, 16, -1.9117851)
+8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -16, -16, -13.352884, -16, -1.7192554, 16, -1.7765636)
 8:0/0/physics_layer_0/polygon_0/one_way = true
 9:0/0 = 0
 9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 10:0/0 = 0
 10:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+7:5/0 = 0
 
 [resource]
 tile_size = Vector2i(32, 32)
@@ -536,3 +546,6 @@ custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_fg2lr")
 sources/3 = SubResource("TileSetAtlasSource_qqbol")
 pattern_0 = SubResource("TileMapPattern_fg2lr")
+pattern_1 = SubResource("TileMapPattern_qqbol")
+pattern_2 = SubResource("TileMapPattern_hrqh2")
+pattern_3 = SubResource("TileMapPattern_yej37")

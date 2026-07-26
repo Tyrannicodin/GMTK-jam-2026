@@ -7,8 +7,6 @@
 size = Vector2(128, 128)
 
 [node name="Bomber" unique_id=592317870 instance=ExtResource("1_4fgy8")]
-collision_layer = 2
-collision_mask = 5
 script = ExtResource("2_ehpnv")
 health = 5
 reward = null

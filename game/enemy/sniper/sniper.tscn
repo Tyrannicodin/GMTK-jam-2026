@@ -12,7 +12,6 @@ size = Vector2(128, 128)
 
 [node name="Sniper" unique_id=592317870 groups=["knows_player"] instance=ExtResource("1_x2sy8")]
 collision_layer = 2
-collision_mask = 5
 script = ExtResource("2_dl67t")
 health = 5
 reward = null
@@ -20,20 +19,12 @@ reward = null
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0" unique_id=514927345]
 shape = SubResource("RectangleShape2D_qx0ke")
 
-[node name="RayCast2D" parent="." index="1" unique_id=932088438]
-collision_mask = 3
-
 [node name="Sprite2D" type="Sprite2D" parent="." index="2" unique_id=1292170047]
 modulate = Color(1, 0.49019608, 0.49019608, 1)
 texture = ExtResource("3_dl67t")
 
-[node name="AttackLeft" parent="." index="3" unique_id=1718289444]
-monitoring = false
-monitorable = false
-
-[node name="AttackRight" parent="." index="4" unique_id=1013030700]
-monitoring = false
-monitorable = false
+[node name="RayCast2D" parent="." index="3" unique_id=932088438]
+collision_mask = 3
 
 [node name="Line2D" type="Line2D" parent="." index="5" unique_id=527735908]
 modulate = Color(1, 1, 1, 0)
@@ -47,5 +38,13 @@ collision_mask = 32768
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Barrier Collider" index="0" unique_id=458343490]
 shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="AttackLeft" parent="." index="7" unique_id=1718289444]
+monitoring = false
+monitorable = false
+
+[node name="AttackRight" parent="." index="8" unique_id=1013030700]
+monitoring = false
+monitorable = false
 
 [connection signal="area_entered" from="Barrier Collider" to="." method="_on_barrier_collider_area_entered"]

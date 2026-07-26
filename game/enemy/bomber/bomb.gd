@@ -11,7 +11,7 @@ func explode() -> void:
 	linear_damp = 7.5
 	angular_damp = 5
 	gravity_scale = 0.1
-	$ExplosionSprite.visible = true
+	#$ExplosionSprite.visible = true
 	tween.tween_property(explosion_shape.shape, "radius", 250, 0.25)
 	tween.tween_callback(queue_free).set_delay(0.25)
 

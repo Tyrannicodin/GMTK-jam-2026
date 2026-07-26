@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RoomResource" format=3 uid="uid://dj6mb2qunfemf"]
+
+[ext_resource type="PackedScene" uid="uid://bjvpfdqwgp1u5" path="res://resources/rooms/scenes/occupied_platforms.tscn" id="1_dqv7r"]
+[ext_resource type="Script" uid="uid://c20wqhkj3hga6" path="res://resources/room.gd" id="2_xc70a"]
+
+[resource]
+script = ExtResource("2_xc70a")
+scene = ExtResource("1_dqv7r")
+metadata/_custom_type_script = "uid://c20wqhkj3hga6"

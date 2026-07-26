@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://d22w1nt8557i4"]
 
-[ext_resource type="Script" uid="uid://db5oj88umoqqg" path="res://resources/rooms/scenes/room.gd" id="1_5j6yg"]
+[ext_resource type="Script" uid="uid://cpknkucblpwxd" path="res://resources/rooms/scenes/last_room.gd" id="1_wno04"]
 [ext_resource type="Material" uid="uid://be15y8ki0o64d" path="res://tilemap_material.tres" id="2_5j6yg"]
 [ext_resource type="TileSet" uid="uid://5bm0cxhfjd1" path="res://game/room_objects/room.tres" id="2_vrsfi"]
 [ext_resource type="Texture2D" uid="uid://bk1wdeypatsnb" path="res://assets/enemies/dog_dude.png" id="4_vrsfi"]
@@ -8,6 +8,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_grq6u"]
 size = Vector2(1792, 960)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hdqej"]
+size = Vector2(64, 106)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rb245"]
 content_margin_left = 4.0
@@ -78,7 +81,7 @@ Panel/styles/panel = SubResource("StyleBoxFlat_j0lha")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_yi5h7")
 
 [node name="FirstRoom" type="Node2D" unique_id=1549269063]
-script = ExtResource("1_5j6yg")
+script = ExtResource("1_wno04")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=59463566]
 material = ExtResource("2_5j6yg")
@@ -104,8 +107,15 @@ monitorable = false
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_grq6u")
 
+[node name="Area2D" type="Area2D" parent="." unique_id=426485480]
+position = Vector2(1102, 970)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1266936311]
+shape = SubResource("RectangleShape2D_hdqej")
+
 [node name="DogDude" type="Sprite2D" parent="." unique_id=1030058281]
-visible = false
 position = Vector2(1102, 970)
 scale = Vector2(0.11398414, 0.11398414)
 texture = ExtResource("4_vrsfi")
@@ -120,6 +130,7 @@ offset_bottom = 1142.0
 
 [node name="DogGuyBox" type="PanelContainer" parent="Control" unique_id=1782910814]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = -7.0200005
@@ -132,7 +143,8 @@ offset_right = 409.28195
 offset_bottom = 349.64
 theme = SubResource("Theme_keqxl")
 
-[node name="Label" type="Label" parent="Control/DogGuyBox" unique_id=1887973072]
+[node name="Text" type="Label" parent="Control/DogGuyBox" unique_id=1887973072]
+unique_name_in_owner = true
 layout_mode = 2
 text = "This is a label"
 horizontal_alignment = 1
@@ -140,3 +152,4 @@ vertical_alignment = 3
 
 [connection signal="area_entered" from="RoomArea" to="." method="on_area_entered"]
 [connection signal="area_exited" from="RoomArea" to="." method="on_area_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="dog_attacked"]

@@ -3,6 +3,7 @@ extends Node
 @export var themes: Array[Theme]
 signal input_done
 
+var stopped = false
 
 class TextBox:
 	var speaker: String
@@ -57,6 +58,8 @@ func _ready():
 		%DogGuyText.text = t.text
 		
 		await input_done
+		if stopped:
+			return
 		
 		if t.logic != null:
 			await t.logic.call()

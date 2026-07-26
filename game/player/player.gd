@@ -319,7 +319,7 @@ func _physics_process(delta):
 
 	for area in detector.get_overlapping_areas():
 		if area.get_parent().get("unlock"):
-			if %InputBuffer.is_just_pressed("dash"):
+			if Input.is_action_just_pressed("dash"):
 				unlock_selected.emit(area.get_parent().get("unlock"))
 	
 	# Handle jump.

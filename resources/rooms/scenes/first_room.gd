@@ -4,6 +4,7 @@ extends "res://resources/rooms/scenes/room.gd"
 const UNLOCK_OBJECT = preload("res://game/room_objects/unlock/unlock.tscn")
 
 var run: int
+var first_lock: bool = true
 
 func _ready() -> void:
 	if run == 20:
@@ -16,7 +17,12 @@ func _ready() -> void:
 		%DogDude.hide()
 		%CrabGuyBox.hide()
 		%DogGuyBox.hide()
-	lock()
+
+func unlock() -> void:
+	if first_lock:
+		first_lock = false
+		return
+	super.unlock()
 
 func set_unlocks(unlocks: Array, hider: Signal) -> void:
 	for unlocker in unlocks:

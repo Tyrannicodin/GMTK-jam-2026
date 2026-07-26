@@ -41,6 +41,7 @@ RING_RADIUS = 100
 [node name="Spear" type="Sprite2D" parent="." unique_id=1266557459]
 unique_name_in_owner = true
 visible = false
+modulate = Color(0.05, 0.05, 0.05, 1)
 material = SubResource("ShaderMaterial_8bboj")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
 position = Vector2(-95.10565, -33.844643)
@@ -50,10 +51,11 @@ texture = ExtResource("2_78561")
 
 [node name="Shuriken" type="Sprite2D" parent="." unique_id=1377884300]
 unique_name_in_owner = true
+modulate = Color(0.05, 0.05, 0.05, 1)
 material = SubResource("ShaderMaterial_7be1g")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
-position = Vector2(-95.10565, -31.532562)
-rotation = -0.021028742
+position = Vector2(-1.8369702e-14, -102.61861)
+rotation = -0.08728684
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_bo8m0")
 
@@ -70,6 +72,7 @@ texture = ExtResource("4_nd836")
 [node name="Shield" type="Sprite2D" parent="." unique_id=570853322]
 unique_name_in_owner = true
 visible = false
+modulate = Color(0.05, 0.05, 0.05, 1)
 material = SubResource("ShaderMaterial_ncf6v")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
 position = Vector2(-1.8369702e-14, -98.245804)
@@ -80,6 +83,7 @@ texture = ExtResource("6_wjqu0")
 [node name="Hatchet" type="Sprite2D" parent="." unique_id=298829912]
 unique_name_in_owner = true
 visible = false
+modulate = Color(0.05, 0.05, 0.05, 1)
 material = SubResource("ShaderMaterial_ncf6v")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
 position = Vector2(40.673664, -88.47103)
@@ -90,6 +94,7 @@ texture = ExtResource("6_ncf6v")
 [node name="Dagger" type="Sprite2D" parent="." unique_id=625597656]
 unique_name_in_owner = true
 visible = false
+modulate = Color(0.05, 0.05, 0.05, 1)
 material = SubResource("ShaderMaterial_ncf6v")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
 position = Vector2(74.31448, -64.135025)
@@ -100,6 +105,7 @@ texture = ExtResource("8_yp58t")
 [node name="Spin" type="Sprite2D" parent="." unique_id=1738094008]
 unique_name_in_owner = true
 visible = false
+modulate = Color(0.05, 0.05, 0.05, 1)
 material = SubResource("ShaderMaterial_ncf6v")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
 position = Vector2(95.10565, -29.418764)

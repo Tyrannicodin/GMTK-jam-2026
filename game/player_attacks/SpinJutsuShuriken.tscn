@@ -1,14 +1,14 @@
-[gd_scene format=3 uid="uid://bgi4rwhtiptg8"]
+[gd_scene format=3 uid="uid://cth8a37qsh80i"]
 
-[ext_resource type="Script" uid="uid://bp2bcao2hstmo" path="res://game/player_attacks/shuriken_jutsu.gd" id="1_21vu1"]
-[ext_resource type="Shader" uid="uid://c6agybqntnsmx" path="res://shaders/magic_outline.gdshader" id="1_ndyyx"]
-[ext_resource type="Texture2D" uid="uid://dep5ydkf7woll" path="res://assets/attacks/shuriken_combined.png" id="2_21vu1"]
+[ext_resource type="Script" uid="uid://bp2bcao2hstmo" path="res://game/player_attacks/shuriken_jutsu.gd" id="1_enj5r"]
+[ext_resource type="Texture2D" uid="uid://dep5ydkf7woll" path="res://assets/attacks/shuriken_combined.png" id="2_qmmgf"]
+[ext_resource type="Shader" uid="uid://c6agybqntnsmx" path="res://shaders/magic_outline.gdshader" id="3_doj36"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h7iqs"]
 radius = 16.56804
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ndyyx"]
-shader = ExtResource("1_ndyyx")
+shader = ExtResource("3_doj36")
 shader_parameter/border_color = Color(0.7654, 0.89, 0.81316334, 1)
 shader_parameter/radius = 2.0
 shader_parameter/samples = 3
@@ -18,10 +18,11 @@ viewport_path = NodePath("SubViewport")
 
 [node name="Shuriken" type="RigidBody2D" unique_id=549474378 groups=["attack"]]
 collision_layer = 4
-collision_mask = 9
+collision_mask = 8
+gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 4
-script = ExtResource("1_21vu1")
+script = ExtResource("1_enj5r")
 damage = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1090233966]
@@ -41,7 +42,7 @@ size = Vector2i(128, 128)
 unique_name_in_owner = true
 position = Vector2(64, 64)
 scale = Vector2(0.15, 0.15)
-texture = ExtResource("2_21vu1")
+texture = ExtResource("2_qmmgf")
 hframes = 5
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=84399714]

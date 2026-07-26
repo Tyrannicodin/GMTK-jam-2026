@@ -195,9 +195,8 @@ unique_name_in_owner = true
 
 [node name="StaminaChargedParticles" type="CPUParticles2D" parent="." unique_id=164959685]
 unique_name_in_owner = true
-visible = false
 material = ExtResource("10_uv2nh")
-instance_shader_parameters/intensity = 0.999999977648
+instance_shader_parameters/intensity = 0.0
 texture = ExtResource("10_gb4gm")
 emission_shape = 1
 emission_sphere_radius = 43.66
@@ -206,7 +205,7 @@ tangential_accel_min = -100.0
 tangential_accel_max = 100.0
 scale_amount_min = 0.05
 scale_amount_max = 0.1
-color = Color(0.89, 1, 1, 1)
+color = Color(0, 0, 0, 1)
 anim_offset_max = 1.0
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=858388780]
@@ -222,9 +221,8 @@ texture = SubResource("ViewportTexture_gb4gm")
 
 [node name="StaminaChargedParticlesFront" type="CPUParticles2D" parent="." unique_id=36452154]
 unique_name_in_owner = true
-visible = false
 material = ExtResource("10_uv2nh")
-instance_shader_parameters/intensity = 0.999999977648
+instance_shader_parameters/intensity = 0.0
 position = Vector2(0, 19)
 amount = 2
 texture = ExtResource("10_gb4gm")
@@ -235,7 +233,7 @@ tangential_accel_min = -100.0
 tangential_accel_max = 100.0
 scale_amount_min = 0.05
 scale_amount_max = 0.1
-color = Color(0.89, 1, 1, 1)
+color = Color(0, 0, 0, 1)
 anim_offset_max = 1.0
 
 [node name="DashParticles" type="CPUParticles2D" parent="." unique_id=1983856765]

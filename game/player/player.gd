@@ -50,6 +50,8 @@ var MAX_STAMINA = 100
 const STAMINA_LEVEL_GAIN = 10
 const STAMINA_RESTORATION_PER_SECOND = 10
 
+const MUD_FACTOR := 2.0
+
 var dash_count = 1
 var dashing = false
 
@@ -228,11 +230,26 @@ func _physics_process(delta):
 	# Jutsu are checked first because it has priority consuming inputs for the frame
 	execute_jutsu()
 	
+	var muddiness := 1.0
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_normal() != Vector2.UP:
+			continue
+		
+		var collider: TileMapLayer = collision.get_collider()
+		if collider is not TileMapLayer:
+			continue
+			
+		var map_coords = collider.local_to_map(collider.to_local(collision.get_position()))
+		var cell = collider.get_cell_tile_data(map_coords)
+		if cell and cell.get_custom_data("muddy"):
+			muddiness = MUD_FACTOR
+	
 	# Handle jump.
 	if flight_time < COYOTE_TIME and not jumped_to_leave_ground and not diving and freeze_timer <= 0:
 		# Check for Jump Dash Upgrade
 		if %InputBuffer.is_just_pressed("jump") or %InputBuffer.is_pressed("jump"):
-			velocity.y -= JUMP_SPEED
+			velocity.y -= JUMP_SPEED / muddiness
 			jumped_to_leave_ground = true
 			just_jumped = true
 			if dash_count < 1:
@@ -242,7 +259,7 @@ func _physics_process(delta):
 			if -velocity.y <= abs(velocity.x):
 				dashing = false
 			elif dashing:
-				velocity.y += JUMP_SPEED/2
+				velocity.y += JUMP_SPEED / 2.0
 	
 	# Handle "Basic" Attacks
 	if not diving:
@@ -261,16 +278,16 @@ func _physics_process(delta):
 		var walk = WALK_FORCE * direction
 		# Slow down the player if they're not trying to move.
 		if abs(walk) < WALK_FORCE * 0.2:
-			friction(delta)
+			friction(delta, muddiness)
 		else:
 			var INITIAL_SPEED = velocity.x
-			if abs(velocity.x) < WALK_MAX_SPEED:
-				velocity.x += walk * delta
+			if abs(velocity.x) < WALK_MAX_SPEED / muddiness:
+				velocity.x += walk * delta / muddiness
 			elif sign(velocity.x) != sign(walk):
 				velocity.x += walk * delta
-				friction(delta)
+				friction(delta, muddiness)
 			else:
-				friction(delta)
+				friction(delta, muddiness)
 				if abs(velocity.x) < WALK_MAX_SPEED and abs(INITIAL_SPEED) > WALK_MAX_SPEED:
 					velocity.x = WALK_MAX_SPEED * sign(velocity.x)
 		
@@ -292,13 +309,13 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-func friction(delta):
+func friction(delta, multiplier: float):
 	# The velocity, slowed down a bit, and then reassigned.
 	if is_on_floor():
-		velocity.x = move_toward(velocity.x, 0, STOP_FORCE * delta)
+		velocity.x = move_toward(velocity.x, 0, STOP_FORCE * delta * multiplier)
 	else:
 		# air has less friction
-		velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta)
+		velocity.x = move_toward(velocity.x, 0, AIR_STOP_FORCE * delta * multiplier)
 
 func execute_jutsu():
 	if jutsu_timer > 0:

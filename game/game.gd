@@ -80,7 +80,8 @@ func build_rooms() -> void:
 			first_room = false
 			
 			room_scene.set_unlocks(unlocks, hide_unlocks)
-			
+			if len(unlocks) == 0:
+				room_scene.unlock()
 		initial_pos = exit.global_position
 
 		index += 1
@@ -138,14 +139,14 @@ func object_entered_room(object: Area2D, cameraTarget: Node2D, index: int):
 	).set_trans(Tween.TRANS_CUBIC)
 
 func object_left_room(object: Area2D, room: Node2D, index: int):
-	if object.get_parent() != player or index == len(rooms) - 1 or index == 0:
+	if object.get_parent() != player or index == len(rooms) or index == 0 or not countdown:
 		return
 	
 	var reward = Reward.new()
 	reward.time = 3
 	$Player.add_rewards(reward)
 
-	#room.lock()
+	room.lock()
 
 func _process(delta: float) -> void:
 	%StaminaBar.value = %Player.stamina
@@ -206,3 +207,4 @@ func unlock_chosen(unlock: UnlockResource) -> void:
 	else:
 		%Player.set(unlock.id, true)
 	hide_unlocks.emit()
+	roomContainer.get_child(0).call("unlock")

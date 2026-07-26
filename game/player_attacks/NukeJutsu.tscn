@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://dooytk57gkv3b"]
+
+[ext_resource type="Script" uid="uid://hij2lkjx3t8" path="res://game/player_attacks/nuke_jutsu.gd" id="1_ol8vy"]
+[ext_resource type="Shader" uid="uid://c6agybqntnsmx" path="res://shaders/magic_outline.gdshader" id="2_dudb2"]
+[ext_resource type="Texture2D" uid="uid://bn6aogac1t08q" path="res://assets/attacks/nuke_explosion.png" id="3_ol8vy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbppu"]
+shader = ExtResource("2_dudb2")
+shader_parameter/border_color = Color(0.7294118, 0.8784314, 0.7882353, 1)
+shader_parameter/radius = 15.0
+shader_parameter/samples = 15
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_senip"]
+radius = 749.193
+
+[node name="Nuke" type="RigidBody2D" unique_id=67049099]
+position = Vector2(-1, -1)
+collision_layer = 4
+collision_mask = 8
+gravity_scale = 0.0
+script = ExtResource("1_ol8vy")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=773006969]
+material = SubResource("ShaderMaterial_jbppu")
+position = Vector2(12, 18.000008)
+rotation = -0.60467213
+scale = Vector2(1.3046423, 1.3046423)
+texture = ExtResource("3_ol8vy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=718669560]
+position = Vector2(-1.1875, 12.140625)
+shape = SubResource("CircleShape2D_senip")
+
+[node name="Timer" type="Timer" parent="." unique_id=361677401]
+wait_time = 5.0
+one_shot = true
+autostart = true

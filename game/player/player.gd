@@ -71,7 +71,7 @@ var STAMINA_NOT_CHARGED_OUTLINE_COLOR = Color("0d0601")
 
 var last_animation = "idle"
 
-var unlocked_weapons: Array[String] = ["Shuriken"]
+var unlocked_weapons: Array[String] = ["Shuriken", "Nuke"]
 
 # Weapons
 var SPEAR_COOLDOWN = 2

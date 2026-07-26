@@ -1131,9 +1131,6 @@ ProgressBar/fonts/font = SubResource("FontFile_fegy3")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_pvdu1")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_cf130")
 
-[sub_resource type="LabelSettings" id="LabelSettings_hdqej"]
-font_size = 128
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qf6n1"]
 shader = ExtResource("11_vsp63")
 shader_parameter/tex = ExtResource("12_b686c")
@@ -1169,6 +1166,9 @@ colors = PackedColorArray(0.039215688, 0.18039216, 0.08235294, 1, 0.039215688, 0
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_km8ha"]
 gradient = SubResource("Gradient_mhvfb")
+
+[sub_resource type="LabelSettings" id="LabelSettings_hdqej"]
+font_size = 128
 
 [node name="Game" type="Node2D" unique_id=1516163044]
 script = ExtResource("1_l1rk1")
@@ -1585,102 +1585,6 @@ text = "LV 6"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Win" type="CenterContainer" parent="Camera/UI Layer" unique_id=2053496936]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="Camera/UI Layer/Win" unique_id=1202692896]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Camera/UI Layer/Win/PanelContainer" unique_id=1215652464]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Camera/UI Layer/Win/PanelContainer/MarginContainer" unique_id=2055333623]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Camera/UI Layer/Win/PanelContainer/MarginContainer/VBoxContainer" unique_id=749460524]
-layout_mode = 2
-text = "You win!"
-label_settings = SubResource("LabelSettings_hdqej")
-
-[node name="Label2" type="Label" parent="Camera/UI Layer/Win/PanelContainer/MarginContainer/VBoxContainer" unique_id=445422236]
-layout_mode = 2
-text = "Thanks for playing!"
-horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Camera/UI Layer/Win/PanelContainer/MarginContainer/VBoxContainer" unique_id=276964100]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="Camera/UI Layer/Win/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=173498067]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Back to main menu"
-
-[node name="Button2" type="Button" parent="Camera/UI Layer/Win/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1294212404]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Endless mode"
-
-[node name="Lose" type="CenterContainer" parent="Camera/UI Layer" unique_id=889916080]
-unique_name_in_owner = true
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="Camera/UI Layer/Lose" unique_id=1289728620]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Camera/UI Layer/Lose/PanelContainer" unique_id=1911169140]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Camera/UI Layer/Lose/PanelContainer/MarginContainer" unique_id=1151087775]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Camera/UI Layer/Lose/PanelContainer/MarginContainer/VBoxContainer" unique_id=233501311]
-layout_mode = 2
-text = "You lose :("
-label_settings = SubResource("LabelSettings_hdqej")
-
-[node name="Label2" type="Label" parent="Camera/UI Layer/Lose/PanelContainer/MarginContainer/VBoxContainer" unique_id=408406503]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-text = "Dog guy stole the secret to bombjitsu, and used it to enforce a rule of terror across the land. The panda ninja was never seen again. Some say, in another world things went differently..."
-horizontal_alignment = 1
-autowrap_mode = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Camera/UI Layer/Lose/PanelContainer/MarginContainer/VBoxContainer" unique_id=1636446853]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="Camera/UI Layer/Lose/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1986189772]
-z_index = 99
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Back to main menu"
-
-[node name="Button2" type="Button" parent="Camera/UI Layer/Lose/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1866082750]
-z_index = 99
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Try again"
-
 [node name="BigText" type="SubViewportContainer" parent="Camera" unique_id=336338847]
 material = SubResource("ShaderMaterial_qf6n1")
 offset_left = -1280.0
@@ -1803,12 +1707,108 @@ unique_name_in_owner = true
 stream = ExtResource("31_fegy3")
 volume_db = -5.0
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1607211166]
+
+[node name="Win" type="CenterContainer" parent="CanvasLayer" unique_id=2053496936]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Win" unique_id=1202692896]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Win/PanelContainer" unique_id=1215652464]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Win/PanelContainer/MarginContainer" unique_id=2055333623]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Win/PanelContainer/MarginContainer/VBoxContainer" unique_id=749460524]
+layout_mode = 2
+text = "You win!"
+label_settings = SubResource("LabelSettings_hdqej")
+
+[node name="Label2" type="Label" parent="CanvasLayer/Win/PanelContainer/MarginContainer/VBoxContainer" unique_id=445422236]
+layout_mode = 2
+text = "Thanks for playing!"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Win/PanelContainer/MarginContainer/VBoxContainer" unique_id=276964100]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Win/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=173498067]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Back to main menu"
+
+[node name="Button2" type="Button" parent="CanvasLayer/Win/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1294212404]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Endless mode"
+
+[node name="Lose" type="CenterContainer" parent="CanvasLayer" unique_id=889916080]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Lose" unique_id=1289728620]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Lose/PanelContainer" unique_id=1911169140]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Lose/PanelContainer/MarginContainer" unique_id=1151087775]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Lose/PanelContainer/MarginContainer/VBoxContainer" unique_id=233501311]
+layout_mode = 2
+text = "You lose :("
+label_settings = SubResource("LabelSettings_hdqej")
+
+[node name="Label2" type="Label" parent="CanvasLayer/Lose/PanelContainer/MarginContainer/VBoxContainer" unique_id=408406503]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+text = "Dog guy stole the secret to bombjitsu, and used it to enforce a rule of terror across the land. The panda ninja was never seen again. Some say, in another world things went differently..."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Lose/PanelContainer/MarginContainer/VBoxContainer" unique_id=1636446853]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Lose/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1986189772]
+z_index = 99
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Back to main menu"
+
+[node name="Button2" type="Button" parent="CanvasLayer/Lose/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1866082750]
+z_index = 99
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Try again"
+
 [connection signal="gain_time" from="Player" to="." method="on_gain_time"]
 [connection signal="level_up" from="Player" to="." method="player_level_up"]
 [connection signal="take_damage" from="Player" to="." method="_on_player_take_damage"]
 [connection signal="take_damage" from="Player" to="." method="on_player_damage"]
 [connection signal="unlock_selected" from="Player" to="." method="unlock_chosen"]
-[connection signal="pressed" from="Camera/UI Layer/Win/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="back_to_menu"]
-[connection signal="pressed" from="Camera/UI Layer/Win/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Button2" to="." method="endless_mode"]
-[connection signal="pressed" from="Camera/UI Layer/Lose/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="back_to_menu"]
-[connection signal="pressed" from="Camera/UI Layer/Lose/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Button2" to="." method="try_again"]
+[connection signal="pressed" from="CanvasLayer/Win/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="back_to_menu"]
+[connection signal="pressed" from="CanvasLayer/Win/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Button2" to="." method="endless_mode"]
+[connection signal="pressed" from="CanvasLayer/Lose/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="back_to_menu"]
+[connection signal="pressed" from="CanvasLayer/Lose/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Button2" to="." method="try_again"]

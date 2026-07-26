@@ -54,7 +54,7 @@ func play_bgm():
 	%Bgm.play()
 	await get_tree().create_timer(%Bgm.stream.get_length()).timeout
 	play_bgm()
-	
+
 func _ready() -> void:
 	print("Hello from game!")
 	load_resources()

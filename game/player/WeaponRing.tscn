@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://4cotyx75vn6f" path="res://assets/attacks/war_tate_pelta.png" id="6_wjqu0"]
 [ext_resource type="Texture2D" uid="uid://cjphml7tohrry" path="res://assets/attacks/dagger.png" id="8_yp58t"]
 [ext_resource type="Texture2D" uid="uid://dvslh47e7egt7" path="res://assets/attacks/character_typhoon.png" id="9_ldce5"]
+[ext_resource type="Texture2D" uid="uid://72jn7s0jjv58" path="res://assets/attacks/nuke.png" id="10_rrbna"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8bboj"]
 shader = ExtResource("4_ncf6v")
@@ -27,6 +28,7 @@ shader_parameter/samples = 10
 
 [node name="WeaponRing" type="Node2D" unique_id=974362532]
 script = ExtResource("1_1w4ex")
+unlocked_weapons = Array[String](["Nuke"])
 spear_ready = false
 shuriken_ready = false
 crazy_bird_ready = false
@@ -34,6 +36,7 @@ shield_ready = null
 hatchet_ready = null
 dagger_ready = null
 spin_ready = null
+nuke_ready = null
 TIME_FOR_ROTATION = 20.0
 RING_RADIUS = 100
 
@@ -109,7 +112,17 @@ visible = false
 modulate = Color(0.05, 0.05, 0.05, 1)
 material = SubResource("ShaderMaterial_ncf6v")
 instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
-position = Vector2(95.10565, -29.418764)
-rotation = 0.04943115
+position = Vector2(-95.10565, -30.20436)
+rotation = 0.023244677
 scale = Vector2(0.11, 0.11)
 texture = ExtResource("9_ldce5")
+
+[node name="Nuke" type="Sprite2D" parent="." unique_id=61596734]
+unique_name_in_owner = true
+modulate = Color(0.05, 0.05, 0.05, 1)
+material = SubResource("ShaderMaterial_ncf6v")
+instance_shader_parameters/border_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+position = Vector2(-1.8369702e-14, -97.92663)
+rotation = 0.069112375
+scale = Vector2(0.11, 0.11)
+texture = ExtResource("10_rrbna")

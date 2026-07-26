@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dpsallg7mur0y" path="res://game/enemy/soldier/soldier.tscn" id="4_uu6df"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vc104"]
-size = Vector2(1216, 672)
+size = Vector2(1828, 1020)
 
 [node name="ForsakenRoom" type="Node2D" unique_id=1549269063]
 script = ExtResource("1_muedm")
@@ -32,11 +32,10 @@ position = Vector2(1918, 224)
 position = Vector2(640, 400)
 
 [node name="RoomArea" type="Area2D" parent="." unique_id=994280016]
-visible = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomArea" unique_id=317257611]
-position = Vector2(640, 368)
+position = Vector2(942, 542)
 shape = SubResource("RectangleShape2D_vc104")
 
 [node name="Chest" parent="." unique_id=1912984734 instance=ExtResource("3_abqn4")]

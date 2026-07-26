@@ -72,6 +72,7 @@ func build_rooms() -> void:
 
 	for room in rooms + [LAST_ROOM]:
 		var room_scene: Node2D = room.scene.instantiate()
+		#room_scene.done.connect(_finished_stage)
 
 		var entry: Marker2D = room_scene.get_node("EntryMarker")
 		var exit: Marker2D = room_scene.get_node("ExitMarker")
@@ -79,9 +80,7 @@ func build_rooms() -> void:
 		if entry == null or exit == null or camera == null:
 			continue
 
-		roomContainer.add_child(room_scene)
-
-		room_scene.object_entered.connect(func(node): object_entered_room(node, camera, index))
+		room_scene.object_entered.connect(func(node): object_entered_room(node, room_scene, index))
 		room_scene.object_exited.connect(func(node): object_left_room(node, room_scene, index))
 		round_start.connect(room_scene.round_started)
 
@@ -94,8 +93,15 @@ func build_rooms() -> void:
 			
 			room_scene.set_unlocks(unlocks, hide_unlocks)
 			if len(unlocks) == 0:
-				room_scene.unlock()
+				room_scene.call_deferred("unlock")
+			room_scene.run = len(rooms) - 1
+		elif room_scene.get("run_over"):
+			room_scene.run_over.connect(_finished_stage)
+			if len(rooms) - 1 == 20:
+				room_scene.last_run = true
 		initial_pos = exit.global_position
+		
+		roomContainer.add_child(room_scene)
 
 		index += 1
 	
@@ -116,26 +122,29 @@ func set_time(time: float, delta: float):
 		$Camera/BigText/Countdown/Character1.text = "0"
 
 	$Camera/BigText/Countdown/Character3.text = s[1][0]
+	
+func _finished_stage():
+	if len(rooms) - 1 == 20:
+		%Win.show()
+		return
+	pick_room(len(rooms) - 1)
+	build_rooms()
+	time = 60
 
-
-func object_entered_room(object: Area2D, cameraTarget: Node2D, index: int):
+func object_entered_room(object: Area2D, room: Node2D, index: int):
 	if object.get_parent() != player:
 		return
+	
+	room.unlock()
 
 	if index == len(rooms):
 		countdown = false
-		pick_room(len(rooms) - 1)
-		var time_tween = get_tree().create_tween()
 		var reward = Reward.new()
 		reward.xp = time / 10.0
-		time_tween.tween_property(self, "time", 0, 1.5).set_delay(5)
-		time_tween.parallel().tween_callback(func(): $Player.add_rewards(reward))
-		time_tween.tween_callback(build_rooms).set_delay(5)
-		time_tween.tween_property(self, "time", 60, 2).set_delay(1)
-		time_tween.tween_callback(round_start.emit)
 	elif index != 0:
 		countdown = true
 	
+	var cameraTarget = room.get_node("CameraMarker")
 	var tween = get_tree().create_tween()
 	tween.tween_property(
 		cameraNode,
@@ -176,6 +185,7 @@ func _physics_process(delta: float) -> void:
 	if time <= 0:
 		countdown = false
 		time = 0
+		%Lose.show()
 
 func on_player_damage(amount: int):
 	time_since_taking_damage = 0
@@ -221,3 +231,14 @@ func unlock_chosen(unlock: UnlockResource) -> void:
 		%Player.set(unlock.id, true)
 	hide_unlocks.emit()
 	roomContainer.get_child(0).call("unlock")
+
+func endless_mode() -> void:
+	time = 60
+	pick_room(len(rooms) - 1)
+	build_rooms()
+
+func back_to_menu() -> void:
+	get_tree().change_scene_to_file("res://menu/menu.tscn")
+
+func try_again() -> void:
+	get_tree().change_scene_to_file("res://game/game.tscn")

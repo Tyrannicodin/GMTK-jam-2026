@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b6mtr0l0iv3mi" path="res://game/room_objects/ai_barrier/barrier.tscn" id="8_vrwfq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8w3bu"]
-size = Vector2(1792, 960)
+size = Vector2(1856, 1040)
 
 [node name="SimplePlatform" type="Node2D" unique_id=1549269063]
 script = ExtResource("1_4e2o1")
@@ -29,7 +29,6 @@ position = Vector2(1920, 64)
 position = Vector2(960, 544)
 
 [node name="RoomArea" type="Area2D" parent="." unique_id=1362974294]
-visible = false
 position = Vector2(960, 540)
 monitorable = false
 

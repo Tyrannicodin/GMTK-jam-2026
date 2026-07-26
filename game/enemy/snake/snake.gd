@@ -43,8 +43,7 @@ func damage_self(amount: int) -> void:
 	flash_time = .1
 
 	if health <= 0:
-		if player != null:
-			player.add_rewards(reward)
+		player.add_rewards(reward)
 		is_dead = true
 		%Sprite.set_instance_shader_parameter("intensity", 1.0)
 		

@@ -70,6 +70,8 @@ var STAMINA_NOT_CHARGED_OUTLINE_COLOR = Color("0d0601")
 
 var last_animation = "idle"
 
+var unlocked_weapons: Array[String] = ["Shuriken"]
+
 # Weapons
 var SPEAR_COOLDOWN = 2
 var SHURIKEN_COOLDOWN = 1
@@ -114,6 +116,8 @@ func _ready():
 	%StaminaChargedParticles.show()
 	%StaminaChargedParticlesFront.show()
 	%DashParticles.show()
+
+	self.velocity.x = 1
 
 func broadcast_player():
 	get_tree().call_group("knows_player", "set_player", self)
@@ -183,6 +187,9 @@ func get_direction():
 	return -1
 
 func _process(delta: float) -> void:
+	
+	%WeaponRing.unlocked_weapons = unlocked_weapons
+
 	stamina += STAMINA_RESTORATION_PER_SECOND * delta
 	
 	invuln_time -= delta
@@ -439,6 +446,8 @@ func dash(direction: Vector2):
 func shuriken_jutsu():
 	if curr_shuriken_cooldown > 0:
 		return
+	if not "Shuriken" in unlocked_weapons:
+		return
 	curr_shuriken_cooldown = SHURIKEN_COOLDOWN
 	$Shuriken.play(0.01)
 
@@ -471,6 +480,8 @@ func dive_jutsu():
 	stamina -= 30
 
 func bird_jutsu():
+	if not "CrazyBird" in unlocked_weapons:
+		return
 	if curr_crazy_bird_cooldown > 0:
 		return
 	curr_crazy_bird_cooldown = CRAZY_BIRD_COOLDOWN
@@ -484,6 +495,8 @@ func bird_jutsu():
 	s.linear_velocity.y = 0
 
 func hatchet_jutsu():
+	if not "Hachet" in unlocked_weapons:
+		return
 	if curr_hatchet_cooldown > 0:
 		return
 	curr_hatchet_cooldown = HATCHET_COOLDOWN
@@ -498,6 +511,8 @@ func hatchet_jutsu():
 
 
 func dagger_jutsu():
+	if not "Dagger" in unlocked_weapons:
+		return
 	if curr_dagger_cooldown > 0:
 		return
 	curr_dagger_cooldown = DAGGER_COOLDOWN
@@ -513,6 +528,8 @@ func dagger_jutsu():
 	s2.linear_velocity.x = -2000
 
 func spin_jutsu():
+	if not "Spin" in unlocked_weapons:
+		return
 	if curr_spin_cooldown > 0:
 		return
 	curr_spin_cooldown = SPIN_COOLDOWN
@@ -547,6 +564,8 @@ func missiles_jutsu():
 	stamina -= 30
 
 func scug_jutsu():
+	if not "Spear" in unlocked_weapons:
+		return
 	if curr_spear_cooldown > 0:
 		return
 	curr_spear_cooldown = SPEAR_COOLDOWN

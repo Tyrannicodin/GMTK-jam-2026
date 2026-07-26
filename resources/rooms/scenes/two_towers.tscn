@@ -8,6 +8,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vc104"]
 size = Vector2(1792, 960)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hdqej"]
+size = Vector2(64, 1033)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5m562"]
 size = Vector2(128, 128)
 
@@ -28,12 +31,15 @@ position = Vector2(1920, 832)
 position = Vector2(960, 544)
 
 [node name="RoomArea" type="Area2D" parent="." unique_id=994280016]
-visible = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RoomArea" unique_id=317257611]
 position = Vector2(960, 544)
 shape = SubResource("RectangleShape2D_vc104")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RoomArea" unique_id=1851586517]
+position = Vector2(38, 506.5)
+shape = SubResource("RectangleShape2D_hdqej")
 
 [node name="Saruman" parent="." unique_id=592317870 instance=ExtResource("3_oq6yg")]
 position = Vector2(480, 128)

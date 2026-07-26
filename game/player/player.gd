@@ -144,11 +144,20 @@ func deal_damage(weapon: Node2D, amount: int):
 		print("Parried ", amount, " damage")
 		gain_time.emit(amount)
 		stamina += 5 * amount
+		
+		var d: Label = %DamageTakenText.duplicate()
+		d.text = "Parried!"
+		d.global_position = global_position
+		get_parent().add_child(d)
+		d.visible = true
+		
+		var e: Label = %DamageTakenText.duplicate()
+		e.text = "+" + str(amount) + "s"
+		e.global_position = global_position
+		get_parent().add_child(d)
+		e.visible = true
+		
 		return
-	
-	invuln_time = INVULN_TIME
-
-	time_since_damage_taken = 0
   
 	print("Ow! Took ", amount, " damage!")
 
@@ -166,27 +175,14 @@ func deal_damage(weapon: Node2D, amount: int):
 		d.global_position = global_position
 		get_parent().add_child(d)
 		d.visible = true
+		take_damage.emit(amount)
 	else:
 		var d: Label = %DamageTakenText.duplicate()
 		d.text = "Blocked!"
 		d.global_position = global_position
 		get_parent().add_child(d)
 		d.visible = true
-
-	await get_tree().create_timer(0).timeout
-
-	if curr_shield_cooldown > 0:
-		take_damage.emit(amount)
-	else:
 		curr_shield_cooldown = SHIELD_COOLDOWN
-	
-	await get_tree().create_timer(0.15).timeout
-
-	var d: Label = %DamageTakenText.duplicate()
-	d.text = "-" + str(amount) + "s"
-	d.global_position = global_position
-	get_parent().add_child(d)
-	d.visible = true
 
 func get_direction():
 	if facing_direction == "right":

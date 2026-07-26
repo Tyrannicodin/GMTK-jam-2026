@@ -7,7 +7,8 @@ script = ExtResource("1_2ja6f")
 id = &"Spin"
 name = "Spinjitsu"
 description = "Go, Ninja, Go!
-Cooldown: 10s
-Jutsu: left + right + X"
+"
+keybind = "← + → + x"
+cooldown = "10"
 color = Color(0.8039216, 0.84705883, 0.84705883, 0.49411765)
 metadata/_custom_type_script = "uid://css3rkmhd2ek2"

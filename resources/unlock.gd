@@ -9,7 +9,11 @@ class_name UnlockResource
 @export_category("Unlock Details")
 ## Name displayed on upgrade card
 @export var name: String
+
 ## Short description of the unlock
 @export_multiline() var description: String
+@export var keybind: String
+@export var cooldown: String
+
 ## Upgrade card background
 @export var color: Color

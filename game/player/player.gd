@@ -286,9 +286,12 @@ func _physics_process(delta):
 			if parent.get("rewards"):
 				add_rewards(parent.get("rewards"))
 				parent.queue_free()
-			elif parent.get("unlock"):
-				unlock_selected.emit(parent.get("unlock"))
 
+	for area in detector.get_overlapping_areas():
+		if area.get_parent().get("unlock"):
+			if %InputBuffer.is_just_pressed("dash"):
+				unlock_selected.emit(area.get_parent().get("unlock"))
+	
 	# Handle jump.
 	# Jutsu are checked first because it has priority consuming inputs for the frame
 	execute_jutsu()
@@ -428,8 +431,9 @@ func dash(direction: Vector2):
 		return
 	if dashed_since_left_ground:
 		return
+
 	dashed_since_left_ground = true
-	
+
 	if abs(velocity.x) < 1:
 		velocity.x = 0
 	if abs(velocity.y) < 1:

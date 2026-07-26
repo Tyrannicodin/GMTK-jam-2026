@@ -202,13 +202,17 @@ func _physics_process(delta: float) -> void:
 		time = 0
 		%Lose.show()
 
+func disable_time():
+	$Player.process_mode = Node.PROCESS_MODE_DISABLED
+	$Rooms.process_mode = Node.PROCESS_MODE_DISABLED
+
 func on_player_damage(amount: int):
 	time_since_taking_damage = 0
 	time_before_taking_damage = time
 	time -= amount
 	
-	$Player.process_mode = Node.PROCESS_MODE_DISABLED
-	$Rooms.process_mode = Node.PROCESS_MODE_DISABLED
+	# not allowed to do these operations during physics thread
+	call_deferred("disable_time")
 
 	game_paused_for_damage_frames = true
 

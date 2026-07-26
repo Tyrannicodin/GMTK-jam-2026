@@ -7,7 +7,8 @@ script = ExtResource("1_yihal")
 id = &"Spear"
 name = "Spear"
 description = "Pointy end towards enemies.
-Cooldown: 2s
-Jutsu: up + X"
+"
+keybind = "↑ + x"
+cooldown = "2"
 color = Color(0, 0, 0.7294118, 0.49411765)
 metadata/_custom_type_script = "uid://css3rkmhd2ek2"

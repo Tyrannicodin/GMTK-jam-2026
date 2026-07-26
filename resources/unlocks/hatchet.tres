@@ -7,7 +7,8 @@ script = ExtResource("1_xwxdq")
 id = &"CrazyBird"
 name = "Bird friend"
 description = "I think it likes you!
-Cooldown: 3s
-Jutsu: left/right + X"
+"
+keybind = "→ + x"
+cooldown = "3"
 color = Color(0.7254902, 0, 0.7294118, 0.49411765)
 metadata/_custom_type_script = "uid://css3rkmhd2ek2"

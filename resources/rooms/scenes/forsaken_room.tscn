@@ -26,10 +26,10 @@ tile_set = ExtResource("2_abqn4")
 position = Vector2(2, 801)
 
 [node name="ExitMarker" type="Marker2D" parent="." unique_id=867143847]
-position = Vector2(1918, 224)
+position = Vector2(1919, 368)
 
 [node name="CameraMarker" type="Marker2D" parent="." unique_id=1133903642]
-position = Vector2(640, 400)
+position = Vector2(960, 544)
 
 [node name="RoomArea" type="Area2D" parent="." unique_id=994280016]
 visible = false

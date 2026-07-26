@@ -16,7 +16,7 @@ size = Vector2(9, 153)
 [node name="Spear" type="RigidBody2D" unique_id=1069549266]
 position = Vector2(-1, -1)
 collision_layer = 4
-collision_mask = 8
+collision_mask = 9
 script = ExtResource("1_8kc5w")
 damage = 15
 

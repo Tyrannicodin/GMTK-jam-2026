@@ -12,6 +12,7 @@ signal unlock_selected(unlock: UnlockResource)
 enum DIRECTIONS {UP, DOWN, FRONT, BACK}
 
 var ShurikenJutsu = preload("res://game/player_attacks/ShurikenJutsu.tscn")
+var BirdJutsu = preload("res://game/player_attacks/BirdJutsu.tscn")
 var FlowerJutsu = preload("res://game/player_attacks/Flower.tscn")
 
 var facing_direction
@@ -302,7 +303,7 @@ func friction(delta):
 func execute_jutsu():	
 	if jutsu_timer > 0:
 		return
-				
+
 	jutsu_timer = JUTSU_COOLDOWN
 	
 	if %InputBuffer.is_combo_just_pressed(["up", "special"], "special"):
@@ -322,7 +323,7 @@ func execute_jutsu():
 		spin_jutsu()
 		burst_jutsu()
 	
-	elif %InputBuffer.is_combo_just_pressed(["left", "special"], "special") or %InputBuffer.is_combo_just_pressed(["right", "special"], "special"):
+	elif %InputBuffer.is_combo_just_pressed(["left", "special"], "special") or %InputBuffer.is_combo_just_pressed(["right", "special"], "special") or %InputBuffer.is_just_pressed("special"):
 		%AnimatedSprite2D.play("jutsu")
 		shuriken_jutsu()
 		bird_jutsu()
@@ -367,9 +368,9 @@ func dash(direction: Vector2):
 	%AnimatedSprite2D.play("dash")
 
 func shuriken_jutsu():
+	if stamina < 30:
+		return
 	for i in range(3):
-		if stamina < 10:
-			return
 		var s: RigidBody2D = ShurikenJutsu.instantiate()
 		s.global_position = self.global_position
 		get_parent().add_child(s)
@@ -377,7 +378,6 @@ func shuriken_jutsu():
 		s.linear_velocity.x = get_direction() * 4000
 		s.linear_velocity.y = -400
 		await get_tree().create_timer(.1).timeout
-		stamina -= 10
 		
 func flower_jutsu():
 	if stamina < 30:
@@ -400,6 +400,15 @@ func dive_jutsu():
 func bird_jutsu():
 	if stamina < 30:
 		return
+
+	var s: RigidBody2D = BirdJutsu.instantiate()
+	s.global_position = self.global_position
+	get_parent().add_child(s)
+
+	s.linear_velocity.x = get_direction() * 2000
+	s.linear_velocity.y = 0
+	await get_tree().create_timer(.1).timeout
+	
 	velocity.x -= %InputBuffer.get_axis("left", "right") * 2000
 	# Shoot out a bird,
 	stamina -= 30

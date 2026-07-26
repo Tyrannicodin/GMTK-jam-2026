@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cnu70xv20nhyb"]
+
+[ext_resource type="Texture2D" uid="uid://cnd0p457mp23j" path="res://assets/attacks/crazy_bird.png" id="1_10flm"]
+[ext_resource type="Script" uid="uid://bgi515nuel33d" path="res://game/player_attacks/bird_jutsu.gd" id="1_qwxiq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h7iqs"]
+radius = 25.894014
+
+[node name="Shuriken" type="RigidBody2D" unique_id=549474378 groups=["attack"]]
+collision_layer = 4
+collision_mask = 9
+contact_monitor = true
+max_contacts_reported = 4
+script = ExtResource("1_qwxiq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1208373937]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_10flm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1090233966]
+position = Vector2(0.5, -0.5)
+shape = SubResource("CircleShape2D_h7iqs")
+
+[node name="Timer" type="Timer" parent="." unique_id=1864738481]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="on_collision"]
+[connection signal="timeout" from="Timer" to="." method="timeout"]

@@ -15,7 +15,8 @@ var possible_unlocks: Array[UnlockResource] = []
 @onready var player = $Player
 @onready var roomContainer = $Rooms
 
-var time: float = 60.0
+var time: float = 30.0
+var base_time := 30.0
 var time_before_taking_damage: float = 60.0
 var time_since_taking_damage: float = 0.0
 var game_paused_for_damage_frames: bool = false
@@ -129,7 +130,7 @@ func _finished_stage():
 		return
 	pick_room(len(rooms) - 1)
 	build_rooms()
-	time = 60
+	time = base_time
 
 func object_entered_room(object: Area2D, room: Node2D, index: int):
 	if object.get_parent() != player:
@@ -212,6 +213,8 @@ func on_gain_time(amount: float) -> void:
 func player_level_up(_lvl: int) -> void:
 	%XpBar.max_value = %Player.threshold
 	%StaminaBar.max_value = %Player.MAX_STAMINA
+	base_time += 1
+	time += 1
 
 func roll_unlocks() -> Array[UnlockResource]:
 	var probs = possible_unlocks.map(func(value: UnlockResource): return value.probability)
@@ -233,7 +236,7 @@ func unlock_chosen(unlock: UnlockResource) -> void:
 	roomContainer.get_child(0).call("unlock")
 
 func endless_mode() -> void:
-	time = 60
+	time = base_time
 	pick_room(len(rooms) - 1)
 	build_rooms()
 

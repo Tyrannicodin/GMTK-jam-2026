@@ -107,6 +107,13 @@ func run_level_up() -> void:
 	print("Levelled up.")
 	threshold *= level_up_constant
 	MAX_STAMINA += STAMINA_LEVEL_GAIN
+	curr_spear_cooldown = 0
+	curr_shuriken_cooldown = 0
+	curr_crazy_bird_cooldown = 0
+	curr_hatchet_cooldown = 0
+	curr_shield_cooldown = 0
+	curr_dagger_cooldown = 0
+	curr_spin_cooldown = 0
 	level_up.emit(level)
 
 func _ready():

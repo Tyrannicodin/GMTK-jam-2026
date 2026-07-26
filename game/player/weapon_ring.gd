@@ -7,6 +7,7 @@ extends Node2D
 		check_unlocks()
 	get():
 		return unlocked_weapons
+
 @export var spear_ready = true
 @export var shuriken_ready = true
 @export var crazy_bird_ready = true
@@ -28,6 +29,9 @@ func _process(delta: float) -> void:
 	display_weapons()
 	ready_check()
 
+func _ready() -> void:
+	unlocked_weapons = ["Shuriken"]
+
 func display_weapons():
 	var visible_weapons = get_children().filter(func(x): return x.visible)
 	var number_of_weapons = len(visible_weapons)
@@ -48,8 +52,20 @@ func percent_to_pos(percent: float):
 	return Vector2(x, y)
 
 func check_unlocks():
-	if "spear" in unlocked_weapons:
-		%Spear.show()
+	if "Spear" in unlocked_weapons: %Spear.show()
+	else: %Spear.hide()
+	if "Shuriken" in unlocked_weapons: %Shuriken.show()
+	else: %Shuriken.hide()
+	if "CrazyBird" in unlocked_weapons: %CrazyBird.show()
+	else: %CrazyBird.hide()
+	if "Hatchet" in unlocked_weapons: %Hatchet.show()
+	else: %Hatchet.hide()
+	if "Shield" in unlocked_weapons: %Shield.show()
+	else: %Shield.hide()
+	if "Dagger" in unlocked_weapons: %Dagger.show()
+	else: %Dagger.hide()
+	if "Spin" in unlocked_weapons: %Spin.show()
+	else: %Spin.hide()
 
 func ready_check():
 	if spear_ready:

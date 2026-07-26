@@ -286,7 +286,6 @@ anim_offset_max = 1.0
 
 [node name="WeaponRing" parent="." unique_id=974362532 instance=ExtResource("19_0e4oy")]
 unique_name_in_owner = true
-unlocked_weapons = null
 RING_RADIUS = 85
 
 [node name="Weapon" type="AudioStreamPlayer2D" parent="." unique_id=1085694605]

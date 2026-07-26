@@ -350,10 +350,13 @@ func _physics_process(delta):
 			just_jumped = true
 			if dash_count < 1:
 				dash_count += 1
+			if dashing and sign(velocity.x) == -Input.get_axis("left", "right"):
+				velocity.x = -velocity.x
 			if not dashing:
 				velocity.x += 800 * sign(Input.get_axis("left", "right"))
 			elif hyperable and velocity.x != 0:
 				velocity.x = 4000 * sign(velocity.x)
+				velocity.y += JUMP_SPEED / 2.0
 				dashing = false
 			if -velocity.y <= abs(velocity.x):
 				dashing = false
@@ -472,14 +475,17 @@ func dash(direction: Vector2):
 	if dashed_since_left_ground:
 		return
 	
-	velocity.x = max(direction.x * DASH_SPEED, velocity.x)
+	if not sign(velocity.x) == sign(direction.x) or abs(velocity.x) < abs(direction.x * DASH_SPEED):
+		velocity.x = direction.x * DASH_SPEED
 	velocity.y = direction.y * DASH_SPEED
 	
-	time_on_ground = 0
 	dash_timer = DASH_LENGTH
 	dash_count -= 1
 	dashing = true
 	dashed_since_left_ground = true
+	
+	if velocity.y > 0 and is_on_floor():
+		hyperable = true
 	
 	$Dash.play(0.01)
 	

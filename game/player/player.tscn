@@ -292,27 +292,33 @@ RING_RADIUS = 85
 [node name="Weapon" type="AudioStreamPlayer2D" parent="." unique_id=1085694605]
 stream = SubResource("AudioStreamRandomizer_dourk")
 volume_db = -8.0
+bus = &"SFX"
 
 [node name="Shuriken" type="AudioStreamPlayer2D" parent="." unique_id=1792282629]
 stream = ExtResource("22_w24bm")
 volume_db = -8.0
+bus = &"SFX"
 
 [node name="Bird" type="AudioStreamPlayer2D" parent="." unique_id=313744524]
 stream = ExtResource("23_22cju")
+bus = &"SFX"
 
 [node name="Dash" type="AudioStreamPlayer2D" parent="." unique_id=1140123446]
 stream = SubResource("AudioStreamRandomizer_cgi3i")
 volume_db = -8.0
+bus = &"SFX"
 
 [node name="Land" type="AudioStreamPlayer2D" parent="." unique_id=190564479]
 stream = SubResource("AudioStreamRandomizer_bp242")
 volume_db = -4.0
 max_polyphony = 2
+bus = &"SFX"
 
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="." unique_id=1221454584]
 stream = SubResource("AudioStreamRandomizer_km8ha")
 volume_db = -2.0
 max_polyphony = 3
+bus = &"SFX"
 
 [connection signal="animation_finished" from="SubViewport/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="SubViewport/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]

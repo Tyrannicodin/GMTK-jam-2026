@@ -68,7 +68,6 @@ var just_jumped = false
 var hyperable = false
 var ultraboosted = false
 
-var attack_cooldown = 0
 var STAMINA_CHARGED_OUTLINE_COLOR = Color("e1eced")
 var STAMINA_NOT_CHARGED_OUTLINE_COLOR = Color("0d0601")
 
@@ -222,7 +221,6 @@ func _physics_process(delta):
 	dash_timer -= delta
 	parry_timer -= delta
 	freeze_timer -= delta
-	attack_cooldown -= delta
 	jutsu_timer -= delta
 	if (jutsu_timer < 0):
 		jutsu_timer = 0;
@@ -364,16 +362,6 @@ func _physics_process(delta):
 			elif dashing:
 				velocity.y += JUMP_SPEED / 2.0
 	
-	# Handle "Basic" Attacks
-	if not diving:
-		# Add attack upgrade checks later
-		if dashing and %InputBuffer.is_just_pressed("attack"):
-			dash_attack()
-		elif just_jumped and flight_time < COYOTE_TIME and (%InputBuffer.is_combo_just_pressed(["left", "attack"], "attack") or %InputBuffer.is_combo_just_pressed(["right", "attack"], "attack")):
-			pounce()
-		elif attack_cooldown <= 0 and %InputBuffer.is_just_pressed("attack"):
-			attack()
-
 	if dash_timer <= 0 and not diving and freeze_timer <= 0:
 		var direction = %InputBuffer.get_axis("left", "right")
 		var walk = WALK_FORCE * direction
@@ -425,27 +413,33 @@ func execute_jutsu():
 	jutsu_timer = JUTSU_COOLDOWN
 	
 	if dashing and %InputBuffer.is_combo_pressed(["attack"]):
+		#print("xa")
 		dash_attack()
 	
 	elif just_jumped and flight_time < COYOTE_TIME and (%InputBuffer.is_combo_just_pressed(["left", "attack"], "attack") or %InputBuffer.is_combo_just_pressed(["right", "attack"], "attack")):
+		#print("ja")
 		pounce()
 
 	elif %InputBuffer.is_combo_just_pressed(["up", "attack"], "attack"):
+		#print("ua")
 		%AnimatedSprite2D.play("jutsu")
 		# flower_jutsu()
 		scug_jutsu()
 		hatchet_jutsu()
 	
 	elif %InputBuffer.is_combo_just_pressed(["down", "attack"], "attack"):
+		#print("da")
 		%AnimatedSprite2D.play("jutsu")
 		dagger_jutsu()
 	
 	elif %InputBuffer.is_combo_just_pressed(["left", "right", "attack"], "attack"):
+		#print("ra")
 		%AnimatedSprite2D.play("jutsu")
 		spin_jutsu()
 		nuke_jutsu()
 	
 	elif %InputBuffer.is_combo_just_pressed(["left", "attack"], "attack") or %InputBuffer.is_combo_just_pressed(["right", "attack"], "attack") or %InputBuffer.is_just_pressed("attack"):
+		#print("sa")
 		%AnimatedSprite2D.play("jutsu")
 		shuriken_jutsu()
 		bird_jutsu()
@@ -642,10 +636,6 @@ func scug_jutsu():
 	get_parent().add_child(s)
 
 	s.linear_velocity.y -= 2000
-
-
-func attack():
-	attack_cooldown = ATTACK_COOLDOWN # Basic Attack
 
 func dash_attack():
 	pass # No extra stamina cost

@@ -54,10 +54,11 @@ func _ready():
 		action_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 
 		action_button = KeybindButton.new()
-		action_button.disabled = action == "pause"
+		action_button.disabled = action == "pause" or action == "unbind"
 		action_button.action = action
 		action_button.text = ", ".join(InputMap.action_get_events(action).map(func(act: InputEvent): return act.as_text()))
 		action_button.set_action.connect(func(event): ConfigManager.set_keybind(action, event))
+		action_button.unbind.connect(func(): ConfigManager.unbind(action))
 
 		add_child(action_label)
 		add_child(action_button)
